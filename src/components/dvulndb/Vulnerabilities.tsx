@@ -1,4 +1,10 @@
+"use client";
+
 import React, { useState } from 'react';
+
+type VulnerabilitiesProps = {
+  isActive: boolean;
+};
 
 const mockVulnerabilities = [
   {
@@ -88,7 +94,7 @@ function getStatusClass(status: string) {
   }
 }
 
-const Vulnerabilities: React.FC = () => {
+const Vulnerabilities: React.FC<VulnerabilitiesProps> = ({ isActive }) => {
   const [severityFilter, setSeverityFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [vulnerabilities] = useState(mockVulnerabilities);
@@ -121,7 +127,7 @@ const Vulnerabilities: React.FC = () => {
   });
 
   return (
-    <section className="section section--vulnerabilities" id="vulnerabilities">
+    <section className={`section section--vulnerabilities${isActive ? ' active' : ''}`} id="vulnerabilities">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">

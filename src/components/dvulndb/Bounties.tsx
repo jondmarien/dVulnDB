@@ -1,4 +1,10 @@
+"use client";
+
 import React, { useState } from 'react';
+
+type BountiesProps = {
+  isActive: boolean;
+};
 
 const mockBounties = [
   {
@@ -33,11 +39,11 @@ const mockBounties = [
   },
 ];
 
-const Bounties: React.FC = () => {
+const Bounties: React.FC<BountiesProps> = ({ isActive }) => {
   const [bounties] = useState(mockBounties);
 
   return (
-    <section className="section section--bounties" id="bounties">
+    <section className={`section section--bounties${isActive ? ' active' : ''}`} id="bounties">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">

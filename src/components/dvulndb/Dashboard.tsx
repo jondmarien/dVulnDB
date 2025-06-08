@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 
 type DashboardProps = {
   onNavigate: (section: string) => void;
+  isActive: boolean;
 };
 
 const mockUser = {
@@ -57,7 +60,7 @@ const mockResearchers = [
   },
 ];
 
-const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
+const Dashboard: React.FC<DashboardProps> = ({ onNavigate, isActive }) => {
   const [user] = useState(mockUser);
   const [activity, setActivity] = useState(mockActivity);
   const [researchers] = useState(mockResearchers);
@@ -79,7 +82,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   }, []);
 
   return (
-    <section className="section section--dashboard" id="dashboard">
+    <section className={`section section--dashboard${isActive ? ' active' : ''}`} id="dashboard">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">

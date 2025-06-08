@@ -1,4 +1,10 @@
+"use client";
+
 import React, { useState } from 'react';
+
+type SubmitFormProps = {
+  isActive: boolean;
+};
 
 const initialForm = {
   targetUrl: '',
@@ -9,7 +15,7 @@ const initialForm = {
   files: [] as File[],
 };
 
-const SubmitForm: React.FC = () => {
+const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
 
@@ -35,7 +41,7 @@ const SubmitForm: React.FC = () => {
   };
 
   return (
-    <section className="section section--submit" id="submit">
+    <section className={`section section--submit${isActive ? ' active' : ''}`} id="submit">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">

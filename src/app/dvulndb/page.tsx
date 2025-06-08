@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import Header from '../../components/dvulndb/Header';
 import Dashboard from '../../components/dvulndb/Dashboard';
@@ -22,15 +23,18 @@ export default function DVulnDBPage() {
     if (SECTIONS.includes(target)) setSection(target);
   };
 
+  console.log('Current section:', section);
+
   return (
     <>
+      <div style={{ color: 'lime', fontWeight: 'bold', background: '#111', padding: 8 }}>DVulnDB PAGE IS RENDERING - Current section: {section}</div>
       <Header currentSection={section} onNavigate={handleNavigate} />
       <main>
-        {section === 'dashboard' && <Dashboard onNavigate={handleNavigate} />}
-        {section === 'vulnerabilities' && <Vulnerabilities />}
-        {section === 'submit' && <SubmitForm />}
-        {section === 'bounties' && <Bounties />}
-        {section === 'tools' && <Tools />}
+        <Dashboard onNavigate={handleNavigate} isActive={section === 'dashboard'} />
+        <Vulnerabilities isActive={section === 'vulnerabilities'} />
+        <SubmitForm isActive={section === 'submit'} />
+        <Bounties isActive={section === 'bounties'} />
+        <Tools isActive={section === 'tools'} />
       </main>
       <Footer />
     </>

@@ -1,4 +1,9 @@
+"use client";
 import React from 'react';
+
+type ToolsProps = {
+  isActive: boolean;
+};
 
 const tools = [
   {
@@ -33,8 +38,8 @@ const apiEndpoints = [
   { method: 'GET', path: '/api/v1/researchers/{address}' },
 ];
 
-const Tools: React.FC = () => (
-  <section className="section section--tools" id="tools">
+const Tools: React.FC<ToolsProps> = ({ isActive }) => (
+  <section className={`section section--tools${isActive ? ' active' : ''}`} id="tools">
     <div className="container">
       <div className="section-header">
         <h2 className="section-title">

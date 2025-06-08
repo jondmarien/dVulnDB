@@ -5,12 +5,12 @@ export default function ResponsibleDisclosure() {
     <div className="container" style={{ padding: '48px 0' }}>
       <h1 style={{ color: '#00ff00', marginBottom: 24 }}>Responsible Disclosure</h1>
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <p style={{ marginBottom: '24px' }}>DVulnDB values the security research community and encourages responsible disclosure of security vulnerabilities. If you believe you've found a security issue, please follow these guidelines:</p>
+        <p style={{ marginBottom: '24px' }}>DVulnDB values the security research community and encourages responsible disclosure of security vulnerabilities. If you believe you&apos;ve found a security issue, please follow these guidelines:</p>
 
         <h2 style={{ color: '#00ff00', marginBottom: '16px' }}>Disclosure Guidelines</h2>
         <ul style={{ marginBottom: '24px', marginLeft: '24px' }}>
           <li>Do not test vulnerabilities on production systems</li>
-          <li>Do not access or modify other users' data</li>
+          <li>Do not access or modify other users&apos; data</li>
           <li>Provide detailed information about the vulnerability</li>
           <li>Allow reasonable time for remediation before public disclosure</li>
         </ul>

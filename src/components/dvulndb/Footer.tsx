@@ -31,7 +31,7 @@ const Footer = () => (
       <div className="footer__bottom">
         <div className="terminal-signature">
           <span className="terminal-prompt">root@dvulndb:~$ </span>
-          <span>echo "Securing the future, one vulnerability at a time"</span>
+          <span>echo &quot;Securing the future, one vulnerability at a time&quot;</span>
         </div>
       </div>
     </div>

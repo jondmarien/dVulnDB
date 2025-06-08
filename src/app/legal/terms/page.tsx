@@ -24,7 +24,7 @@ export default function TermsOfService() {
         <p style={{ marginBottom: '24px' }}>Bounty rewards are distributed through smart contracts. DVulnDB is not responsible for the amount or distribution of bounties offered by third-party programs.</p>
 
         <h2 style={{ color: '#00ff00', marginBottom: '16px' }}>5. Limitation of Liability</h2>
-        <p style={{ marginBottom: '24px' }}>DVulnDB is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of the platform or any disclosed vulnerabilities.</p>
+        <p style={{ marginBottom: '24px' }}>DVulnDB is provided &quot;as is&quot; without warranties of any kind. We are not liable for any damages arising from your use of the platform or any disclosed vulnerabilities.</p>
 
         <h2 style={{ color: '#00ff00', marginBottom: '16px' }}>6. Modifications</h2>
         <p style={{ marginBottom: '24px' }}>We reserve the right to modify these terms at any time. Continued use of DVulnDB after changes constitutes acceptance of modified terms.</p>

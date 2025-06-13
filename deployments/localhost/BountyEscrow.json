@@ -1,0 +1,949 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "approver",
+          "type": "address"
+        }
+      ],
+      "name": "ApproverAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "approver",
+          "type": "address"
+        }
+      ],
+      "name": "ApproverRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "vulnId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "researcher",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "BountyDeposited",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "vulnId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "researcher",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "BountyRefunded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "vulnId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "researcher",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "BountyReleased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "vulnId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "disputer",
+          "type": "address"
+        }
+      ],
+      "name": "DisputeRaised",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "vulnId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "DisputeResolved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "APPROVAL_THRESHOLD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "DISPUTE_PERIOD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_approver",
+          "type": "address"
+        }
+      ],
+      "name": "addApprover",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        }
+      ],
+      "name": "approveBountyRelease",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "approvers",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_researcher",
+          "type": "address"
+        }
+      ],
+      "name": "depositBounty",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "disputed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        }
+      ],
+      "name": "emergencyRefund",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "emergencyWithdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "escrows",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "vulnId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "researcher",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "depositTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum IBountyEscrow.EscrowStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "releaseTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "approvalCount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getEscrowDetails",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "researcher",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "depositTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum IBountyEscrow.EscrowStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "approvalCount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isDisputed",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalEscrowed",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "isApprover",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        }
+      ],
+      "name": "raiseDispute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        }
+      ],
+      "name": "releaseBounty",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_approver",
+          "type": "address"
+        }
+      ],
+      "name": "removeApprover",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_vulnId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_approve",
+          "type": "bool"
+        }
+      ],
+      "name": "resolveDispute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_registry",
+          "type": "address"
+        }
+      ],
+      "name": "setVulnerabilityRegistry",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalEscrowed",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "vulnerabilityRegistry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xef6074efb5175a7f35dcfee8b53417be1d2644fea63d5393b700cfaa4ba864bb",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "2856800",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000040020000000000000100000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000040000000200000000000000000000000002000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x0929de7fc1602c8e01ee90cc9ed08382352e8832ab7a38caddd69cf3639f2bc5",
+    "transactionHash": "0xef6074efb5175a7f35dcfee8b53417be1d2644fea63d5393b700cfaa4ba864bb",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 1,
+        "transactionHash": "0xef6074efb5175a7f35dcfee8b53417be1d2644fea63d5393b700cfaa4ba864bb",
+        "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x0929de7fc1602c8e01ee90cc9ed08382352e8832ab7a38caddd69cf3639f2bc5"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 1,
+        "transactionHash": "0xef6074efb5175a7f35dcfee8b53417be1d2644fea63d5393b700cfaa4ba864bb",
+        "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+        ],
+        "data": "0x",
+        "logIndex": 1,
+        "blockHash": "0x0929de7fc1602c8e01ee90cc9ed08382352e8832ab7a38caddd69cf3639f2bc5"
+      }
+    ],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "2856800",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "88e3a7e8f78979db18895d1e89c40235",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approver\",\"type\":\"address\"}],\"name\":\"ApproverAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approver\",\"type\":\"address\"}],\"name\":\"ApproverRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"vulnId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"researcher\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"BountyDeposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"vulnId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"researcher\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"BountyRefunded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"vulnId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"researcher\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"BountyReleased\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"vulnId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"disputer\",\"type\":\"address\"}],\"name\":\"DisputeRaised\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"vulnId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"DisputeResolved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"APPROVAL_THRESHOLD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DISPUTE_PERIOD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_approver\",\"type\":\"address\"}],\"name\":\"addApprover\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"}],\"name\":\"approveBountyRelease\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"approvers\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_researcher\",\"type\":\"address\"}],\"name\":\"depositBounty\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"disputed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"}],\"name\":\"emergencyRefund\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"emergencyWithdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"escrows\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"vulnId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"researcher\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"depositTime\",\"type\":\"uint256\"},{\"internalType\":\"enum IBountyEscrow.EscrowStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"releaseTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"approvalCount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"}],\"name\":\"getEscrowDetails\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"researcher\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"depositTime\",\"type\":\"uint256\"},{\"internalType\":\"enum IBountyEscrow.EscrowStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"approvalCount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isDisputed\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTotalEscrowed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"isApprover\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"}],\"name\":\"raiseDispute\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"}],\"name\":\"releaseBounty\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_approver\",\"type\":\"address\"}],\"name\":\"removeApprover\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_vulnId\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_approve\",\"type\":\"bool\"}],\"name\":\"resolveDispute\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_registry\",\"type\":\"address\"}],\"name\":\"setVulnerabilityRegistry\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalEscrowed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vulnerabilityRegistry\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Jon - ISSessions Cybersecurity Club\",\"details\":\"Multi-signature validation with time-locked releases\",\"events\":{\"Paused(address)\":{\"details\":\"Emitted when the pause is triggered by `account`.\"},\"Unpaused(address)\":{\"details\":\"Emitted when the pause is lifted by `account`.\"}},\"kind\":\"dev\",\"methods\":{\"approveBountyRelease(uint256)\":{\"params\":{\"_vulnId\":\"Vulnerability ID\"}},\"depositBounty(uint256,address)\":{\"params\":{\"_researcher\":\"Researcher address\",\"_vulnId\":\"Vulnerability ID\"}},\"emergencyRefund(uint256)\":{\"params\":{\"_vulnId\":\"Vulnerability ID\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"paused()\":{\"details\":\"Returns true if the contract is paused, and false otherwise.\"},\"raiseDispute(uint256)\":{\"params\":{\"_vulnId\":\"Vulnerability ID\"}},\"releaseBounty(uint256)\":{\"params\":{\"_vulnId\":\"Vulnerability ID\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"resolveDispute(uint256,bool)\":{\"params\":{\"_approve\":\"Whether to approve or refund\",\"_vulnId\":\"Vulnerability ID\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"title\":\"BountyEscrow\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"addApprover(address)\":{\"notice\":\"Add approver\"},\"approveBountyRelease(uint256)\":{\"notice\":\"Approve bounty release (multi-sig)\"},\"depositBounty(uint256,address)\":{\"notice\":\"Deposit bounty funds for a vulnerability\"},\"emergencyRefund(uint256)\":{\"notice\":\"Emergency refund after timeout\"},\"emergencyWithdraw()\":{\"notice\":\"Emergency withdrawal (owner only, paused contract)\"},\"getEscrowDetails(uint256)\":{\"notice\":\"Get escrow details\"},\"getTotalEscrowed()\":{\"notice\":\"Get total funds in escrow\"},\"isApprover(address)\":{\"notice\":\"Check if address is approver\"},\"pause()\":{\"notice\":\"Emergency pause\"},\"raiseDispute(uint256)\":{\"notice\":\"Raise dispute for bounty payment\"},\"releaseBounty(uint256)\":{\"notice\":\"Release bounty to researcher after validation\"},\"removeApprover(address)\":{\"notice\":\"Remove approver\"},\"resolveDispute(uint256,bool)\":{\"notice\":\"Resolve dispute\"},\"setVulnerabilityRegistry(address)\":{\"notice\":\"Set vulnerability registry address\"},\"unpause()\":{\"notice\":\"Unpause\"}},\"notice\":\"Secure escrow system for vulnerability bounty payments\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/BountyEscrow.sol\":\"BountyEscrow\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/security/Pausable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.7.0) (security/Pausable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which allows children to implement an emergency stop\\n * mechanism that can be triggered by an authorized account.\\n *\\n * This module is used through inheritance. It will make available the\\n * modifiers `whenNotPaused` and `whenPaused`, which can be applied to\\n * the functions of your contract. Note that they will not be pausable by\\n * simply including this module, only once the modifiers are put in place.\\n */\\nabstract contract Pausable is Context {\\n    /**\\n     * @dev Emitted when the pause is triggered by `account`.\\n     */\\n    event Paused(address account);\\n\\n    /**\\n     * @dev Emitted when the pause is lifted by `account`.\\n     */\\n    event Unpaused(address account);\\n\\n    bool private _paused;\\n\\n    /**\\n     * @dev Initializes the contract in unpaused state.\\n     */\\n    constructor() {\\n        _paused = false;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is not paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    modifier whenNotPaused() {\\n        _requireNotPaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    modifier whenPaused() {\\n        _requirePaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the contract is paused, and false otherwise.\\n     */\\n    function paused() public view virtual returns (bool) {\\n        return _paused;\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is paused.\\n     */\\n    function _requireNotPaused() internal view virtual {\\n        require(!paused(), \\\"Pausable: paused\\\");\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is not paused.\\n     */\\n    function _requirePaused() internal view virtual {\\n        require(paused(), \\\"Pausable: not paused\\\");\\n    }\\n\\n    /**\\n     * @dev Triggers stopped state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    function _pause() internal virtual whenNotPaused {\\n        _paused = true;\\n        emit Paused(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns to normal state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    function _unpause() internal virtual whenPaused {\\n        _paused = false;\\n        emit Unpaused(_msgSender());\\n    }\\n}\\n\",\"keccak256\":\"0x0849d93b16c9940beb286a7864ed02724b248b93e0d80ef6355af5ef15c64773\",\"license\":\"MIT\"},\"@openzeppelin/contracts/security/ReentrancyGuard.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (security/ReentrancyGuard.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Contract module that helps prevent reentrant calls to a function.\\n *\\n * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier\\n * available, which can be applied to functions to make sure there are no nested\\n * (reentrant) calls to them.\\n *\\n * Note that because there is a single `nonReentrant` guard, functions marked as\\n * `nonReentrant` may not call one another. This can be worked around by making\\n * those functions `private`, and then adding `external` `nonReentrant` entry\\n * points to them.\\n *\\n * TIP: If you would like to learn more about reentrancy and alternative ways\\n * to protect against it, check out our blog post\\n * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].\\n */\\nabstract contract ReentrancyGuard {\\n    // Booleans are more expensive than uint256 or any type that takes up a full\\n    // word because each write operation emits an extra SLOAD to first read the\\n    // slot's contents, replace the bits taken up by the boolean, and then write\\n    // back. This is the compiler's defense against contract upgrades and\\n    // pointer aliasing, and it cannot be disabled.\\n\\n    // The values being non-zero value makes deployment a bit more expensive,\\n    // but in exchange the refund on every call to nonReentrant will be lower in\\n    // amount. Since refunds are capped to a percentage of the total\\n    // transaction's gas, it is best to keep them low in cases like this one, to\\n    // increase the likelihood of the full refund coming into effect.\\n    uint256 private constant _NOT_ENTERED = 1;\\n    uint256 private constant _ENTERED = 2;\\n\\n    uint256 private _status;\\n\\n    constructor() {\\n        _status = _NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Prevents a contract from calling itself, directly or indirectly.\\n     * Calling a `nonReentrant` function from another `nonReentrant`\\n     * function is not supported. It is possible to prevent this from happening\\n     * by making the `nonReentrant` function external, and making it call a\\n     * `private` function that does the actual work.\\n     */\\n    modifier nonReentrant() {\\n        _nonReentrantBefore();\\n        _;\\n        _nonReentrantAfter();\\n    }\\n\\n    function _nonReentrantBefore() private {\\n        // On the first call to nonReentrant, _status will be _NOT_ENTERED\\n        require(_status != _ENTERED, \\\"ReentrancyGuard: reentrant call\\\");\\n\\n        // Any calls to nonReentrant after this point will fail\\n        _status = _ENTERED;\\n    }\\n\\n    function _nonReentrantAfter() private {\\n        // By storing the original value once again, a refund is triggered (see\\n        // https://eips.ethereum.org/EIPS/eip-2200)\\n        _status = _NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Returns true if the reentrancy guard is currently set to \\\"entered\\\", which indicates there is a\\n     * `nonReentrant` function in the call stack.\\n     */\\n    function _reentrancyGuardEntered() internal view returns (bool) {\\n        return _status == _ENTERED;\\n    }\\n}\\n\",\"keccak256\":\"0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.4) (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0xa92e4fa126feb6907daa0513ddd816b2eb91f30a808de54f63c17d0e162c3439\",\"license\":\"MIT\"},\"contracts/BountyEscrow.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\nimport \\\"@openzeppelin/contracts/security/ReentrancyGuard.sol\\\";\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"@openzeppelin/contracts/security/Pausable.sol\\\";\\nimport \\\"./interfaces/IBountyEscrow.sol\\\";\\n\\n/**\\n * @title BountyEscrow\\n * @notice Secure escrow system for vulnerability bounty payments\\n * @dev Multi-signature validation with time-locked releases\\n * @author Jon - ISSessions Cybersecurity Club\\n */\\ncontract BountyEscrow is ReentrancyGuard, Ownable, Pausable, IBountyEscrow {\\n\\n    struct EscrowRecord {\\n        uint256 vulnId;\\n        address researcher;\\n        uint256 amount;\\n        uint256 depositTime;\\n        EscrowStatus status;\\n        uint256 releaseTime;\\n        mapping(address => bool) approvals;\\n        uint256 approvalCount;\\n    }\\n\\n    // State variables\\n    address public vulnerabilityRegistry;\\n    uint256 public constant APPROVAL_THRESHOLD = 2; // Multi-sig threshold\\n    uint256 public constant DISPUTE_PERIOD = 7 days;\\n    uint256 public totalEscrowed;\\n\\n    // Mappings\\n    mapping(uint256 => EscrowRecord) public escrows;\\n    mapping(address => bool) public approvers;\\n    mapping(uint256 => bool) public disputed;\\n\\n    // Events\\n    event BountyDeposited(uint256 indexed vulnId, address indexed researcher, uint256 amount);\\n    event BountyReleased(uint256 indexed vulnId, address indexed researcher, uint256 amount);\\n    event BountyRefunded(uint256 indexed vulnId, address indexed researcher, uint256 amount);\\n    event DisputeRaised(uint256 indexed vulnId, address indexed disputer);\\n    event DisputeResolved(uint256 indexed vulnId, bool approved);\\n    event ApproverAdded(address indexed approver);\\n    event ApproverRemoved(address indexed approver);\\n\\n    // Modifiers\\n    modifier onlyRegistry() {\\n        require(msg.sender == vulnerabilityRegistry, \\\"Only registry contract\\\");\\n        _;\\n    }\\n\\n    modifier onlyApprover() {\\n        require(approvers[msg.sender], \\\"Not authorized approver\\\");\\n        _;\\n    }\\n\\n    modifier validEscrow(uint256 _vulnId) {\\n        require(escrows[_vulnId].amount > 0, \\\"Escrow does not exist\\\");\\n        _;\\n    }\\n\\n    constructor() {\\n        _transferOwnership(msg.sender);\\n        approvers[msg.sender] = true; // Owner is default approver\\n    }\\n\\n    /**\\n     * @notice Deposit bounty funds for a vulnerability\\n     * @param _vulnId Vulnerability ID\\n     * @param _researcher Researcher address\\n     */\\n    function depositBounty(\\n        uint256 _vulnId,\\n        address _researcher\\n    ) external payable onlyRegistry nonReentrant whenNotPaused {\\n        require(msg.value > 0, \\\"Amount must be greater than 0\\\");\\n        require(_researcher != address(0), \\\"Invalid researcher address\\\");\\n        require(escrows[_vulnId].amount == 0, \\\"Escrow already exists\\\");\\n\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        escrow.vulnId = _vulnId;\\n        escrow.researcher = _researcher;\\n        escrow.amount = msg.value;\\n        escrow.depositTime = block.timestamp;\\n        escrow.status = EscrowStatus.DEPOSITED;\\n\\n        totalEscrowed += msg.value;\\n\\n        emit BountyDeposited(_vulnId, _researcher, msg.value);\\n    }\\n\\n    /**\\n     * @notice Release bounty to researcher after validation\\n     * @param _vulnId Vulnerability ID\\n     */\\n    function releaseBounty(uint256 _vulnId) \\n        external \\n        onlyRegistry \\n        validEscrow(_vulnId) \\n        nonReentrant \\n    {\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        require(escrow.status == EscrowStatus.DEPOSITED, \\\"Invalid escrow status\\\");\\n        require(!disputed[_vulnId], \\\"Escrow is disputed\\\");\\n\\n        escrow.status = EscrowStatus.RELEASED;\\n        escrow.releaseTime = block.timestamp;\\n\\n        uint256 amount = escrow.amount;\\n        totalEscrowed -= amount;\\n\\n        // Transfer funds to researcher\\n        (bool success, ) = payable(escrow.researcher).call{value: amount}(\\\"\\\");\\n        require(success, \\\"Transfer failed\\\");\\n\\n        emit BountyReleased(_vulnId, escrow.researcher, amount);\\n    }\\n\\n    /**\\n     * @notice Approve bounty release (multi-sig)\\n     * @param _vulnId Vulnerability ID\\n     */\\n    function approveBountyRelease(uint256 _vulnId) \\n        external \\n        onlyApprover \\n        validEscrow(_vulnId) \\n        nonReentrant \\n    {\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        require(escrow.status == EscrowStatus.DEPOSITED, \\\"Invalid escrow status\\\");\\n        require(!escrow.approvals[msg.sender], \\\"Already approved\\\");\\n        require(!disputed[_vulnId], \\\"Escrow is disputed\\\");\\n\\n        escrow.approvals[msg.sender] = true;\\n        escrow.approvalCount++;\\n\\n        // Auto-release if threshold reached\\n        if (escrow.approvalCount >= APPROVAL_THRESHOLD) {\\n            _executeRelease(_vulnId);\\n        }\\n    }\\n\\n    /**\\n     * @notice Internal function to execute bounty release\\n     */\\n    function _executeRelease(uint256 _vulnId) internal {\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        escrow.status = EscrowStatus.RELEASED;\\n        escrow.releaseTime = block.timestamp;\\n\\n        uint256 amount = escrow.amount;\\n        totalEscrowed -= amount;\\n\\n        // Transfer funds to researcher\\n        (bool success, ) = payable(escrow.researcher).call{value: amount}(\\\"\\\");\\n        require(success, \\\"Transfer failed\\\");\\n\\n        emit BountyReleased(_vulnId, escrow.researcher, amount);\\n    }\\n\\n    /**\\n     * @notice Raise dispute for bounty payment\\n     * @param _vulnId Vulnerability ID\\n     */\\n    function raiseDispute(uint256 _vulnId) \\n        external \\n        onlyApprover \\n        validEscrow(_vulnId) \\n    {\\n        require(!disputed[_vulnId], \\\"Already disputed\\\");\\n        require(escrows[_vulnId].status == EscrowStatus.DEPOSITED, \\\"Invalid status\\\");\\n\\n        disputed[_vulnId] = true;\\n        emit DisputeRaised(_vulnId, msg.sender);\\n    }\\n\\n    /**\\n     * @notice Resolve dispute\\n     * @param _vulnId Vulnerability ID\\n     * @param _approve Whether to approve or refund\\n     */\\n    function resolveDispute(\\n        uint256 _vulnId,\\n        bool _approve\\n    ) external onlyOwner validEscrow(_vulnId) nonReentrant {\\n        require(disputed[_vulnId], \\\"No active dispute\\\");\\n\\n        disputed[_vulnId] = false;\\n\\n        if (_approve) {\\n            _executeRelease(_vulnId);\\n        } else {\\n            _executeRefund(_vulnId);\\n        }\\n\\n        emit DisputeResolved(_vulnId, _approve);\\n    }\\n\\n    /**\\n     * @notice Refund bounty to original depositor\\n     */\\n    function _executeRefund(uint256 _vulnId) internal {\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        escrow.status = EscrowStatus.REFUNDED;\\n\\n        uint256 amount = escrow.amount;\\n        totalEscrowed -= amount;\\n\\n        // Refund to registry contract (which can forward to original depositor)\\n        (bool success, ) = payable(vulnerabilityRegistry).call{value: amount}(\\\"\\\");\\n        require(success, \\\"Refund failed\\\");\\n\\n        emit BountyRefunded(_vulnId, escrow.researcher, amount);\\n    }\\n\\n    /**\\n     * @notice Emergency refund after timeout\\n     * @param _vulnId Vulnerability ID\\n     */\\n    function emergencyRefund(uint256 _vulnId) \\n        external \\n        validEscrow(_vulnId) \\n        nonReentrant \\n    {\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        require(escrow.status == EscrowStatus.DEPOSITED, \\\"Invalid status\\\");\\n        require(\\n            block.timestamp >= escrow.depositTime + 180 days,\\n            \\\"Timeout not reached\\\"\\n        );\\n        require(\\n            msg.sender == escrow.researcher || msg.sender == owner(),\\n            \\\"Not authorized\\\"\\n        );\\n\\n        _executeRefund(_vulnId);\\n    }\\n\\n    /**\\n     * @notice Get escrow details\\n     */\\n    function getEscrowDetails(uint256 _vulnId) \\n        external \\n        view \\n        validEscrow(_vulnId) \\n        returns (\\n            address researcher,\\n            uint256 amount,\\n            uint256 depositTime,\\n            EscrowStatus status,\\n            uint256 approvalCount,\\n            bool isDisputed\\n        ) \\n    {\\n        EscrowRecord storage escrow = escrows[_vulnId];\\n        return (\\n            escrow.researcher,\\n            escrow.amount,\\n            escrow.depositTime,\\n            escrow.status,\\n            escrow.approvalCount,\\n            disputed[_vulnId]\\n        );\\n    }\\n\\n    /**\\n     * @notice Add approver\\n     */\\n    function addApprover(address _approver) external onlyOwner {\\n        require(_approver != address(0), \\\"Invalid approver address\\\");\\n        approvers[_approver] = true;\\n        emit ApproverAdded(_approver);\\n    }\\n\\n    /**\\n     * @notice Remove approver\\n     */\\n    function removeApprover(address _approver) external onlyOwner {\\n        approvers[_approver] = false;\\n        emit ApproverRemoved(_approver);\\n    }\\n\\n    /**\\n     * @notice Set vulnerability registry address\\n     */\\n    function setVulnerabilityRegistry(address _registry) external onlyOwner {\\n        require(_registry != address(0), \\\"Invalid registry address\\\");\\n        vulnerabilityRegistry = _registry;\\n    }\\n\\n    /**\\n     * @notice Check if address is approver\\n     */\\n    function isApprover(address _address) external view returns (bool) {\\n        return approvers[_address];\\n    }\\n\\n    /**\\n     * @notice Get total funds in escrow\\n     */\\n    function getTotalEscrowed() external view returns (uint256) {\\n        return totalEscrowed;\\n    }\\n\\n    /**\\n     * @notice Emergency pause\\n     */\\n    function pause() external onlyOwner {\\n        _pause();\\n    }\\n\\n    /**\\n     * @notice Unpause\\n     */\\n    function unpause() external onlyOwner {\\n        _unpause();\\n    }\\n\\n    /**\\n     * @notice Emergency withdrawal (owner only, paused contract)\\n     */\\n    function emergencyWithdraw() external onlyOwner whenPaused {\\n        uint256 balance = address(this).balance;\\n        require(balance > 0, \\\"No funds to withdraw\\\");\\n\\n        (bool success, ) = payable(owner()).call{value: balance}(\\\"\\\");\\n        require(success, \\\"Withdrawal failed\\\");\\n    }\\n}\",\"keccak256\":\"0x5a41b0f6cabfd55a750fd89d72f8db3c00c72bd3c576635792fb9e373de52e82\",\"license\":\"MIT\"},\"contracts/interfaces/IBountyEscrow.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n/**\\n * @title IBountyEscrow\\n * @notice Interface for the BountyEscrow contract\\n */\\ninterface IBountyEscrow {\\n\\n    enum EscrowStatus {\\n        DEPOSITED,\\n        RELEASED,\\n        REFUNDED,\\n        DISPUTED\\n    }\\n\\n    function depositBounty(\\n        uint256 _vulnId,\\n        address _researcher\\n    ) external payable;\\n\\n    function releaseBounty(uint256 _vulnId) external;\\n\\n    function approveBountyRelease(uint256 _vulnId) external;\\n\\n    function getEscrowDetails(uint256 _vulnId) \\n        external \\n        view \\n        returns (\\n            address researcher,\\n            uint256 amount,\\n            uint256 depositTime,\\n            EscrowStatus status,\\n            uint256 approvalCount,\\n            bool isDisputed\\n        );\\n\\n    function getTotalEscrowed() external view returns (uint256);\\n\\n    function isApprover(address _address) external view returns (bool);\\n}\",\"keccak256\":\"0x8fce61b79a31acc6d2fdd8b21ce40bb346ce32c46e2f501e432d3c86bf3b5110\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50600160008190555061003561002a6100bc60201b60201c565b6100c460201b60201c565b6000600160146101000a81548160ff02191690831515021790555061005f336100c460201b60201c565b6001600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff02191690831515021790555061018a565b600033905090565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b6131a3806101996000396000f3fe6080604052600436106101815760003560e01c80637211e279116100d1578063a77d941e1161008a578063cf77a61e11610064578063cf77a61e14610530578063db2e21bc1461056d578063f2fde38b14610584578063f9168231146105ad57610181565b8063a77d941e146104a9578063b646c194146104c5578063b996ec2a146104ee57610181565b80637211e279146103bf5780638456cb59146103ea5780638da5cb5b1461040157806397829e241461042c578063a5bbe22b14610455578063a5c1674e1461048057610181565b80635c975abb1161013e5780636d218e48116101185780636d218e481461031957806370e5deb91461035657806371451e541461037f578063715018a6146103a857610181565b80635c975abb1461029c5780635ecb8f0c146102c75780636cf4c88f146102f057610181565b8063012f52ee146101865780630a144391146101c957806334b25ee2146102065780633ab342901461022f5780633f4ba83a1461025a57806354ea7b0714610271575b600080fd5b34801561019257600080fd5b506101ad60048036038101906101a89190612250565b6105d8565b6040516101c09796959493929190612344565b60405180910390f35b3480156101d557600080fd5b506101f060048036038101906101eb91906123df565b610647565b6040516101fd9190612427565b60405180910390f35b34801561021257600080fd5b5061022d6004803603810190610228919061246e565b610667565b005b34801561023b57600080fd5b506102446107c0565b60405161025191906124ae565b60405180910390f35b34801561026657600080fd5b5061026f6107c5565b005b34801561027d57600080fd5b506102866107d7565b60405161029391906124c9565b60405180910390f35b3480156102a857600080fd5b506102b16107fd565b6040516102be9190612427565b60405180910390f35b3480156102d357600080fd5b506102ee60048036038101906102e99190612250565b610814565b005b3480156102fc57600080fd5b50610317600480360381019061031291906123df565b610ba0565b005b34801561032557600080fd5b50610340600480360381019061033b91906123df565b610c46565b60405161034d9190612427565b60405180910390f35b34801561036257600080fd5b5061037d60048036038101906103789190612250565b610c9c565b005b34801561038b57600080fd5b506103a660048036038101906103a19190612250565b610ec7565b005b3480156103b457600080fd5b506103bd6111cb565b005b3480156103cb57600080fd5b506103d46111df565b6040516103e191906124ae565b60405180910390f35b3480156103f657600080fd5b506103ff6111e9565b005b34801561040d57600080fd5b506104166111fb565b60405161042391906124c9565b60405180910390f35b34801561043857600080fd5b50610453600480360381019061044e91906123df565b611225565b005b34801561046157600080fd5b5061046a6112e0565b60405161047791906124ae565b60405180910390f35b34801561048c57600080fd5b506104a760048036038101906104a29190612250565b6112e7565b005b6104c360048036038101906104be91906124e4565b61152c565b005b3480156104d157600080fd5b506104ec60048036038101906104e791906123df565b6117ee565b005b3480156104fa57600080fd5b5061051560048036038101906105109190612250565b611903565b60405161052796959493929190612524565b60405180910390f35b34801561053c57600080fd5b5061055760048036038101906105529190612250565b6119fb565b6040516105649190612427565b60405180910390f35b34801561057957600080fd5b50610582611a1b565b005b34801561059057600080fd5b506105ab60048036038101906105a691906123df565b611b2a565b005b3480156105b957600080fd5b506105c2611bad565b6040516105cf91906124ae565b60405180910390f35b60046020528060005260406000206000915090508060000154908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020154908060030154908060040160009054906101000a900460ff16908060050154908060070154905087565b60056020528060005260406000206000915054906101000a900460ff1681565b61066f611bb3565b8160006004600083815260200190815260200160002060020154116106c9576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016106c0906125e2565b60405180910390fd5b6106d1611c31565b6006600084815260200190815260200160002060009054906101000a900460ff16610731576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016107289061264e565b60405180910390fd5b60006006600085815260200190815260200160002060006101000a81548160ff02191690831515021790555081156107715761076c83611c80565b61077b565b61077a83611e38565b5b827f5a87909bff68caaaaf0b3fd9c74eeccc928832f879315e5c6fb7a73612f26c0c836040516107ab9190612427565b60405180910390a26107bb611fe5565b505050565b600281565b6107cd611bb3565b6107d5611fef565b565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000600160149054906101000a900460ff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146108a4576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161089b906126ba565b60405180910390fd5b8060006004600083815260200190815260200160002060020154116108fe576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016108f5906125e2565b60405180910390fd5b610906611c31565b600060046000848152602001908152602001600020905060006003811115610931576109306122cd565b5b8160040160009054906101000a900460ff166003811115610955576109546122cd565b5b14610995576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161098c90612726565b60405180910390fd5b6006600084815260200190815260200160002060009054906101000a900460ff16156109f6576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016109ed90612792565b60405180910390fd5b60018160040160006101000a81548160ff02191690836003811115610a1e57610a1d6122cd565b5b02179055504281600501819055506000816002015490508060036000828254610a4791906127e1565b9250508190555060008260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1682604051610a9890612846565b60006040518083038185875af1925050503d8060008114610ad5576040519150601f19603f3d011682016040523d82523d6000602084013e610ada565b606091505b5050905080610b1e576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610b15906128a7565b60405180910390fd5b8260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16857f94407969cf60f998494a152d3513fb23ce8cae640c40da2135ccb07d8bfaaa4384604051610b8991906124ae565b60405180910390a3505050610b9c611fe5565b5050565b610ba8611bb3565b6000600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167fc6e35658c76ecdde40a54f31a91fb7c8615e9893cc0885584b27bb3433270d4660405160405180910390a250565b6000600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b806000600460008381526020019081526020016000206002015411610cf6576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610ced906125e2565b60405180910390fd5b610cfe611c31565b600060046000848152602001908152602001600020905060006003811115610d2957610d286122cd565b5b8160040160009054906101000a900460ff166003811115610d4d57610d4c6122cd565b5b14610d8d576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610d8490612913565b60405180910390fd5b62ed4e008160030154610da09190612933565b421015610de2576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610dd9906129b3565b60405180910390fd5b8060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161480610e725750610e436111fb565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16145b610eb1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610ea890612a1f565b60405180910390fd5b610eba83611e38565b50610ec3611fe5565b5050565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610f53576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610f4a90612a8b565b60405180910390fd5b806000600460008381526020019081526020016000206002015411610fad576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610fa4906125e2565b60405180910390fd5b610fb5611c31565b600060046000848152602001908152602001600020905060006003811115610fe057610fdf6122cd565b5b8160040160009054906101000a900460ff166003811115611004576110036122cd565b5b14611044576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161103b90612726565b60405180910390fd5b8060060160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16156110d3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016110ca90612af7565b60405180910390fd5b6006600084815260200190815260200160002060009054906101000a900460ff1615611134576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161112b90612792565b60405180910390fd5b60018160060160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508060070160008154809291906111a390612b17565b919050555060028160070154106111be576111bd83611c80565b5b506111c7611fe5565b5050565b6111d3611bb3565b6111dd6000612052565b565b6000600354905090565b6111f1611bb3565b6111f9612118565b565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b61122d611bb3565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff160361129c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161129390612bab565b60405180910390fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b62093a8081565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16611373576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161136a90612a8b565b60405180910390fd5b8060006004600083815260200190815260200160002060020154116113cd576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016113c4906125e2565b60405180910390fd5b6006600083815260200190815260200160002060009054906101000a900460ff161561142e576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161142590612c17565b60405180910390fd5b60006003811115611442576114416122cd565b5b6004600084815260200190815260200160002060040160009054906101000a900460ff166003811115611478576114776122cd565b5b146114b8576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016114af90612913565b60405180910390fd5b60016006600084815260200190815260200160002060006101000a81548160ff0219169083151502179055503373ffffffffffffffffffffffffffffffffffffffff16827f84a477df8a28a4276ca6dee4458a06c3015f30c477d9c949ede4e13ff8a552b460405160405180910390a35050565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146115bc576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016115b3906126ba565b60405180910390fd5b6115c4611c31565b6115cc61217a565b6000341161160f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161160690612c83565b60405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff160361167e576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161167590612cef565b60405180910390fd5b60006004600084815260200190815260200160002060020154146116d7576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016116ce90612d5b565b60405180910390fd5b6000600460008481526020019081526020016000209050828160000181905550818160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555034816002018190555042816003018190555060008160040160006101000a81548160ff02191690836003811115611774576117736122cd565b5b0217905550346003600082825461178b9190612933565b925050819055508173ffffffffffffffffffffffffffffffffffffffff16837fb1d5d5e7bd3f095106c77c1574721fffe610c6e6421a2604e93dbc81d634c65c346040516117d991906124ae565b60405180910390a3506117ea611fe5565b5050565b6117f6611bb3565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603611865576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161185c90612dc7565b60405180910390fd5b6001600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167f835bddf1ceee4956e4329af9edf018523c1191238187a597453f6020bcadb04260405160405180910390a250565b600080600080600080866000600460008381526020019081526020016000206002015411611966576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161195d906125e2565b60405180910390fd5b6000600460008a815260200190815260200160002090508060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16816002015482600301548360040160009054906101000a900460ff168460070154600660008f815260200190815260200160002060009054906101000a900460ff16975097509750975097509750505091939550919395565b60066020528060005260406000206000915054906101000a900460ff1681565b611a23611bb3565b611a2b6121c4565b600047905060008111611a73576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611a6a90612e33565b60405180910390fd5b6000611a7d6111fb565b73ffffffffffffffffffffffffffffffffffffffff1682604051611aa090612846565b60006040518083038185875af1925050503d8060008114611add576040519150601f19603f3d011682016040523d82523d6000602084013e611ae2565b606091505b5050905080611b26576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611b1d90612e9f565b60405180910390fd5b5050565b611b32611bb3565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603611ba1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611b9890612f31565b60405180910390fd5b611baa81612052565b50565b60035481565b611bbb61220d565b73ffffffffffffffffffffffffffffffffffffffff16611bd96111fb565b73ffffffffffffffffffffffffffffffffffffffff1614611c2f576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611c2690612f9d565b60405180910390fd5b565b600260005403611c76576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611c6d90613009565b60405180910390fd5b6002600081905550565b600060046000838152602001908152602001600020905060018160040160006101000a81548160ff02191690836003811115611cbf57611cbe6122cd565b5b02179055504281600501819055506000816002015490508060036000828254611ce891906127e1565b9250508190555060008260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1682604051611d3990612846565b60006040518083038185875af1925050503d8060008114611d76576040519150601f19603f3d011682016040523d82523d6000602084013e611d7b565b606091505b5050905080611dbf576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611db6906128a7565b60405180910390fd5b8260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16847f94407969cf60f998494a152d3513fb23ce8cae640c40da2135ccb07d8bfaaa4384604051611e2a91906124ae565b60405180910390a350505050565b600060046000838152602001908152602001600020905060028160040160006101000a81548160ff02191690836003811115611e7757611e766122cd565b5b02179055506000816002015490508060036000828254611e9791906127e1565b925050819055506000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1682604051611ee690612846565b60006040518083038185875af1925050503d8060008114611f23576040519150601f19603f3d011682016040523d82523d6000602084013e611f28565b606091505b5050905080611f6c576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611f6390613075565b60405180910390fd5b8260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16847ff1ed347f033f54c0d6f1589c933d81b4256cf2f72a785106e3653a565f7433a284604051611fd791906124ae565b60405180910390a350505050565b6001600081905550565b611ff76121c4565b6000600160146101000a81548160ff0219169083151502179055507f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa61203b61220d565b60405161204891906124c9565b60405180910390a1565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b61212061217a565b60018060146101000a81548160ff0219169083151502179055507f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25861216361220d565b60405161217091906124c9565b60405180910390a1565b6121826107fd565b156121c2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016121b9906130e1565b60405180910390fd5b565b6121cc6107fd565b61220b576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016122029061314d565b60405180910390fd5b565b600033905090565b600080fd5b6000819050919050565b61222d8161221a565b811461223857600080fd5b50565b60008135905061224a81612224565b92915050565b60006020828403121561226657612265612215565b5b60006122748482850161223b565b91505092915050565b6122868161221a565b82525050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006122b78261228c565b9050919050565b6122c7816122ac565b82525050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b6004811061230d5761230c6122cd565b5b50565b600081905061231e826122fc565b919050565b600061232e82612310565b9050919050565b61233e81612323565b82525050565b600060e082019050612359600083018a61227d565b61236660208301896122be565b612373604083018861227d565b612380606083018761227d565b61238d6080830186612335565b61239a60a083018561227d565b6123a760c083018461227d565b98975050505050505050565b6123bc816122ac565b81146123c757600080fd5b50565b6000813590506123d9816123b3565b92915050565b6000602082840312156123f5576123f4612215565b5b6000612403848285016123ca565b91505092915050565b60008115159050919050565b6124218161240c565b82525050565b600060208201905061243c6000830184612418565b92915050565b61244b8161240c565b811461245657600080fd5b50565b60008135905061246881612442565b92915050565b6000806040838503121561248557612484612215565b5b60006124938582860161223b565b92505060206124a485828601612459565b9150509250929050565b60006020820190506124c3600083018461227d565b92915050565b60006020820190506124de60008301846122be565b92915050565b600080604083850312156124fb576124fa612215565b5b60006125098582860161223b565b925050602061251a858286016123ca565b9150509250929050565b600060c08201905061253960008301896122be565b612546602083018861227d565b612553604083018761227d565b6125606060830186612335565b61256d608083018561227d565b61257a60a0830184612418565b979650505050505050565b600082825260208201905092915050565b7f457363726f7720646f6573206e6f742065786973740000000000000000000000600082015250565b60006125cc601583612585565b91506125d782612596565b602082019050919050565b600060208201905081810360008301526125fb816125bf565b9050919050565b7f4e6f206163746976652064697370757465000000000000000000000000000000600082015250565b6000612638601183612585565b915061264382612602565b602082019050919050565b600060208201905081810360008301526126678161262b565b9050919050565b7f4f6e6c7920726567697374727920636f6e747261637400000000000000000000600082015250565b60006126a4601683612585565b91506126af8261266e565b602082019050919050565b600060208201905081810360008301526126d381612697565b9050919050565b7f496e76616c696420657363726f77207374617475730000000000000000000000600082015250565b6000612710601583612585565b915061271b826126da565b602082019050919050565b6000602082019050818103600083015261273f81612703565b9050919050565b7f457363726f772069732064697370757465640000000000000000000000000000600082015250565b600061277c601283612585565b915061278782612746565b602082019050919050565b600060208201905081810360008301526127ab8161276f565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006127ec8261221a565b91506127f78361221a565b925082820390508181111561280f5761280e6127b2565b5b92915050565b600081905092915050565b50565b6000612830600083612815565b915061283b82612820565b600082019050919050565b600061285182612823565b9150819050919050565b7f5472616e73666572206661696c65640000000000000000000000000000000000600082015250565b6000612891600f83612585565b915061289c8261285b565b602082019050919050565b600060208201905081810360008301526128c081612884565b9050919050565b7f496e76616c696420737461747573000000000000000000000000000000000000600082015250565b60006128fd600e83612585565b9150612908826128c7565b602082019050919050565b6000602082019050818103600083015261292c816128f0565b9050919050565b600061293e8261221a565b91506129498361221a565b9250828201905080821115612961576129606127b2565b5b92915050565b7f54696d656f7574206e6f74207265616368656400000000000000000000000000600082015250565b600061299d601383612585565b91506129a882612967565b602082019050919050565b600060208201905081810360008301526129cc81612990565b9050919050565b7f4e6f7420617574686f72697a6564000000000000000000000000000000000000600082015250565b6000612a09600e83612585565b9150612a14826129d3565b602082019050919050565b60006020820190508181036000830152612a38816129fc565b9050919050565b7f4e6f7420617574686f72697a656420617070726f766572000000000000000000600082015250565b6000612a75601783612585565b9150612a8082612a3f565b602082019050919050565b60006020820190508181036000830152612aa481612a68565b9050919050565b7f416c726561647920617070726f76656400000000000000000000000000000000600082015250565b6000612ae1601083612585565b9150612aec82612aab565b602082019050919050565b60006020820190508181036000830152612b1081612ad4565b9050919050565b6000612b228261221a565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203612b5457612b536127b2565b5b600182019050919050565b7f496e76616c696420726567697374727920616464726573730000000000000000600082015250565b6000612b95601883612585565b9150612ba082612b5f565b602082019050919050565b60006020820190508181036000830152612bc481612b88565b9050919050565b7f416c726561647920646973707574656400000000000000000000000000000000600082015250565b6000612c01601083612585565b9150612c0c82612bcb565b602082019050919050565b60006020820190508181036000830152612c3081612bf4565b9050919050565b7f416d6f756e74206d7573742062652067726561746572207468616e2030000000600082015250565b6000612c6d601d83612585565b9150612c7882612c37565b602082019050919050565b60006020820190508181036000830152612c9c81612c60565b9050919050565b7f496e76616c696420726573656172636865722061646472657373000000000000600082015250565b6000612cd9601a83612585565b9150612ce482612ca3565b602082019050919050565b60006020820190508181036000830152612d0881612ccc565b9050919050565b7f457363726f7720616c7265616479206578697374730000000000000000000000600082015250565b6000612d45601583612585565b9150612d5082612d0f565b602082019050919050565b60006020820190508181036000830152612d7481612d38565b9050919050565b7f496e76616c696420617070726f76657220616464726573730000000000000000600082015250565b6000612db1601883612585565b9150612dbc82612d7b565b602082019050919050565b60006020820190508181036000830152612de081612da4565b9050919050565b7f4e6f2066756e647320746f207769746864726177000000000000000000000000600082015250565b6000612e1d601483612585565b9150612e2882612de7565b602082019050919050565b60006020820190508181036000830152612e4c81612e10565b9050919050565b7f5769746864726177616c206661696c6564000000000000000000000000000000600082015250565b6000612e89601183612585565b9150612e9482612e53565b602082019050919050565b60006020820190508181036000830152612eb881612e7c565b9050919050565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160008201527f6464726573730000000000000000000000000000000000000000000000000000602082015250565b6000612f1b602683612585565b9150612f2682612ebf565b604082019050919050565b60006020820190508181036000830152612f4a81612f0e565b9050919050565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b6000612f87602083612585565b9150612f9282612f51565b602082019050919050565b60006020820190508181036000830152612fb681612f7a565b9050919050565b7f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00600082015250565b6000612ff3601f83612585565b9150612ffe82612fbd565b602082019050919050565b6000602082019050818103600083015261302281612fe6565b9050919050565b7f526566756e64206661696c656400000000000000000000000000000000000000600082015250565b600061305f600d83612585565b915061306a82613029565b602082019050919050565b6000602082019050818103600083015261308e81613052565b9050919050565b7f5061757361626c653a2070617573656400000000000000000000000000000000600082015250565b60006130cb601083612585565b91506130d682613095565b602082019050919050565b600060208201905081810360008301526130fa816130be565b9050919050565b7f5061757361626c653a206e6f7420706175736564000000000000000000000000600082015250565b6000613137601483612585565b915061314282613101565b602082019050919050565b600060208201905081810360008301526131668161312a565b905091905056fea26469706673582212209d5c0aa6398005c96c75eaa5bec40c2f08c597f2cd7c2d31315957bd7634f13864736f6c634300081c0033",
+  "deployedBytecode": "0x6080604052600436106101815760003560e01c80637211e279116100d1578063a77d941e1161008a578063cf77a61e11610064578063cf77a61e14610530578063db2e21bc1461056d578063f2fde38b14610584578063f9168231146105ad57610181565b8063a77d941e146104a9578063b646c194146104c5578063b996ec2a146104ee57610181565b80637211e279146103bf5780638456cb59146103ea5780638da5cb5b1461040157806397829e241461042c578063a5bbe22b14610455578063a5c1674e1461048057610181565b80635c975abb1161013e5780636d218e48116101185780636d218e481461031957806370e5deb91461035657806371451e541461037f578063715018a6146103a857610181565b80635c975abb1461029c5780635ecb8f0c146102c75780636cf4c88f146102f057610181565b8063012f52ee146101865780630a144391146101c957806334b25ee2146102065780633ab342901461022f5780633f4ba83a1461025a57806354ea7b0714610271575b600080fd5b34801561019257600080fd5b506101ad60048036038101906101a89190612250565b6105d8565b6040516101c09796959493929190612344565b60405180910390f35b3480156101d557600080fd5b506101f060048036038101906101eb91906123df565b610647565b6040516101fd9190612427565b60405180910390f35b34801561021257600080fd5b5061022d6004803603810190610228919061246e565b610667565b005b34801561023b57600080fd5b506102446107c0565b60405161025191906124ae565b60405180910390f35b34801561026657600080fd5b5061026f6107c5565b005b34801561027d57600080fd5b506102866107d7565b60405161029391906124c9565b60405180910390f35b3480156102a857600080fd5b506102b16107fd565b6040516102be9190612427565b60405180910390f35b3480156102d357600080fd5b506102ee60048036038101906102e99190612250565b610814565b005b3480156102fc57600080fd5b50610317600480360381019061031291906123df565b610ba0565b005b34801561032557600080fd5b50610340600480360381019061033b91906123df565b610c46565b60405161034d9190612427565b60405180910390f35b34801561036257600080fd5b5061037d60048036038101906103789190612250565b610c9c565b005b34801561038b57600080fd5b506103a660048036038101906103a19190612250565b610ec7565b005b3480156103b457600080fd5b506103bd6111cb565b005b3480156103cb57600080fd5b506103d46111df565b6040516103e191906124ae565b60405180910390f35b3480156103f657600080fd5b506103ff6111e9565b005b34801561040d57600080fd5b506104166111fb565b60405161042391906124c9565b60405180910390f35b34801561043857600080fd5b50610453600480360381019061044e91906123df565b611225565b005b34801561046157600080fd5b5061046a6112e0565b60405161047791906124ae565b60405180910390f35b34801561048c57600080fd5b506104a760048036038101906104a29190612250565b6112e7565b005b6104c360048036038101906104be91906124e4565b61152c565b005b3480156104d157600080fd5b506104ec60048036038101906104e791906123df565b6117ee565b005b3480156104fa57600080fd5b5061051560048036038101906105109190612250565b611903565b60405161052796959493929190612524565b60405180910390f35b34801561053c57600080fd5b5061055760048036038101906105529190612250565b6119fb565b6040516105649190612427565b60405180910390f35b34801561057957600080fd5b50610582611a1b565b005b34801561059057600080fd5b506105ab60048036038101906105a691906123df565b611b2a565b005b3480156105b957600080fd5b506105c2611bad565b6040516105cf91906124ae565b60405180910390f35b60046020528060005260406000206000915090508060000154908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020154908060030154908060040160009054906101000a900460ff16908060050154908060070154905087565b60056020528060005260406000206000915054906101000a900460ff1681565b61066f611bb3565b8160006004600083815260200190815260200160002060020154116106c9576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016106c0906125e2565b60405180910390fd5b6106d1611c31565b6006600084815260200190815260200160002060009054906101000a900460ff16610731576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016107289061264e565b60405180910390fd5b60006006600085815260200190815260200160002060006101000a81548160ff02191690831515021790555081156107715761076c83611c80565b61077b565b61077a83611e38565b5b827f5a87909bff68caaaaf0b3fd9c74eeccc928832f879315e5c6fb7a73612f26c0c836040516107ab9190612427565b60405180910390a26107bb611fe5565b505050565b600281565b6107cd611bb3565b6107d5611fef565b565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000600160149054906101000a900460ff16905090565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146108a4576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161089b906126ba565b60405180910390fd5b8060006004600083815260200190815260200160002060020154116108fe576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016108f5906125e2565b60405180910390fd5b610906611c31565b600060046000848152602001908152602001600020905060006003811115610931576109306122cd565b5b8160040160009054906101000a900460ff166003811115610955576109546122cd565b5b14610995576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161098c90612726565b60405180910390fd5b6006600084815260200190815260200160002060009054906101000a900460ff16156109f6576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016109ed90612792565b60405180910390fd5b60018160040160006101000a81548160ff02191690836003811115610a1e57610a1d6122cd565b5b02179055504281600501819055506000816002015490508060036000828254610a4791906127e1565b9250508190555060008260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1682604051610a9890612846565b60006040518083038185875af1925050503d8060008114610ad5576040519150601f19603f3d011682016040523d82523d6000602084013e610ada565b606091505b5050905080610b1e576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610b15906128a7565b60405180910390fd5b8260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16857f94407969cf60f998494a152d3513fb23ce8cae640c40da2135ccb07d8bfaaa4384604051610b8991906124ae565b60405180910390a3505050610b9c611fe5565b5050565b610ba8611bb3565b6000600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167fc6e35658c76ecdde40a54f31a91fb7c8615e9893cc0885584b27bb3433270d4660405160405180910390a250565b6000600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b806000600460008381526020019081526020016000206002015411610cf6576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610ced906125e2565b60405180910390fd5b610cfe611c31565b600060046000848152602001908152602001600020905060006003811115610d2957610d286122cd565b5b8160040160009054906101000a900460ff166003811115610d4d57610d4c6122cd565b5b14610d8d576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610d8490612913565b60405180910390fd5b62ed4e008160030154610da09190612933565b421015610de2576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610dd9906129b3565b60405180910390fd5b8060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161480610e725750610e436111fb565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16145b610eb1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610ea890612a1f565b60405180910390fd5b610eba83611e38565b50610ec3611fe5565b5050565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610f53576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610f4a90612a8b565b60405180910390fd5b806000600460008381526020019081526020016000206002015411610fad576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610fa4906125e2565b60405180910390fd5b610fb5611c31565b600060046000848152602001908152602001600020905060006003811115610fe057610fdf6122cd565b5b8160040160009054906101000a900460ff166003811115611004576110036122cd565b5b14611044576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161103b90612726565b60405180910390fd5b8060060160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16156110d3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016110ca90612af7565b60405180910390fd5b6006600084815260200190815260200160002060009054906101000a900460ff1615611134576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161112b90612792565b60405180910390fd5b60018160060160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508060070160008154809291906111a390612b17565b919050555060028160070154106111be576111bd83611c80565b5b506111c7611fe5565b5050565b6111d3611bb3565b6111dd6000612052565b565b6000600354905090565b6111f1611bb3565b6111f9612118565b565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b61122d611bb3565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff160361129c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161129390612bab565b60405180910390fd5b80600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b62093a8081565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16611373576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161136a90612a8b565b60405180910390fd5b8060006004600083815260200190815260200160002060020154116113cd576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016113c4906125e2565b60405180910390fd5b6006600083815260200190815260200160002060009054906101000a900460ff161561142e576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161142590612c17565b60405180910390fd5b60006003811115611442576114416122cd565b5b6004600084815260200190815260200160002060040160009054906101000a900460ff166003811115611478576114776122cd565b5b146114b8576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016114af90612913565b60405180910390fd5b60016006600084815260200190815260200160002060006101000a81548160ff0219169083151502179055503373ffffffffffffffffffffffffffffffffffffffff16827f84a477df8a28a4276ca6dee4458a06c3015f30c477d9c949ede4e13ff8a552b460405160405180910390a35050565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146115bc576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016115b3906126ba565b60405180910390fd5b6115c4611c31565b6115cc61217a565b6000341161160f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161160690612c83565b60405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff160361167e576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161167590612cef565b60405180910390fd5b60006004600084815260200190815260200160002060020154146116d7576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016116ce90612d5b565b60405180910390fd5b6000600460008481526020019081526020016000209050828160000181905550818160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555034816002018190555042816003018190555060008160040160006101000a81548160ff02191690836003811115611774576117736122cd565b5b0217905550346003600082825461178b9190612933565b925050819055508173ffffffffffffffffffffffffffffffffffffffff16837fb1d5d5e7bd3f095106c77c1574721fffe610c6e6421a2604e93dbc81d634c65c346040516117d991906124ae565b60405180910390a3506117ea611fe5565b5050565b6117f6611bb3565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603611865576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161185c90612dc7565b60405180910390fd5b6001600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167f835bddf1ceee4956e4329af9edf018523c1191238187a597453f6020bcadb04260405160405180910390a250565b600080600080600080866000600460008381526020019081526020016000206002015411611966576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161195d906125e2565b60405180910390fd5b6000600460008a815260200190815260200160002090508060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16816002015482600301548360040160009054906101000a900460ff168460070154600660008f815260200190815260200160002060009054906101000a900460ff16975097509750975097509750505091939550919395565b60066020528060005260406000206000915054906101000a900460ff1681565b611a23611bb3565b611a2b6121c4565b600047905060008111611a73576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611a6a90612e33565b60405180910390fd5b6000611a7d6111fb565b73ffffffffffffffffffffffffffffffffffffffff1682604051611aa090612846565b60006040518083038185875af1925050503d8060008114611add576040519150601f19603f3d011682016040523d82523d6000602084013e611ae2565b606091505b5050905080611b26576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611b1d90612e9f565b60405180910390fd5b5050565b611b32611bb3565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603611ba1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611b9890612f31565b60405180910390fd5b611baa81612052565b50565b60035481565b611bbb61220d565b73ffffffffffffffffffffffffffffffffffffffff16611bd96111fb565b73ffffffffffffffffffffffffffffffffffffffff1614611c2f576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611c2690612f9d565b60405180910390fd5b565b600260005403611c76576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611c6d90613009565b60405180910390fd5b6002600081905550565b600060046000838152602001908152602001600020905060018160040160006101000a81548160ff02191690836003811115611cbf57611cbe6122cd565b5b02179055504281600501819055506000816002015490508060036000828254611ce891906127e1565b9250508190555060008260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1682604051611d3990612846565b60006040518083038185875af1925050503d8060008114611d76576040519150601f19603f3d011682016040523d82523d6000602084013e611d7b565b606091505b5050905080611dbf576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611db6906128a7565b60405180910390fd5b8260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16847f94407969cf60f998494a152d3513fb23ce8cae640c40da2135ccb07d8bfaaa4384604051611e2a91906124ae565b60405180910390a350505050565b600060046000838152602001908152602001600020905060028160040160006101000a81548160ff02191690836003811115611e7757611e766122cd565b5b02179055506000816002015490508060036000828254611e9791906127e1565b925050819055506000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1682604051611ee690612846565b60006040518083038185875af1925050503d8060008114611f23576040519150601f19603f3d011682016040523d82523d6000602084013e611f28565b606091505b5050905080611f6c576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611f6390613075565b60405180910390fd5b8260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16847ff1ed347f033f54c0d6f1589c933d81b4256cf2f72a785106e3653a565f7433a284604051611fd791906124ae565b60405180910390a350505050565b6001600081905550565b611ff76121c4565b6000600160146101000a81548160ff0219169083151502179055507f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa61203b61220d565b60405161204891906124c9565b60405180910390a1565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b61212061217a565b60018060146101000a81548160ff0219169083151502179055507f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25861216361220d565b60405161217091906124c9565b60405180910390a1565b6121826107fd565b156121c2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016121b9906130e1565b60405180910390fd5b565b6121cc6107fd565b61220b576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016122029061314d565b60405180910390fd5b565b600033905090565b600080fd5b6000819050919050565b61222d8161221a565b811461223857600080fd5b50565b60008135905061224a81612224565b92915050565b60006020828403121561226657612265612215565b5b60006122748482850161223b565b91505092915050565b6122868161221a565b82525050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006122b78261228c565b9050919050565b6122c7816122ac565b82525050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b6004811061230d5761230c6122cd565b5b50565b600081905061231e826122fc565b919050565b600061232e82612310565b9050919050565b61233e81612323565b82525050565b600060e082019050612359600083018a61227d565b61236660208301896122be565b612373604083018861227d565b612380606083018761227d565b61238d6080830186612335565b61239a60a083018561227d565b6123a760c083018461227d565b98975050505050505050565b6123bc816122ac565b81146123c757600080fd5b50565b6000813590506123d9816123b3565b92915050565b6000602082840312156123f5576123f4612215565b5b6000612403848285016123ca565b91505092915050565b60008115159050919050565b6124218161240c565b82525050565b600060208201905061243c6000830184612418565b92915050565b61244b8161240c565b811461245657600080fd5b50565b60008135905061246881612442565b92915050565b6000806040838503121561248557612484612215565b5b60006124938582860161223b565b92505060206124a485828601612459565b9150509250929050565b60006020820190506124c3600083018461227d565b92915050565b60006020820190506124de60008301846122be565b92915050565b600080604083850312156124fb576124fa612215565b5b60006125098582860161223b565b925050602061251a858286016123ca565b9150509250929050565b600060c08201905061253960008301896122be565b612546602083018861227d565b612553604083018761227d565b6125606060830186612335565b61256d608083018561227d565b61257a60a0830184612418565b979650505050505050565b600082825260208201905092915050565b7f457363726f7720646f6573206e6f742065786973740000000000000000000000600082015250565b60006125cc601583612585565b91506125d782612596565b602082019050919050565b600060208201905081810360008301526125fb816125bf565b9050919050565b7f4e6f206163746976652064697370757465000000000000000000000000000000600082015250565b6000612638601183612585565b915061264382612602565b602082019050919050565b600060208201905081810360008301526126678161262b565b9050919050565b7f4f6e6c7920726567697374727920636f6e747261637400000000000000000000600082015250565b60006126a4601683612585565b91506126af8261266e565b602082019050919050565b600060208201905081810360008301526126d381612697565b9050919050565b7f496e76616c696420657363726f77207374617475730000000000000000000000600082015250565b6000612710601583612585565b915061271b826126da565b602082019050919050565b6000602082019050818103600083015261273f81612703565b9050919050565b7f457363726f772069732064697370757465640000000000000000000000000000600082015250565b600061277c601283612585565b915061278782612746565b602082019050919050565b600060208201905081810360008301526127ab8161276f565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006127ec8261221a565b91506127f78361221a565b925082820390508181111561280f5761280e6127b2565b5b92915050565b600081905092915050565b50565b6000612830600083612815565b915061283b82612820565b600082019050919050565b600061285182612823565b9150819050919050565b7f5472616e73666572206661696c65640000000000000000000000000000000000600082015250565b6000612891600f83612585565b915061289c8261285b565b602082019050919050565b600060208201905081810360008301526128c081612884565b9050919050565b7f496e76616c696420737461747573000000000000000000000000000000000000600082015250565b60006128fd600e83612585565b9150612908826128c7565b602082019050919050565b6000602082019050818103600083015261292c816128f0565b9050919050565b600061293e8261221a565b91506129498361221a565b9250828201905080821115612961576129606127b2565b5b92915050565b7f54696d656f7574206e6f74207265616368656400000000000000000000000000600082015250565b600061299d601383612585565b91506129a882612967565b602082019050919050565b600060208201905081810360008301526129cc81612990565b9050919050565b7f4e6f7420617574686f72697a6564000000000000000000000000000000000000600082015250565b6000612a09600e83612585565b9150612a14826129d3565b602082019050919050565b60006020820190508181036000830152612a38816129fc565b9050919050565b7f4e6f7420617574686f72697a656420617070726f766572000000000000000000600082015250565b6000612a75601783612585565b9150612a8082612a3f565b602082019050919050565b60006020820190508181036000830152612aa481612a68565b9050919050565b7f416c726561647920617070726f76656400000000000000000000000000000000600082015250565b6000612ae1601083612585565b9150612aec82612aab565b602082019050919050565b60006020820190508181036000830152612b1081612ad4565b9050919050565b6000612b228261221a565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203612b5457612b536127b2565b5b600182019050919050565b7f496e76616c696420726567697374727920616464726573730000000000000000600082015250565b6000612b95601883612585565b9150612ba082612b5f565b602082019050919050565b60006020820190508181036000830152612bc481612b88565b9050919050565b7f416c726561647920646973707574656400000000000000000000000000000000600082015250565b6000612c01601083612585565b9150612c0c82612bcb565b602082019050919050565b60006020820190508181036000830152612c3081612bf4565b9050919050565b7f416d6f756e74206d7573742062652067726561746572207468616e2030000000600082015250565b6000612c6d601d83612585565b9150612c7882612c37565b602082019050919050565b60006020820190508181036000830152612c9c81612c60565b9050919050565b7f496e76616c696420726573656172636865722061646472657373000000000000600082015250565b6000612cd9601a83612585565b9150612ce482612ca3565b602082019050919050565b60006020820190508181036000830152612d0881612ccc565b9050919050565b7f457363726f7720616c7265616479206578697374730000000000000000000000600082015250565b6000612d45601583612585565b9150612d5082612d0f565b602082019050919050565b60006020820190508181036000830152612d7481612d38565b9050919050565b7f496e76616c696420617070726f76657220616464726573730000000000000000600082015250565b6000612db1601883612585565b9150612dbc82612d7b565b602082019050919050565b60006020820190508181036000830152612de081612da4565b9050919050565b7f4e6f2066756e647320746f207769746864726177000000000000000000000000600082015250565b6000612e1d601483612585565b9150612e2882612de7565b602082019050919050565b60006020820190508181036000830152612e4c81612e10565b9050919050565b7f5769746864726177616c206661696c6564000000000000000000000000000000600082015250565b6000612e89601183612585565b9150612e9482612e53565b602082019050919050565b60006020820190508181036000830152612eb881612e7c565b9050919050565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160008201527f6464726573730000000000000000000000000000000000000000000000000000602082015250565b6000612f1b602683612585565b9150612f2682612ebf565b604082019050919050565b60006020820190508181036000830152612f4a81612f0e565b9050919050565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b6000612f87602083612585565b9150612f9282612f51565b602082019050919050565b60006020820190508181036000830152612fb681612f7a565b9050919050565b7f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00600082015250565b6000612ff3601f83612585565b9150612ffe82612fbd565b602082019050919050565b6000602082019050818103600083015261302281612fe6565b9050919050565b7f526566756e64206661696c656400000000000000000000000000000000000000600082015250565b600061305f600d83612585565b915061306a82613029565b602082019050919050565b6000602082019050818103600083015261308e81613052565b9050919050565b7f5061757361626c653a2070617573656400000000000000000000000000000000600082015250565b60006130cb601083612585565b91506130d682613095565b602082019050919050565b600060208201905081810360008301526130fa816130be565b9050919050565b7f5061757361626c653a206e6f7420706175736564000000000000000000000000600082015250565b6000613137601483612585565b915061314282613101565b602082019050919050565b600060208201905081810360008301526131668161312a565b905091905056fea26469706673582212209d5c0aa6398005c96c75eaa5bec40c2f08c597f2cd7c2d31315957bd7634f13864736f6c634300081c0033",
+  "devdoc": {
+    "author": "Jon - ISSessions Cybersecurity Club",
+    "details": "Multi-signature validation with time-locked releases",
+    "events": {
+      "Paused(address)": {
+        "details": "Emitted when the pause is triggered by `account`."
+      },
+      "Unpaused(address)": {
+        "details": "Emitted when the pause is lifted by `account`."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "approveBountyRelease(uint256)": {
+        "params": {
+          "_vulnId": "Vulnerability ID"
+        }
+      },
+      "depositBounty(uint256,address)": {
+        "params": {
+          "_researcher": "Researcher address",
+          "_vulnId": "Vulnerability ID"
+        }
+      },
+      "emergencyRefund(uint256)": {
+        "params": {
+          "_vulnId": "Vulnerability ID"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "paused()": {
+        "details": "Returns true if the contract is paused, and false otherwise."
+      },
+      "raiseDispute(uint256)": {
+        "params": {
+          "_vulnId": "Vulnerability ID"
+        }
+      },
+      "releaseBounty(uint256)": {
+        "params": {
+          "_vulnId": "Vulnerability ID"
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "resolveDispute(uint256,bool)": {
+        "params": {
+          "_approve": "Whether to approve or refund",
+          "_vulnId": "Vulnerability ID"
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "title": "BountyEscrow",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "addApprover(address)": {
+        "notice": "Add approver"
+      },
+      "approveBountyRelease(uint256)": {
+        "notice": "Approve bounty release (multi-sig)"
+      },
+      "depositBounty(uint256,address)": {
+        "notice": "Deposit bounty funds for a vulnerability"
+      },
+      "emergencyRefund(uint256)": {
+        "notice": "Emergency refund after timeout"
+      },
+      "emergencyWithdraw()": {
+        "notice": "Emergency withdrawal (owner only, paused contract)"
+      },
+      "getEscrowDetails(uint256)": {
+        "notice": "Get escrow details"
+      },
+      "getTotalEscrowed()": {
+        "notice": "Get total funds in escrow"
+      },
+      "isApprover(address)": {
+        "notice": "Check if address is approver"
+      },
+      "pause()": {
+        "notice": "Emergency pause"
+      },
+      "raiseDispute(uint256)": {
+        "notice": "Raise dispute for bounty payment"
+      },
+      "releaseBounty(uint256)": {
+        "notice": "Release bounty to researcher after validation"
+      },
+      "removeApprover(address)": {
+        "notice": "Remove approver"
+      },
+      "resolveDispute(uint256,bool)": {
+        "notice": "Resolve dispute"
+      },
+      "setVulnerabilityRegistry(address)": {
+        "notice": "Set vulnerability registry address"
+      },
+      "unpause()": {
+        "notice": "Unpause"
+      }
+    },
+    "notice": "Secure escrow system for vulnerability bounty payments",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 259,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "_status",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 7,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 158,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "_paused",
+        "offset": 20,
+        "slot": "1",
+        "type": "t_bool"
+      },
+      {
+        "astId": 3311,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "vulnerabilityRegistry",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_address"
+      },
+      {
+        "astId": 3319,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "totalEscrowed",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 3324,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "escrows",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_uint256,t_struct(EscrowRecord)3309_storage)"
+      },
+      {
+        "astId": 3328,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "approvers",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_mapping(t_address,t_bool)"
+      },
+      {
+        "astId": 3332,
+        "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+        "label": "disputed",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_uint256,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_enum(EscrowStatus)5841": {
+        "encoding": "inplace",
+        "label": "enum IBountyEscrow.EscrowStatus",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_struct(EscrowRecord)3309_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct BountyEscrow.EscrowRecord)",
+        "numberOfBytes": "32",
+        "value": "t_struct(EscrowRecord)3309_storage"
+      },
+      "t_struct(EscrowRecord)3309_storage": {
+        "encoding": "inplace",
+        "label": "struct BountyEscrow.EscrowRecord",
+        "members": [
+          {
+            "astId": 3291,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "vulnId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 3293,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "researcher",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 3295,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "amount",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 3297,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "depositTime",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 3300,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "status",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_enum(EscrowStatus)5841"
+          },
+          {
+            "astId": 3302,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "releaseTime",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 3306,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "approvals",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_bool)"
+          },
+          {
+            "astId": 3308,
+            "contract": "contracts/BountyEscrow.sol:BountyEscrow",
+            "label": "approvalCount",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

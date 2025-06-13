@@ -18,8 +18,8 @@ export const appKit = createAppKit({
   metadata: {
     name: 'DVulnDB - Decentralized Vulnerability Database',
     description: 'Web3 vulnerability disclosure platform',
-    url: 'https://dvulndb.app',
-    icons: ['https://dvulndb.app/logo.png']
+    url: 'https://dvulndb.chron0.tech',
+    icons: ['https://dvulndb.chron0.tech/logo.png']
   },
   features: {
     analytics: true,

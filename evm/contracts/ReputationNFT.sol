@@ -92,7 +92,7 @@ contract ReputationNFT is ERC721, ERC721URIStorage, Ownable {
      * @notice Mint reputation NFT for new researcher
      */
     function mintReputationNFT(address _researcher) 
-        external 
+        public 
         onlyRegistry 
         returns (uint256) 
     {

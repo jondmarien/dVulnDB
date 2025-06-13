@@ -19,8 +19,17 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@components/*": ["src/components/*"],
+      "@context/*": ["src/context/*"],
+      "@app/*": ["src/app/*"],
+      "@utils/*": ["src/app/utils/*"],
+      "@hooks/*": ["src/app/hooks/*"],
+      "@abi/*": ["src/app/abi/*"],
+      "@public/*": ["public/*"],
+      "@evm/*": ["evm/*"]
+    },
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

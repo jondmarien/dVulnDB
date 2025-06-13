@@ -1,5 +1,6 @@
 "use client";
-import { useWallet } from '../../context/WalletContext';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useEffect } from 'react';
 
 interface LandingProps {
@@ -8,19 +9,13 @@ interface LandingProps {
 }
 
 const Landing = ({ isActive, onNavigate }: LandingProps) => {
-  const { isConnected, isConnecting, connectWallet } = useWallet();
+  const { publicKey } = useWallet();
 
   useEffect(() => {
-    if (isConnected) {
+    if (publicKey) {
       onNavigate('dashboard');
     }
-  }, [isConnected, onNavigate]);
-
-  const handleInit = () => {
-    if (!isConnected && !isConnecting) {
-      connectWallet();
-    }
-  };
+  }, [publicKey, onNavigate]);
 
   return (
     <section className={`section section--landing${isActive ? ' active' : ''}`} id="landing">
@@ -51,9 +46,8 @@ const Landing = ({ isActive, onNavigate }: LandingProps) => {
                 <div className="stat-card__label">Researchers</div>
               </div>
             </div>
-            <button className="btn btn--primary btn--lg hero__cta" onClick={handleInit} disabled={isConnecting || isConnected}>
-              {isConnecting ? 'Connecting...' : '>> INITIALIZE CONNECTION'}
-            </button>
+            {/* TODO: Fix WalletMultiButton custom children rendering 'CONNECTING >> CONNECTED'. */}
+            <WalletMultiButton className="btn btn--primary btn--lg hero__cta" />
           </div>
           <div className="hero__visual">
             <div className="matrix-bg"></div>

@@ -1,4 +1,5 @@
-import { useWallet } from '../../context/WalletContext';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 type HeaderProps = {
   currentSection: string;
@@ -15,28 +16,17 @@ const NAV_LINKS = [
 ];
 
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
-  const { isConnected, isConnecting, walletInfo, connectWallet } = useWallet();
+  const { publicKey } = useWallet();
 
   let walletContent;
-  if (isConnected && walletInfo) {
+  if (publicKey) {
     walletContent = (
       <div className="wallet-info" id="walletInfo">
-        <div className="wallet-address" id="walletAddress">{walletInfo.address}</div>
-        <div className="wallet-balance" id="walletBalance">{walletInfo.balance}</div>
+        <div className="wallet-address" id="walletAddress">{publicKey.toBase58()}</div>
       </div>
     );
-  } else if (isConnecting) {
-    walletContent = (
-      <button className="btn btn--primary wallet-connect-btn" disabled>
-        Connecting...
-      </button>
-    );
   } else {
-    walletContent = (
-      <button className="btn btn--primary wallet-connect-btn" id="walletConnectBtn" onClick={connectWallet}>
-        Connect Wallet
-      </button>
-    );
+    walletContent = <WalletMultiButton className="wallet-connect-btn" />;
   }
 
   return (

@@ -3,8 +3,10 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { 
   WalletContextState, 
-  useWallet as useSolanaWallet 
+  useWallet as useSolanaWallet
 } from '@solana/wallet-adapter-react';
+import { WalletName, WalletReadyState } from '@solana/wallet-adapter-base';
+import { PublicKey, Transaction, VersionedTransaction } from '@solana/web3.js';
 
 // Create a context that overrides the Solana wallet context
 const MockWalletContext = createContext<WalletContextState | null>(null);
@@ -19,12 +21,7 @@ export const MockWalletProvider: React.FC<MockWalletProviderProps> = ({ children
   const [disconnecting, setDisconnecting] = useState(false);
   
   // Mock public key with persistence
-  const mockPublicKey = connected ? { 
-    toString: () => 'MockWallet123...abc',
-    toBase58: () => 'MockWallet123...abc',
-    toBuffer: () => Buffer.from('mock'),
-    toBytes: () => new Uint8Array(32)
-  } : null;
+  const mockPublicKey = connected ? new PublicKey('11111111111111111111111111111112') : null;
 
   const connect = async () => {
     if (connected) return;
@@ -52,76 +49,97 @@ export const MockWalletProvider: React.FC<MockWalletProviderProps> = ({ children
     console.log('📤 Mock Wallet: Disconnected!');
   };
 
+  // Create a reusable mock adapter object
+  const createMockAdapter = () => {
+    const adapter = {
+      name: 'Mock Phantom' as WalletName,
+      url: 'https://phantom.app/',
+      icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA4IiBoZWlnaHQ9IjEwOCIgdmlld0JveD0iMCAwIDEwOCAxMDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+',
+      supportedTransactionVersions: null,
+      autoConnect: async () => {}, // Function for adapter
+      publicKey: mockPublicKey,
+      connected,
+      connecting,
+      readyState: WalletReadyState.Installed,
+      connect,
+      disconnect,
+      sendTransaction: async () => 'mock-signature',
+      signTransaction: async <T extends Transaction | VersionedTransaction>(transaction: T): Promise<T> => transaction,
+      signAllTransactions: async <T extends Transaction | VersionedTransaction>(txs: T[]): Promise<T[]> => txs,
+      signMessage: async () => new Uint8Array(64),
+      signIn: async () => ({ 
+        account: { 
+          address: mockPublicKey!.toBase58(), 
+          publicKey: new Uint8Array(mockPublicKey!.toBytes()),
+          chains: ['solana:devnet'],
+          features: ['solana:signTransaction', 'solana:signMessage']
+        }, 
+        signedMessage: new Uint8Array(0), 
+        signature: new Uint8Array(64) 
+      }),
+      // EventEmitter methods - return adapter instance for chaining
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      on: (_event: any, _fn: any) => adapter,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      off: (_event: any, _fn: any) => adapter,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      emit: (_event: any, ..._args: any[]) => true,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      removeAllListeners: (_event?: any) => adapter,
+      // Additional EventEmitter methods required by SignerWalletAdapter
+      eventNames: () => [],
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      listeners: (_event: any) => [],
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      listenerCount: (_event: any) => 0,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      addListener: (_event: any, _fn: any) => adapter,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      removeListener: (_event: any, _fn: any) => adapter,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      once: (_event: any, _fn: any) => adapter,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      prependListener: (_event: any, _fn: any) => adapter,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      prependOnceListener: (_event: any, _fn: any) => adapter
+    };
+    return adapter;
+  };
+
   // Create mock wallet context that matches WalletContextState interface
   const mockWalletContextState: WalletContextState = {
-    autoConnect: false,
-    wallets: [
-      {
-        adapter: {
-          name: 'Mock Phantom',
-          url: 'https://phantom.app/',
-          icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA4IiBoZWlnaHQ9IjEwOCIgdmlld0JveD0iMCAwIDEwOCAxMDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+',
-          supportedTransactionVersions: null,
-          publicKey: mockPublicKey,
-          connected,
-          connecting,
-          readyState: 'Installed',
-          connect,
-          disconnect,
-          sendTransaction: async () => ({ signature: 'mock-signature' }),
-          signTransaction: async (tx: Transaction) => tx,
-          signAllTransactions: async (txs: Transaction[]) => txs,
-          signMessage: async () => new Uint8Array(64),
-          signIn: async () => ({ account: mockPublicKey, signedMessage: new Uint8Array(0), signature: new Uint8Array(64) }),
-          signOut: async () => {},
-          on: () => {},
-          off: () => {},
-          emit: () => {},
-          removeAllListeners: () => {}
-        },
-        readyState: 'Installed'
-      }
-    ],
+    autoConnect: false, // Boolean for WalletContextState
+    wallets: [{
+      adapter: createMockAdapter(),
+      readyState: WalletReadyState.Installed
+    }],
     wallet: connected ? {
-      adapter: {
-        name: 'Mock Phantom',
-        url: 'https://phantom.app/',
-        icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA4IiBoZWlnaHQ9IjEwOCIgdmlld0JveD0iMCAwIDEwOCAxMDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+',
-        supportedTransactionVersions: null,
-        publicKey: mockPublicKey,
-        connected,
-        connecting,
-        readyState: 'Installed',
-        connect,
-        disconnect,
-        sendTransaction: async () => ({ signature: 'mock-signature' }),
-        signTransaction: async (tx: Transaction) => tx,
-        signAllTransactions: async (txs: Transaction[]) => txs,
-        signMessage: async () => new Uint8Array(64),
-        signIn: async () => ({ account: mockPublicKey, signedMessage: new Uint8Array(0), signature: new Uint8Array(64) }),
-        signOut: async () => {},
-        on: () => {},
-        off: () => {},
-        emit: () => {},
-        removeAllListeners: () => {}
-      },
-      readyState: 'Installed'
+      adapter: createMockAdapter(),
+      readyState: WalletReadyState.Installed
     } : null,
     publicKey: mockPublicKey,
     connected,
     connecting,
     disconnecting,
-    select: (walletName: string) => {
+    select: (walletName: WalletName | null) => {
       console.log('🎭 Mock: Selected wallet:', walletName);
     },
     connect,
     disconnect,
-    sendTransaction: async () => ({ signature: 'mock-signature' }),
-    signTransaction: async (tx: Transaction) => tx,
-    signAllTransactions: async (txs: Transaction[]) => txs,
+    sendTransaction: async () => 'mock-signature',
+    signTransaction: async <T extends Transaction | VersionedTransaction>(transaction: T): Promise<T> => transaction,
+    signAllTransactions: async <T extends Transaction | VersionedTransaction>(txs: T[]): Promise<T[]> => txs,
     signMessage: async () => new Uint8Array(64),
-    signIn: async () => ({ account: mockPublicKey, signedMessage: new Uint8Array(0), signature: new Uint8Array(64) }),
-    signOut: async () => {}
+    signIn: async () => ({ 
+      account: { 
+        address: mockPublicKey!.toBase58(), 
+        publicKey: new Uint8Array(mockPublicKey!.toBytes()),
+        chains: ['solana:devnet'],
+        features: ['solana:signTransaction', 'solana:signMessage']
+      }, 
+      signedMessage: new Uint8Array(0), 
+      signature: new Uint8Array(64) 
+    })
   };
 
   return (

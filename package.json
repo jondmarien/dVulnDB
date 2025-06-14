@@ -24,6 +24,7 @@
     "@protobufjs/codegen": "^2.0.4",
     "@protobufjs/eventemitter": "^1.1.0",
     "@protobufjs/fetch": "^1.1.0",
+    "@protobufjs/float": "^1.0.2",
     "@protobufjs/inquire": "^1.1.0",
     "@protobufjs/path": "^1.1.2",
     "@protobufjs/pool": "^1.1.0",
@@ -45,6 +46,7 @@
     "next": "15.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "uuid": "^11.1.0",
     "viem": "^2.30.6"
   },
   "devDependencies": {

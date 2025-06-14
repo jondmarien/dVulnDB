@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -16,18 +20,46 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["src/components/*"],
-      "@context/*": ["src/context/*"],
-      "@app/*": ["src/app/*"],
-      "@utils/*": ["src/app/utils/*"],
-      "@hooks/*": ["src/app/hooks/*"],
-      "@abi/*": ["src/app/abi/*"],
-      "@public/*": ["public/*"],
-      "@evm/*": ["evm/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@context/*": [
+        "src/context/*"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@utils/*": [
+        "src/app/utils/*"
+      ],
+      "@hooks/*": [
+        "src/app/hooks/*"
+      ],
+      "@abi/*": [
+        "src/app/abi/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@evm/*": [
+        "evm/*"
+      ]
     },
-    "baseUrl": "."
+    "baseUrl": ".",
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

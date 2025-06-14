@@ -1,5 +1,6 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { MockWalletButton } from '@components/auth/MockWalletButton';
 
 type HeaderProps = {
   currentSection: string;
@@ -18,6 +19,12 @@ const PROTECTED_NAV_LINKS = [
   { label: 'Tools', section: 'tools' },
 ];
 
+// Check if in mock mode for wallet button selection
+const isMockMode = () => {
+  if (typeof window === 'undefined') return false;
+  return window.location.search.includes('mock=true');
+};
+
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
   const { connected } = useWallet();
   
@@ -27,7 +34,7 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
   return (
     <header className="header">
       <div className="container header__content">
-        <button className="logo" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} onClick={() => onNavigate('landing')} aria-label="Go to Home">
+        <button className="logo" onClick={() => onNavigate('landing')} aria-label="Go to Home">
           <span className="logo__ascii">▰▱▰</span>
           <span className="logo__text">DVulnDB</span>
         </button>
@@ -48,7 +55,11 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
           ))}
         </nav>
         <div className="wallet-section">
-          <WalletMultiButton className="wallet-connect-btn" />
+          {isMockMode() ? (
+            <MockWalletButton className="wallet-connect-btn" />
+          ) : (
+            <WalletMultiButton className="wallet-connect-btn" />
+          )}
         </div>
       </div>
     </header>

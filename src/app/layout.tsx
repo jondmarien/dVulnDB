@@ -1,6 +1,7 @@
+'use client';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
@@ -19,7 +20,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
               {/* DVulnDB Header will go here */}
-              <WalletMultiButton />
               <div id="__dvulndb">
                 {children}
               </div>

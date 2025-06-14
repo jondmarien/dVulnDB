@@ -14,7 +14,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  * @dev Dynamic NFT metadata based on researcher performance
  * @author Jon - ISSessions Cybersecurity Club
  */
-contract ReputationNFT is ERC721, ERC721URIStorage, Ownable {
+abstract contract ReputationNFT is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     using Strings for uint256;
 

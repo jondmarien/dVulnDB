@@ -1774,3 +1774,131 @@ body {
   animation: slideIn 0.3s ease-out;
   pointer-events: auto;
 }
+
+/* Solana Wallet Button Styling */
+.wallet-connect-btn {
+  background: linear-gradient(135deg, var(--color-cyber-dark) 0%, var(--color-cyber-gray) 100%) !important;
+  border: 2px solid var(--color-cyber-green) !important;
+  border-radius: var(--radius-base) !important;
+  color: var(--color-cyber-green) !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  padding: var(--space-8) var(--space-16) !important;
+  transition: all var(--duration-normal) var(--ease-standard) !important;
+  text-shadow: 0 0 5px var(--color-cyber-green) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 40px !important;
+}
+
+.wallet-connect-btn:hover {
+  background: linear-gradient(135deg, var(--color-cyber-gray) 0%, var(--color-cyber-green) 20%) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.wallet-connect-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.6) !important;
+}
+
+.wallet-connect-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+  transition: left var(--duration-normal) var(--ease-standard);
+}
+
+.wallet-connect-btn:hover::before {
+  left: 100%;
+}
+
+/* Wallet Info Styling */
+.wallet-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--color-cyber-green);
+  border-radius: var(--radius-base);
+  padding: var(--space-8) var(--space-12);
+}
+
+.wallet-address {
+  color: var(--color-cyber-green);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-shadow: 0 0 3px var(--color-cyber-green);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wallet-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+/* Override Solana wallet adapter default styles */
+.wallet-adapter-button {
+  background: linear-gradient(135deg, var(--color-cyber-dark) 0%, var(--color-cyber-gray) 100%) !important;
+  border: 2px solid var(--color-cyber-green) !important;
+  border-radius: var(--radius-base) !important;
+  color: var(--color-cyber-green) !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  padding: var(--space-8) var(--space-16) !important;
+  transition: all var(--duration-normal) var(--ease-standard) !important;
+  text-shadow: 0 0 5px var(--color-cyber-green) !important;
+  min-height: 40px !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background: linear-gradient(135deg, var(--color-cyber-gray) 0%, var(--color-cyber-green) 20%) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.wallet-adapter-button[disabled] {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(0, 255, 65, 0.3) !important;
+  color: rgba(0, 255, 65, 0.5) !important;
+  opacity: 0.6 !important;
+}
+
+.wallet-adapter-modal {
+  background: var(--color-cyber-dark) !important;
+  border: 2px solid var(--color-cyber-green) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.wallet-adapter-modal-title {
+  color: var(--color-cyber-green) !important;
+  font-family: var(--font-family-mono) !important;
+  text-shadow: 0 0 5px var(--color-cyber-green) !important;
+}
+
+.wallet-adapter-modal-list {
+  background: transparent !important;
+}
+
+.wallet-adapter-modal-list-item {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid var(--color-cyber-border) !important;
+  border-radius: var(--radius-base) !important;
+  margin-bottom: var(--space-8) !important;
+}
+
+.wallet-adapter-modal-list-item:hover {
+  background: rgba(0, 255, 65, 0.1) !important;
+  border-color: var(--color-cyber-green) !important;
+}

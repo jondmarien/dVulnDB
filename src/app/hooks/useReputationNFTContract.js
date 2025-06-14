@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import ReputationNFTArtifact from "@/app/abi/ReputationNFT.json";
 import { getDeploymentConfig } from "@/app/utils/getDeployment";
-import { useWallet } from "@/context/WalletContext";
+import { useWallet } from "@context/MockWalletProvider";
 
 export function useReputationNFTContract() {
   const { chainId, signer } = useWallet();

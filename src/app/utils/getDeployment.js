@@ -6,5 +6,5 @@ export async function getDeploymentConfig(chainId) {
     // Add more as needed
   };
   const network = mapping[chainId] || "localhost";
-  return import(`@/config/deployments.${network}.json`).then(mod => mod.default);
+  return import(`evm/frontend/src/config/deployments.${network}.json`).then(mod => mod.default);
 } 

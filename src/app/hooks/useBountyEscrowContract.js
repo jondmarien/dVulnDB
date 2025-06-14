@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import BountyEscrowArtifact from "@/app/abi/BountyEscrow.json";
 import { getDeploymentConfig } from "@/app/utils/getDeployment";
-import { useWallet } from "@/context/WalletContext";
+import { useWallet } from "@context/MockWalletProvider";
 
 export function useBountyEscrowContract() {
   const { chainId, signer } = useWallet();

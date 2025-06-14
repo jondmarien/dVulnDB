@@ -26,6 +26,8 @@ export default function Home() {
 
   const handleEnterDashboard = () => {
     const preservedUrl = preserveMockParam('/dvulndb');
+    
+    console.log('✅ Navigating to DVulnDB app:', preservedUrl);
     router.push(preservedUrl);
   };
 
@@ -62,7 +64,7 @@ export default function Home() {
             onClick={handleEnterDashboard}
             className="px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold text-lg rounded-lg hover:from-green-500 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/25"
           >
-            Enter Dashboard
+            Enter
           </button>
         </div>
         

@@ -16,11 +16,11 @@ export default function Home() {
   }, [connected, router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
-      <div className="text-center max-w-4xl mx-auto px-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
+      <div className="w-full max-w-4xl mx-auto text-center">
         {/* Logo */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-4">
+        <div className="mb-8 flex justify-center">
+          <div className="flex items-center gap-4">
             <span className="text-6xl font-mono text-green-400 glow">▰▱▰</span>
             <h1 className="text-6xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
               DVulnDB
@@ -29,17 +29,21 @@ export default function Home() {
         </div>
         
         {/* Tagline */}
-        <p className="text-2xl text-gray-300 mb-8 font-mono">
-          Decentralized Vulnerability Database
-        </p>
+        <div className="mb-8 flex justify-center">
+          <p className="text-2xl text-gray-300 font-mono">
+            Decentralized Vulnerability Database
+          </p>
+        </div>
         
-        <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-          A modern Web3 vulnerability disclosure and bug bounty platform for cybersecurity professionals. 
-          Connect your wallet to access the dashboard, submit vulnerabilities, and earn bounties.
-        </p>
+        <div className="mb-12 flex justify-center">
+          <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
+            A modern Web3 vulnerability disclosure and bug bounty platform for cybersecurity professionals. 
+            Connect your wallet to access the dashboard, submit vulnerabilities, and earn bounties.
+          </p>
+        </div>
         
         {/* CTA Button */}
-        <div className="mb-12">
+        <div className="mb-12 flex justify-center">
           <button
             onClick={() => router.push('/dvulndb')}
             className="px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold text-lg rounded-lg hover:from-green-500 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/25"
@@ -48,14 +52,26 @@ export default function Home() {
           </button>
         </div>
         
-        {/* Secondary CTA */}
-        <div className="space-y-6">
-          <div className="text-green-400 font-mono text-sm uppercase tracking-wider">
-            Connect your Phantom wallet to get started
+        {/* Tech-styled Connection Info */}
+        <div className="space-y-4 mb-16 flex flex-col items-center">
+          {/* Terminal-style wallet connection */}
+          <div className="bg-black/40 border border-green-400/30 rounded-md px-6 py-3 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-green-400 font-mono text-sm">
+              <span className="text-green-500">$</span>
+              <span className="text-green-300">connect</span>
+              <span className="text-cyan-400">--wallet</span>
+              <span className="text-yellow-400">phantom</span>
+              <span className="animate-pulse text-green-400">█</span>
+            </div>
           </div>
           
-          <div className="text-xs text-gray-500 font-mono">
-            Network: Solana Devnet
+          {/* Status indicator */}
+          <div className="flex items-center gap-2 bg-gray-900/60 border border-gray-600/50 rounded-md px-4 py-2 backdrop-blur-sm">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+            <span className="text-gray-300 font-mono text-xs">
+              <span className="text-cyan-400">NETWORK:</span> 
+              <span className="text-green-400 font-bold">SOLANA_DEVNET</span>
+            </span>
           </div>
         </div>
         

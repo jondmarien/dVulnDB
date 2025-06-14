@@ -29,7 +29,7 @@ export default function TermsOfService() {
         <h2 style={{ color: '#00ff00', marginBottom: '16px' }}>6. Modifications</h2>
         <p style={{ marginBottom: '24px' }}>We reserve the right to modify these terms at any time. Continued use of DVulnDB after changes constitutes acceptance of modified terms.</p>
 
-        <p style={{ color: '#888', fontSize: '14px' }}>Last updated: 2024-01-25</p>
+        <p style={{ color: '#888', fontSize: '14px' }}>Last updated: 2025-06-14</p>
       </div>
     </div>
   );

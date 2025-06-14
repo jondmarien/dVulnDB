@@ -50,7 +50,7 @@ export default function BugBountyPolicy() {
           <li>Reward distribution within 14 days of validation</li>
         </ul>
 
-        <p style={{ color: '#888', fontSize: '14px' }}>Last updated: 2024-01-25</p>
+        <p style={{ color: '#888', fontSize: '14px' }}>Last updated: 2025-06-14</p>
       </div>
     </div>
   );

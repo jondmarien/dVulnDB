@@ -1,60 +1,69 @@
-import { useWallet } from '../../context/WalletContext';
+import { useWallet } from '@context/MockWalletProvider';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { MockWalletMultiButton } from '@context/MockWalletProvider';
+import { useSearchParams } from 'next/navigation';
 
 type HeaderProps = {
   currentSection: string;
   onNavigate: (section: string) => void;
 };
 
-const NAV_LINKS = [
+const PUBLIC_NAV_LINKS = [
   { label: 'Home', section: 'landing' },
-  { label: 'Dashboard', section: 'dashboard' },
   { label: 'Vulnerabilities', section: 'vulnerabilities' },
+];
+
+const PROTECTED_NAV_LINKS = [
+  { label: 'Dashboard', section: 'dashboard' },
   { label: 'Submit', section: 'submit' },
   { label: 'Bounties', section: 'bounties' },
   { label: 'Tools', section: 'tools' },
 ];
 
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
-  const { isConnected, isConnecting, walletInfo, connectWallet } = useWallet();
+  const { connected } = useWallet();
+  const searchParams = useSearchParams();
+  
+  // Initialize mock mode directly from search params to avoid race condition
+  const isMockMode = searchParams.get('mock') === 'true';
+  
+  console.log(' Header: Mock mode detected:', isMockMode);
 
-  let walletContent;
-  if (isConnected && walletInfo) {
-    walletContent = (
-      <div className="wallet-info" id="walletInfo">
-        <div className="wallet-address" id="walletAddress">{walletInfo.address}</div>
-        <div className="wallet-balance" id="walletBalance">{walletInfo.balance}</div>
-      </div>
-    );
-  } else if (isConnecting) {
-    walletContent = (
-      <button className="btn btn--primary wallet-connect-btn" disabled>
-        Connecting...
-      </button>
-    );
-  } else {
-    walletContent = (
-      <button className="btn btn--primary wallet-connect-btn" id="walletConnectBtn" onClick={connectWallet}>
-        Connect Wallet
-      </button>
-    );
-  }
+  // Show public links always, protected links only when connected
+  const visibleNavLinks = [...PUBLIC_NAV_LINKS, ...(connected ? PROTECTED_NAV_LINKS : [])];
+
+  const handleNavigation = (section: string) => {
+    // Preserve mock parameter during navigation
+    if (isMockMode) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('mock', 'true');
+      window.history.replaceState({}, '', url.toString());
+    }
+    
+    onNavigate(section);
+  };
 
   return (
     <header className="header">
       <div className="container header__content">
-        <button className="logo" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} onClick={() => onNavigate('landing')} aria-label="Go to Home">
+        <button 
+          className="logo" 
+          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} 
+          onClick={() => handleNavigation('landing')} 
+          aria-label="Go to Home"
+        >
           <span className="logo__ascii">▰▱▰</span>
           <span className="logo__text">DVulnDB</span>
         </button>
         <nav className="nav">
-          {NAV_LINKS.map(link => (
+          {visibleNavLinks.map(link => (
             <a
               key={link.section}
               href="#"
               className={`nav__link${currentSection === link.section ? ' active' : ''}`}
               onClick={e => {
                 e.preventDefault();
-                onNavigate(link.section);
+                handleNavigation(link.section);
               }}
               data-section={link.section}
             >
@@ -63,11 +72,16 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
           ))}
         </nav>
         <div className="wallet-section">
-          {walletContent}
+          {/* Conditional wallet button: Mock when ?mock=true, Real Phantom wallet otherwise */}
+          {isMockMode ? (
+            <MockWalletMultiButton className="wallet-connect-btn" />
+          ) : (
+            <WalletMultiButton className="wallet-connect-btn" />
+          )}
         </div>
       </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;

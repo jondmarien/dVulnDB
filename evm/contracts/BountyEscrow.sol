@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./interfaces/IBountyEscrow.sol";
 
 /**
@@ -12,7 +12,7 @@ import "./interfaces/IBountyEscrow.sol";
  * @dev Multi-signature validation with time-locked releases
  * @author Jon - ISSessions Cybersecurity Club
  */
-contract BountyEscrow is ReentrancyGuard, Ownable, Pausable, IBountyEscrow {
+abstract contract BountyEscrow is ReentrancyGuard, Ownable, Pausable, IBountyEscrow {
 
     struct EscrowRecord {
         uint256 vulnId;

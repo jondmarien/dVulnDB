@@ -11,7 +11,7 @@ DVulnDB is a next-generation, blockchain-powered vulnerability disclosure and bu
 - **Decentralized CVE Registry:** Store vulnerability records (CVEs) and their CVSS scores directly on-chain for transparency and immutability.
 - **CVSS 4.0 & 3.0 Support:** Full support for official Common Vulnerability Scoring System standards. No custom scoring—only industry standards.
 - **Blockchain-Native Severity Matrix:** Hacken-style severity mapped to CVSS for blockchain-specific findings.
-- **Wallet Integration:** Connect with MetaMask, WalletConnect, or Coinbase Wallet for authentication and rewards.
+- **Wallet Integration:** Connect with Phantom wallet for authentication and rewards.
 - **Bug Bounty Automation:** Smart contract escrow, multi-sig validation, and automatic reward payouts.
 - **Cyberpunk UI:** Matrix-inspired, high-contrast design with animated backgrounds and terminal vibes.
 - **Tooling & API:** Upload outputs from Nmap, Nikto, Burp Suite, or use our PowerShell module for automated submissions.
@@ -20,7 +20,7 @@ DVulnDB is a next-generation, blockchain-powered vulnerability disclosure and bu
 ## 🛠️ Tech Stack
 
 - **Frontend:** Next.js 14, TypeScript, Tailwind CSS
-- **Web3:** Wagmi v2, Viem, Web3Modal
+- **Web3:** Phantom wallet adapter, Solana web3.js
 - **Smart Contracts:** Solana (simulated; mainnet support planned)
 - **Storage:** IPFS for decentralized file storage
 

@@ -22,10 +22,9 @@ The platform embraces a terminal/hacker aesthetic that resonates with cybersecur
 
 ### 1. Wallet Integration
 
-- **MetaMask connectivity** with Web3Modal
-- **Multi-wallet support** (WalletConnect, Coinbase Wallet)
+- **Phantom Wallet Integration:** Connect with Phantom wallet for authentication and rewards.
 - **Real-time balance tracking** and network status
-- **Seamless authentication** through wallet ownership
+- **Seamless authentication** through Phantom wallet
 
 ### 2. Vulnerability Management
 
@@ -64,7 +63,7 @@ The platform embraces a terminal/hacker aesthetic that resonates with cybersecur
 - **Next.js 14** with App Router for modern React development
 - **TypeScript** for type-safe development
 - **Tailwind CSS** for utility-first styling
-- **Wagmi v2 + Viem** for Web3 blockchain interactions
+- **Web3:** Phantom wallet adapter, Solana web3.js for Web3 blockchain interactions
 - **Web3Modal** for wallet connectivity
 
 ### Blockchain Integration

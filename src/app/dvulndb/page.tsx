@@ -32,7 +32,7 @@ function DVulnDBPage() {
   return (
     <ToastProvider>
       <Toasts />
-      <div className="text-lime-500 font-bold bg-gray-900 p-2">DVulnDB PAGE IS RENDERING - Current section: {section}</div>
+      <div className="text-lime-500 font-bold bg-gray-900 p-2">Current section: {section}</div>
       <Header currentSection={section} onNavigate={handleNavigate} />
       <main>
         <Landing isActive={section === 'landing'} onNavigate={handleNavigate} />

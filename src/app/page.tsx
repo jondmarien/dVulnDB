@@ -1,19 +1,33 @@
 'use client';
 
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useWallet } from '@context/MockWalletProvider';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function Home() {
   const { connected } = useWallet();
   const router = useRouter();
 
-  // Auto-redirect to dvulndb if wallet is already connected
-  useEffect(() => {
-    if (connected) {
-      router.push('/dvulndb');
+  // Removed aggressive auto-redirect - let users navigate freely
+  // Users can manually click "Enter Dashboard" if they want to go to /dvulndb
+
+  // Preserve mock mode parameter when navigating
+  const preserveMockParam = (path: string) => {
+    if (typeof window === 'undefined') return path;
+    const urlParams = new URLSearchParams(window.location.search);
+    const isMock = urlParams.get('mock') === 'true';
+    
+    if (isMock) {
+      console.log('🎭 Preserving mock mode for navigation to:', path);
+      return `${path}?mock=true`;
     }
-  }, [connected, router]);
+    
+    return path;
+  };
+
+  const handleEnterDashboard = () => {
+    const preservedUrl = preserveMockParam('/dvulndb');
+    router.push(preservedUrl);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
@@ -45,12 +59,26 @@ export default function Home() {
         {/* CTA Button */}
         <div className="mb-12 flex justify-center">
           <button
-            onClick={() => router.push('/dvulndb')}
+            onClick={handleEnterDashboard}
             className="px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold text-lg rounded-lg hover:from-green-500 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/25"
           >
             Enter Dashboard
           </button>
         </div>
+        
+        {/* Connection Status Indicator */}
+        {connected && (
+          <div className="mb-8 flex justify-center">
+            <div className="bg-green-900/40 border border-green-400/50 rounded-md px-4 py-2 backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-green-400 font-mono text-sm">
+                  Wallet Connected
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Tech-styled Connection Info */}
         <div className="space-y-4 mb-16 flex flex-col items-center">

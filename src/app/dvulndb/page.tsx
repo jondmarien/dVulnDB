@@ -9,7 +9,7 @@ import Toasts from '@components/dvulndb/Toasts';
 import Tools from '@components/dvulndb/Tools';
 import Vulnerabilities from '@components/dvulndb/Vulnerabilities';
 import { ToastProvider } from '@context/ToastContext';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useWallet } from '@context/MockWalletProvider';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -27,7 +27,7 @@ const PROTECTED_SECTIONS = ['dashboard', 'submit', 'bounties', 'tools'];
 
 export default function DVulnDBPage() {
   const [section, setSection] = useState('landing');
-  const { connected, connecting } = useWallet();
+  const { connected } = useWallet();
   const router = useRouter();
 
   const handleNavigate = (target: string) => {
@@ -46,11 +46,11 @@ export default function DVulnDBPage() {
 
   // Auto-redirect to landing if accessing protected section without wallet
   useEffect(() => {
-    if (PROTECTED_SECTIONS.includes(section) && !connecting && !connected) {
+    if (PROTECTED_SECTIONS.includes(section) && !connected) {
       console.log(' Auto-redirect: Protected section accessed without wallet');
       setSection('landing');
     }
-  }, [connected, connecting, section]);
+  }, [connected, section]);
 
   console.log('Current section:', section);
 

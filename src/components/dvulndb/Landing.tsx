@@ -1,7 +1,5 @@
 "use client";
-import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useEffect } from 'react';
+import { useWallet } from '@context/MockWalletProvider';
 
 interface LandingProps {
   isActive: boolean;
@@ -11,11 +9,8 @@ interface LandingProps {
 const Landing = ({ isActive, onNavigate }: LandingProps) => {
   const { publicKey } = useWallet();
 
-  useEffect(() => {
-    if (publicKey) {
-      onNavigate('dashboard');
-    }
-  }, [publicKey, onNavigate]);
+  // Removed aggressive auto-redirect to dashboard - let users stay on landing if they want
+  // Users can manually navigate to dashboard via nav links when connected
 
   return (
     <section className={`section section--landing${isActive ? ' active' : ''}`} id="landing">
@@ -46,8 +41,17 @@ const Landing = ({ isActive, onNavigate }: LandingProps) => {
                 <div className="stat-card__label">Researchers</div>
               </div>
             </div>
-            {/* TODO: Fix WalletMultiButton custom children rendering 'CONNECTING >> CONNECTED'. */}
-            <WalletMultiButton className="btn btn--primary btn--lg hero__cta" />
+            {/* Wallet button removed - only use header wallet button */}
+            {publicKey && (
+              <div className="mt-6">
+                <button
+                  onClick={() => onNavigate('dashboard')}
+                  className="btn btn--secondary btn--sm"
+                >
+                  Go to Dashboard →
+                </button>
+              </div>
+            )}
           </div>
           <div className="hero__visual">
             <div className="matrix-bg"></div>
@@ -70,4 +74,4 @@ const Landing = ({ isActive, onNavigate }: LandingProps) => {
   );
 };
 
-export default Landing; 
+export default Landing;

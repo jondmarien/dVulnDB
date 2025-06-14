@@ -1,7 +1,7 @@
 "use client";
 
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useRouter } from 'next/navigation';
+import { useWallet } from '@context/MockWalletProvider';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, ReactNode } from 'react';
 
 interface ProtectedRouteProps {
@@ -13,6 +13,7 @@ interface ProtectedRouteProps {
 /**
  * Higher-Order Component for protecting routes that require wallet connection
  * Redirects to landing page if wallet is not connected
+ * Allows access in mock mode even when disconnected for testing
  */
 const ProtectedRoute = ({ 
   children, 
@@ -21,9 +22,19 @@ const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const { connected, connecting } = useWallet();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  // Check if we're in mock mode
+  const isMockMode = searchParams.get('mock') === 'true';
 
   useEffect(() => {
-    // Only redirect if not connecting and not connected
+    // In mock mode, allow access even when disconnected so users can connect
+    if (isMockMode) {
+      console.log('🎭 ProtectedRoute: Mock mode detected, allowing access for wallet interaction');
+      return;
+    }
+    
+    // Only redirect if not connecting and not connected (real wallet mode only)
     if (!connecting && !connected) {
       console.log('🚫 ProtectedRoute: Wallet not connected, redirecting to:', fallbackRoute);
       
@@ -35,7 +46,7 @@ const ProtectedRoute = ({
       
       router.push(fallbackRoute);
     }
-  }, [connected, connecting, router, fallbackRoute, showToast]);
+  }, [connected, connecting, router, fallbackRoute, showToast, isMockMode]);
 
   // Show loading state while connecting
   if (connecting) {
@@ -49,7 +60,12 @@ const ProtectedRoute = ({
     );
   }
 
-  // If not connected and not connecting, return null (redirect will happen)
+  // In mock mode, always render content to allow wallet interaction
+  if (isMockMode) {
+    return <>{children}</>;
+  }
+
+  // If not connected and not connecting (real wallet mode), return null (redirect will happen)
   if (!connected) {
     return null;
   }

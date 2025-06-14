@@ -9,9 +9,8 @@ import Toasts from '@components/dvulndb/Toasts';
 import Tools from '@components/dvulndb/Tools';
 import Vulnerabilities from '@components/dvulndb/Vulnerabilities';
 import { ToastProvider } from '@context/ToastContext';
-import { useWallet } from '@context/MockWalletProvider';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import ProtectedRoute from '@components/auth/ProtectedRoute';
+import { useState } from 'react';
 
 const SECTIONS = [
   'landing',
@@ -22,37 +21,13 @@ const SECTIONS = [
   'tools',
 ];
 
-// Protected sections that require wallet connection
-const PROTECTED_SECTIONS = ['dashboard', 'submit', 'bounties', 'tools'];
-
-export default function DVulnDBPage() {
+function DVulnDBPage() {
   const [section, setSection] = useState('landing');
-  const { connected } = useWallet();
-  const router = useRouter();
 
   const handleNavigate = (target: string) => {
     if (!SECTIONS.includes(target)) return;
-    
-    // Check if trying to access protected section without wallet
-    if (PROTECTED_SECTIONS.includes(target) && !connected) {
-      console.log(' Access denied: Protected section requires wallet connection');
-      // Redirect to home page for better UX
-      router.push('/');
-      return;
-    }
-    
     setSection(target);
   };
-
-  // Auto-redirect to landing if accessing protected section without wallet
-  useEffect(() => {
-    if (PROTECTED_SECTIONS.includes(section) && !connected) {
-      console.log(' Auto-redirect: Protected section accessed without wallet');
-      setSection('landing');
-    }
-  }, [connected, section]);
-
-  console.log('Current section:', section);
 
   return (
     <ToastProvider>
@@ -69,5 +44,14 @@ export default function DVulnDBPage() {
       </main>
       <Footer />
     </ToastProvider>
+  );
+}
+
+// Wrap the entire page with ProtectedRoute to ensure wallet connection before access
+export default function ProtectedDVulnDBPage() {
+  return (
+    <ProtectedRoute fallbackRoute="/" showToast={true}>
+      <DVulnDBPage />
+    </ProtectedRoute>
   );
 }

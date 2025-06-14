@@ -1,7 +1,7 @@
 import { useWallet } from '@context/MockWalletProvider';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { MockWalletMultiButton } from '@context/MockWalletProvider';
-import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 type HeaderProps = {
   currentSection: string;
@@ -22,34 +22,19 @@ const PROTECTED_NAV_LINKS = [
 
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
   const { connected } = useWallet();
-  const [isMockMode, setIsMockMode] = useState(false);
+  const searchParams = useSearchParams();
   
-  // Check mock mode on client side only
-  useEffect(() => {
-    const checkMockMode = () => {
-      const mockMode = typeof window !== 'undefined' && window.location.search.includes('mock=true');
-      setIsMockMode(mockMode);
-      // Reduced logging frequency
-      if (mockMode !== isMockMode) {
-        console.log('🎭 Header mock mode detected:', mockMode);
-      }
-    };
-    
-    checkMockMode();
-    
-    // Listen for URL changes to update mock mode
-    const handleUrlChange = () => checkMockMode();
-    window.addEventListener('popstate', handleUrlChange);
-    
-    return () => window.removeEventListener('popstate', handleUrlChange);
-  }, [isMockMode]);
+  // Initialize mock mode directly from search params to avoid race condition
+  const isMockMode = searchParams.get('mock') === 'true';
   
+  console.log(' Header: Mock mode detected:', isMockMode);
+
   // Show public links always, protected links only when connected
   const visibleNavLinks = [...PUBLIC_NAV_LINKS, ...(connected ? PROTECTED_NAV_LINKS : [])];
 
   const handleNavigation = (section: string) => {
     // Preserve mock parameter during navigation
-    if (typeof window !== 'undefined' && isMockMode) {
+    if (isMockMode) {
       const url = new URL(window.location.href);
       url.searchParams.set('mock', 'true');
       window.history.replaceState({}, '', url.toString());

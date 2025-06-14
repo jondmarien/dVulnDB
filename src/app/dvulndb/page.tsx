@@ -58,7 +58,7 @@ export default function ProtectedDVulnDBPage() {
         </div>
       </div>
     }>
-      <ProtectedRoute fallbackRoute="/" showToast={true}>
+      <ProtectedRoute>
         <DVulnDBPage />
       </ProtectedRoute>
     </Suspense>

@@ -92,6 +92,42 @@ body::before {
   z-index: -1;
 }
 
+/* Fade Animations */
+.fade-anim {
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+/* Rich fade for dashboard/landing transitions */
+.fade-in {
+  animation: fadeInSection 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.fade-out {
+  animation: fadeOutSection 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes fadeOutSection {
+  0% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #00ff41);
+  }
+  80% {
+    filter: drop-shadow(0 0 30px #00ff41);
+  }
+  100% {
+    opacity: 0;
+    filter: drop-shadow(0 0 0 #00ff41);
+  }
+}
+@keyframes fadeInSection {
+  0% {
+    opacity: 0;
+    filter: drop-shadow(0 0 30px #00ff41);
+  }
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #00ff41);
+  }
+}
+
+
 /* DVulnDB Global Styles */
 
 :root {

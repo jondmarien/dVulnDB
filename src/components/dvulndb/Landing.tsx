@@ -1,5 +1,6 @@
 "use client";
 import { useWallet } from '@context/MockWalletProvider';
+import React, { useRef, useState } from 'react';
 
 interface LandingProps {
   isActive: boolean;
@@ -8,12 +9,24 @@ interface LandingProps {
 
 const Landing = ({ isActive, onNavigate }: LandingProps) => {
   const { publicKey } = useWallet();
+  const [isFading, setIsFading] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Removed aggressive auto-redirect to dashboard - let users stay on landing if they want
-  // Users can manually navigate to dashboard via nav links when connected
+  // Fade out then navigate
+  const handleFadeAndNavigate = () => {
+    setIsFading(true);
+    setTimeout(() => {
+      onNavigate('dashboard');
+      setIsFading(false);
+    }, 500); // Duration matches CSS
+  };
 
   return (
-    <section className={`section section--landing${isActive ? ' active' : ''}`} id="landing">
+    <section
+      ref={sectionRef}
+      className={`section section--landing${isActive ? ' active' : ''}${isFading ? ' fade-out' : ''}`}
+      id="landing"
+    >
       <div className="container">
         <div className="hero">
           <div className="hero__content">
@@ -45,7 +58,7 @@ const Landing = ({ isActive, onNavigate }: LandingProps) => {
             {publicKey && (
               <div className="mt-6">
                 <button
-                  onClick={() => onNavigate('dashboard')}
+                  onClick={handleFadeAndNavigate}
                   className="btn btn--secondary btn--sm"
                 >
                   Go to Dashboard →

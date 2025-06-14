@@ -192,7 +192,7 @@ These features will ensure DVulnDB remains interoperable with the global securit
 
 ## 🔗 Blockchain CVE Severity Scale (Hacken Methodology)
 
-DVulnDB supports blockchain-specific CVEs and severity scoring, following the Hacken methodology as described in [Hacken Pentesting Methodology](https://docs.hacken.io/methodologies/pentesting), section 06. This approach combines exploitation difficulty and access level to determine severity, and maps directly to CVSS for global compatibility.
+DVulnDB supports blockchain-specific CVEs and severity scoring, following the Hacken methodology as described in [Hacken Pentesting Methodology](https://docs.hacken.io/methodologies/pentesting/#06-severity-scoring-scale). This approach combines exploitation difficulty and access level to determine severity, and maps directly to CVSS for global compatibility.
 
 ### Severity Matrix
 

@@ -6,28 +6,23 @@ type HeaderProps = {
   onNavigate: (section: string) => void;
 };
 
-const NAV_LINKS = [
+const PUBLIC_NAV_LINKS = [
   { label: 'Home', section: 'landing' },
-  { label: 'Dashboard', section: 'dashboard' },
   { label: 'Vulnerabilities', section: 'vulnerabilities' },
+];
+
+const PROTECTED_NAV_LINKS = [
+  { label: 'Dashboard', section: 'dashboard' },
   { label: 'Submit', section: 'submit' },
   { label: 'Bounties', section: 'bounties' },
   { label: 'Tools', section: 'tools' },
 ];
 
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
-  const { publicKey } = useWallet();
-
-  let walletContent;
-  if (publicKey) {
-    walletContent = (
-      <div className="wallet-info" id="walletInfo">
-        <div className="wallet-address" id="walletAddress">{publicKey.toBase58()}</div>
-      </div>
-    );
-  } else {
-    walletContent = <WalletMultiButton className="wallet-connect-btn" />;
-  }
+  const { connected } = useWallet();
+  
+  // Show public links always, protected links only when connected
+  const visibleNavLinks = [...PUBLIC_NAV_LINKS, ...(connected ? PROTECTED_NAV_LINKS : [])];
 
   return (
     <header className="header">
@@ -37,7 +32,7 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
           <span className="logo__text">DVulnDB</span>
         </button>
         <nav className="nav">
-          {NAV_LINKS.map(link => (
+          {visibleNavLinks.map(link => (
             <a
               key={link.section}
               href="#"
@@ -53,11 +48,11 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
           ))}
         </nav>
         <div className="wallet-section">
-          {walletContent}
+          <WalletMultiButton className="wallet-connect-btn" />
         </div>
       </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;

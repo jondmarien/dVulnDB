@@ -1,106 +1,82 @@
-import Image from "next/image";
+'use client';
 
-import { redirect } from 'next/navigation';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home() {
-  redirect('/dvulndb');
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { connected } = useWallet();
+  const router = useRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Auto-redirect to dvulndb if wallet is already connected
+  useEffect(() => {
+    if (connected) {
+      router.push('/dvulndb');
+    }
+  }, [connected, router]);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
+      <div className="text-center max-w-4xl mx-auto px-6">
+        {/* Logo */}
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-4">
+            <span className="text-6xl font-mono text-green-400 glow">▰▱▰</span>
+            <h1 className="text-6xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+              DVulnDB
+            </h1>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        
+        {/* Tagline */}
+        <p className="text-2xl text-gray-300 mb-8 font-mono">
+          Decentralized Vulnerability Database
+        </p>
+        
+        <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+          A modern Web3 vulnerability disclosure and bug bounty platform for cybersecurity professionals. 
+          Connect your wallet to access the dashboard, submit vulnerabilities, and earn bounties.
+        </p>
+        
+        {/* CTA Button */}
+        <div className="mb-12">
+          <button
+            onClick={() => router.push('/dvulndb')}
+            className="px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold text-lg rounded-lg hover:from-green-500 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/25"
+          >
+            Enter Dashboard
+          </button>
+        </div>
+        
+        {/* Secondary CTA */}
+        <div className="space-y-6">
+          <div className="text-green-400 font-mono text-sm uppercase tracking-wider">
+            Connect your Phantom wallet to get started
+          </div>
+          
+          <div className="text-xs text-gray-500 font-mono">
+            Network: Solana Devnet
+          </div>
+        </div>
+        
+        {/* Feature highlights */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+          <div className="p-6 bg-black/30 border border-green-400/20 rounded-lg">
+            <h3 className="text-green-400 font-semibold mb-2">🔒 Secure Reporting</h3>
+            <p className="text-gray-400 text-sm">Submit vulnerability reports with cryptographic proof and immutable records.</p>
+          </div>
+          
+          <div className="p-6 bg-black/30 border border-green-400/20 rounded-lg">
+            <h3 className="text-green-400 font-semibold mb-2">💰 Bounty System</h3>
+            <p className="text-gray-400 text-sm">Earn rewards for valid vulnerability disclosures through our decentralized bounty system.</p>
+          </div>
+          
+          <div className="p-6 bg-black/30 border border-green-400/20 rounded-lg">
+            <h3 className="text-green-400 font-semibold mb-2">🛠️ Security Tools</h3>
+            <p className="text-gray-400 text-sm">Access professional security tools and resources for vulnerability research.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

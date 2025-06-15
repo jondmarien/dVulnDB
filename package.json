@@ -14,6 +14,7 @@
     "deploy:custom": "cd evm && hardhat run deploy/deploy.js --network localhost"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
     "@ethereumjs/block": "^10.0.0",
     "@ethereumjs/common": "^10.0.0",
     "@ethereumjs/tx": "^10.0.0",

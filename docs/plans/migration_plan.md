@@ -1,3 +1,5 @@
+> **Workflow Note:** Always work in a preview branch/environment, and only merge to main after verification. This is the project's standard workflow.
+
 Step 1: Clean Up and Prepare the Project Structure
 Goals:
 Clarify the separation between EVM (Ethereum) and Solana code.

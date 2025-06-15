@@ -1,10 +1,10 @@
-# DVulnDB
+# dVulnDB
 
 Decentralized Vulnerability Database & Bug Bounty Platform
 
 ---
 
-DVulnDB is a next-generation, blockchain-powered vulnerability disclosure and bug bounty platform for cybersecurity professionals. It combines industry-standard CVSS scoring (4.0/3.0), blockchain-native CVE storage, cyberpunk UI, and seamless wallet integration to deliver a transparent, tamper-proof, and community-driven security ecosystem.
+dVulnDB is a next-generation, blockchain-powered vulnerability disclosure and bug bounty platform for cybersecurity professionals. It combines industry-standard CVSS scoring (4.0/3.0), blockchain-native CVE storage, cyberpunk UI, and seamless wallet integration to deliver a transparent, tamper-proof, and community-driven security ecosystem.
 
 ## 🚀 Key Features
 

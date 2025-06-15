@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "anchor/programs/bounty_escrow"
+]
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[programs.localnet]
+bounty_escrow = "BountyEscrow11111111111111111111111111111111"

@@ -20,6 +20,8 @@
 # production
 /build
 /artifacts
+/target
+/anchor/target
 
 # misc
 .DS_Store

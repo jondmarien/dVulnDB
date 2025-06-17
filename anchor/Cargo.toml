@@ -1,0 +1,14 @@
+[workspace]
+members = [
+    "programs/*"
+]
+resolver = "2"
+
+[profile.release]
+overflow-checks = true
+
+[workspace.dependencies]
+anchor-lang = "0.31.0"
+# Uncomment if you want anchor-spl available for all programs
+# anchor-spl = "0.31.0"
+

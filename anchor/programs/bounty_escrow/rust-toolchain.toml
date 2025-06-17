@@ -1,0 +1,5 @@
+[toolchain]
+channel = "solana"
+targets = ["bpfel-unknown-unknown"]
+profile = "minimal"
+

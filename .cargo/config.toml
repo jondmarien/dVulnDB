@@ -1,0 +1,17 @@
+[build]
+target = "x86_64-unknown-linux-gnu"
+
+[unstable]
+build-std = ["std", "core", "alloc"]
+build-std-features = ["compiler-builtins-mem"]
+
+[target.x86_64-unknown-linux-gnu]
+linker = "gcc"
+
+[target.sbpf-solana-solana]
+linker = "platform-tools/llvm/bin/ld.lld"
+
+[env]
+CC = "gcc"
+CXX = "g++"
+

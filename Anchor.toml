@@ -9,3 +9,6 @@ wallet = "~/.config/solana/id.json"
 
 [programs.localnet]
 bounty_escrow = "BountyEscrow11111111111111111111111111111111"
+
+[toolchain]
+anchor_version = "0.31.0"

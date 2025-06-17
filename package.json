@@ -51,7 +51,10 @@
     "@coral-xyz/anchor": "^0.31.0",
     "@eslint/eslintrc": "^3",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.10",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -61,6 +64,7 @@
     "hardhat": "^2.24.3",
     "hardhat-deploy": "^1.0.2",
     "pino-pretty": "^13.0.0",
+    "postcss-nesting": "^13.0.2",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "typescript": "^5"

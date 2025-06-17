@@ -38,13 +38,8 @@ export function AppKitProviderWrapper({ children }: { children: React.ReactNode 
           adapters: [solanaWeb3JsAdapter],
           themeVariables: {
             '--w3m-font-family': 'monospace',
-            '--w3m-z-index': '1000',
+            '--w3m-z-index': 1000,
           },
-          modalOptions: {
-            themeMode: 'dark',
-            privacyPolicyUrl: `${metadata.url}/legal/privacy`,
-            termsOfServiceUrl: `${metadata.url}/legal/terms`,
-          }
         });
         console.log('AppKit initialized successfully.');
       } catch (error) {

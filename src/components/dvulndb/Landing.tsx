@@ -10,7 +10,7 @@ interface LandingProps {
 
 const Landing = ({ isActive, onNavigate }: LandingProps) => {
   const searchParams = useSearchParams();
-  const { isConnected, address } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   const isMockMode = searchParams.get('mock') === 'true';
   const effectiveIsConnected = isMockMode || isConnected;
   const [isFading, setIsFading] = useState(false);

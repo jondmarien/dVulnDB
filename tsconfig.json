@@ -62,6 +62,7 @@
   "exclude": [
     "node_modules",
     "Backups",
-    "anchor"
+    "anchor",
+    "gen_app"
   ]
 }

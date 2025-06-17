@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useAppKitAccount } from '@reown/appkit/react';
 import HamburgerMenu from '../layout/HamburgerMenu';
+import styles from './Header.module.css';
 
 type HeaderProps = {
   currentSection: string;
@@ -23,7 +24,7 @@ const PROTECTED_NAV_LINKS = [
 
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
   const searchParams = useSearchParams();
-  const { isConnected, address } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   
   // Initialize mock mode directly from search params
   const isMockMode = searchParams.get('mock') === 'true';
@@ -50,8 +51,7 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
     <header className="header">
       <div className="container header__content">
         <button 
-          className="logo" 
-          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} 
+          className={`logo ${styles.logoButton}`} 
           onClick={() => handleNavigation('landing')} 
           aria-label="Go to Home"
         >

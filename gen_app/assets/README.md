@@ -410,8 +410,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Discord**: [ISSessions Community](https://discord.gg/issessions)
 - **Twitter**: [@ISSessions](https://twitter.com/issessions)
-- **Email**: security@issessions.com
-- **Documentation**: [dvulndb.issessions.com](https://dvulndb.issessions.com)
+- **Email**: security@chron0.tech
+- **Documentation**: [dvulndb.chron0.tech](https://dvulndb.chron0.tech)
 
 ---
 

@@ -28,3 +28,10 @@ We are currently debugging two issues that appeared after the latest implementat
 2.  **AppKit Mobile Error:** When connecting a wallet on mobile, a toast notification appears with an "Invalid app configuration" error, although the connection seems to succeed.
 
 The immediate plan is to resolve the CSS issue with the hamburger menu and then investigate the AppKit configuration to fix the mobile error.
+
+4.  **Connect Wallet Button Redesign:**
+    *   Overhauled the `<appkit-button>` to match a terminal command aesthetic.
+    *   Removed the default pill shape and background, replacing it with a transparent background and a sharp, glowing green border.
+    *   Used CSS pseudo-elements (`::before` and `::after`) to set the button text to `> connect --wallet`, ensuring the text is not selectable and part of the style.
+    *   Imported and applied the "JetBrains Mono" font to the button for an authentic terminal look.
+    *   The button now has a hover effect that intensifies the glow, enhancing the interactive feel.

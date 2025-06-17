@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { createAppKit } from '@reown/appkit/react';
-import { SolanaAdapter } from '@reown/appkit-adapter-solana/react';
-import { solana, solanaDevnet, solanaTestnet } from '@reown/appkit/networks';
+import { SolanaAdapter } from '@reown/appkit-adapter-solana';
+import { solana, solanaDevnet } from '@reown/appkit/networks';
 
 // Ensure this component is only rendered on the client
 export function AppKitProviderWrapper({ children }: { children: React.ReactNode }) {
@@ -24,7 +24,7 @@ export function AppKitProviderWrapper({ children }: { children: React.ReactNode 
       const metadata = {
         name: 'DVulnDB',
         description: 'Decentralized Vulnerability Database',
-        url: typeof window !== 'undefined' ? window.location.origin : 'https://dvulndb.com',
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://dvulndb.chron0.tech',
         icons: typeof window !== 'undefined' ? [new URL('/logo.png', window.location.origin).toString()] : ['/logo.png'],
       };
 

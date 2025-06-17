@@ -899,6 +899,7 @@ appkit-button {
   width: 100%;
   height: 100%;
   background: rgba(10, 10, 10, 0.95);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
@@ -938,6 +939,7 @@ appkit-button {
   position: sticky;
   top: 0;
   z-index: 100;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -1610,6 +1612,7 @@ appkit-button {
   border-radius: var(--radius-base);
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .cvss-slider::-webkit-slider-thumb {
@@ -2359,4 +2362,51 @@ appkit-button {
   0% { transform: translateY(0); opacity: 0.6; }
   50% { transform: translateY(10px); opacity: 0.8; }
   100% { transform: translateY(0); opacity: 0.6; }
+}
+
+/* Custom Terminal-Style appkit-button */
+appkit-button {
+  --w3m-font-family: var(--font-jetbrains-mono), monospace !important;
+  --w3m-border-radius-master: 0px !important;
+  --w3m-accent-color: #00ff41 !important;
+  --w3m-color-mix: #00ff41 !important;
+}
+
+appkit-button::part(button) {
+  background: transparent !important;
+  border: 1px solid rgba(0, 255, 65, 0.4) !important;
+  border-radius: 0 !important;
+  padding: 10px 15px !important;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  color: transparent !important; /* Hide original text */
+  min-width: 220px; /* Ensure enough space for the new text */
+}
+
+appkit-button::part(button)::before {
+  content: '> ';
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00ff41;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 1rem;
+}
+
+appkit-button::part(button)::after {
+  content: 'connect --wallet';
+  position: absolute;
+  left: 35px; /* Position after the '>' */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00ff41;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 1rem;
+}
+
+appkit-button::part(button):hover {
+  background: rgba(0, 255, 65, 0.1) !important;
+  border-color: #00ff41 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }

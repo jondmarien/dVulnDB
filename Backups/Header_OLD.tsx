@@ -2,6 +2,8 @@ import { useWallet } from '@context/MockWalletProvider';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { MockWalletMultiButton } from '@context/MockWalletProvider';
 import { useSearchParams } from 'next/navigation';
+import React, { useRef, useState } from 'react';
+import { WalletDropdown } from '../src/components/dvulndb/WalletDropdown';
 
 type HeaderProps = {
   currentSection: string;
@@ -23,6 +25,8 @@ const PROTECTED_NAV_LINKS = [
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
   const { connected } = useWallet();
   const searchParams = useSearchParams();
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const walletBtnRef = useRef<HTMLButtonElement>(null);
   
   // Initialize mock mode directly from search params to avoid race condition
   const isMockMode = searchParams.get('mock') === 'true';

@@ -816,7 +816,119 @@ body {
   --color-terminal-green: #0dbc79;
   --color-warning-red: #ff3333;
   --color-status-blue: #00b4d8;
+  --neon-green: #33cc33;
 }
+
+/* Custom AppKit Button Styling for Terminal Look */
+appkit-button {
+  /* Force the button's own background and borders to be invisible */
+  --w3m-background-color: transparent !important;
+  --w3m-accent: transparent !important;
+  --w3m-color-mix: transparent !important;
+  --w3m-border-radius: 0px !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.wallet-connect-btn-wrapper {
+  position: relative;
+  display: flex; /* Use flexbox for alignment */
+  align-items: center;
+  border: 1px solid var(--neon-green);
+  padding: 8px 12px;
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), inset 0 0 5px var(--neon-green);
+  background-color: #0d0d0d; /* Dark terminal background */
+  color: var(--neon-green);
+}
+
+.wallet-connect-btn-wrapper::before {
+  content: '> ';
+  font-family: monospace;
+  color: var(--neon-green);
+  margin-right: 8px; /* Space between prompt and button text */
+  text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+  display: none; /* Hidden by default on desktop */
+  position: relative;
+  z-index: 1100; /* Ensure it's above other header content */
+}
+
+.hamburger-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+.hamburger-icon span {
+  width: 2rem;
+  height: 0.25rem;
+  background: var(--neon-green);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.hamburger-icon.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.menu-nav__link {
+  font-family: 'monospace', 'Courier New', Courier;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.menu-nav__link:hover,
+.menu-nav__link.active {
+  color: #fff;
+  text-shadow: 0 0 10px #fff, 0 0 15px var(--neon-green);
+}
+
 
 /* Header Styles */
 .header {

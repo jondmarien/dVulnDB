@@ -40,7 +40,7 @@ export const WalletProviderWrapper: React.FC<WalletProviderWrapperProps> = ({ ch
           network,
           options: {
             relayUrl: 'wss://relay.walletconnect.com',
-            projectId: 'db145dc6aa39360feedd31479c219bca', // Your WalletConnect Project ID
+            projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
             metadata: {
               name: 'DVulnDB',
               description: 'Decentralized Vulnerability Database',

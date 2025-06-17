@@ -1,10 +1,8 @@
 'use client';
 
-import { useWallet } from '@context/MockWalletProvider';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { MockWalletMultiButton } from '@context/MockWalletProvider';
 import { useSearchParams } from 'next/navigation';
-import { CustomWalletMultiButton } from './CustomWalletMultiButton';
+import { useAppKitAccount } from '@reown/appkit/react';
+import HamburgerMenu from '../layout/HamburgerMenu';
 
 type HeaderProps = {
   currentSection: string;
@@ -24,16 +22,18 @@ const PROTECTED_NAV_LINKS = [
 ];
 
 const Header = ({ currentSection, onNavigate }: HeaderProps) => {
-  const { connected } = useWallet();
   const searchParams = useSearchParams();
+  const { isConnected, address } = useAppKitAccount();
   
-  // Initialize mock mode directly from search params to avoid race condition
+  // Initialize mock mode directly from search params
   const isMockMode = searchParams.get('mock') === 'true';
-  
-  console.log(' Header: Mock mode detected:', isMockMode);
 
-  // Show public links always, protected links only when connected
-  const visibleNavLinks = [...PUBLIC_NAV_LINKS, ...(connected ? PROTECTED_NAV_LINKS : [])];
+  // Determine effective connection state for UI logic
+  const effectiveIsConnected = isMockMode || isConnected;
+  // const effectiveAddress = isMockMode ? '0xMockWalletAddress...123' : address; // For future use if needed
+
+  // Show public links always, protected links only when effectively connected
+  const visibleNavLinks = [...PUBLIC_NAV_LINKS, ...(effectiveIsConnected ? PROTECTED_NAV_LINKS : [])];
 
   const handleNavigation = (section: string) => {
     // Preserve mock parameter during navigation
@@ -74,12 +74,15 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
             </a>
           ))}
         </nav>
+        <HamburgerMenu 
+          navLinks={visibleNavLinks}
+          onNavigate={handleNavigation}
+          currentSection={currentSection}
+        />
         <div className="wallet-section">
-          {isMockMode ? (
-            <MockWalletMultiButton className="wallet-connect-btn" />
-          ) : (
-            <CustomWalletMultiButton className="wallet-connect-btn" />
-          )}
+            <div className="wallet-connect-btn-wrapper">
+              <appkit-button />
+            </div>
         </div>
       </div>
     </header>

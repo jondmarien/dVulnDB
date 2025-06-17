@@ -1,7 +1,7 @@
 "use client";
 
-import { useWallet } from '@context/MockWalletProvider';
 import { useSearchParams } from 'next/navigation';
+import { useAppKitAccount } from '@reown/appkit/react';
 import { useEffect, ReactNode } from 'react';
 
 interface ProtectedRouteProps {
@@ -15,7 +15,10 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ 
   children 
 }: ProtectedRouteProps) => {
-  const { connected, connecting } = useWallet();
+  const { isConnected } = useAppKitAccount();
+  // The 'connecting' state from the old useWallet isn't directly available in useAppKitAccount.
+  // If a pending state is crucial, we might need to use useAppKitWallet's isPending state.
+  // For now, we'll proceed without a direct 'connecting' equivalent.
   const searchParams = useSearchParams();
   
   // Check if we're in mock mode
@@ -25,27 +28,16 @@ const ProtectedRoute = ({
     // Log the current authentication state for debugging
     if (isMockMode) {
       console.log('🎭 ProtectedRoute: Mock mode detected, showing page for wallet interaction');
-    } else if (!connected && !connecting) {
+    } else if (!isConnected) {
       console.log('🔒 ProtectedRoute: Wallet not connected, showing page with connect options');
-    } else if (connected) {
+    } else if (isConnected) {
       console.log('✅ ProtectedRoute: Wallet connected, showing protected content');
     }
-  }, [connected, connecting, isMockMode]);
+  }, [isConnected, isMockMode]);
 
-  // Show loading state while connecting
-  if (connecting) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-400 mx-auto mb-4"></div>
-          <p className="text-green-400 font-mono">Connecting to wallet...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Always render the children - let the individual page components handle authentication state
-  // This allows users to see the page and connect their wallet
+  // For now, ProtectedRoute will always render its children.
+  // Individual components/pages should use useAppKitAccount() to determine 
+  // what to display based on connection status and mock mode.
   return <>{children}</>;
 };
 

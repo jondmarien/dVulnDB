@@ -1,6 +1,7 @@
 "use client";
-import { useWallet } from '@context/MockWalletProvider';
 import React, { useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useAppKitAccount } from '@reown/appkit/react';
 
 interface LandingProps {
   isActive: boolean;
@@ -8,7 +9,10 @@ interface LandingProps {
 }
 
 const Landing = ({ isActive, onNavigate }: LandingProps) => {
-  const { publicKey } = useWallet();
+  const searchParams = useSearchParams();
+  const { isConnected, address } = useAppKitAccount();
+  const isMockMode = searchParams.get('mock') === 'true';
+  const effectiveIsConnected = isMockMode || isConnected;
   const [isFading, setIsFading] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +59,7 @@ const Landing = ({ isActive, onNavigate }: LandingProps) => {
               </div>
             </div>
             {/* Wallet button removed - only use header wallet button */}
-            {publicKey && (
+            {effectiveIsConnected && (
               <div className="mt-6">
                 <button
                   onClick={handleFadeAndNavigate}

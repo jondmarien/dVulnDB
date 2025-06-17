@@ -1,13 +1,13 @@
 "use client";
 
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { SolanaMobileWalletAdapter, AppIdentity } from '@solana-mobile/wallet-adapter-mobile';
 import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { useMemo } from 'react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 
 import { MockWalletProvider } from './MockWalletProvider';
 
@@ -24,32 +24,39 @@ const isMockMode = () => {
 export const WalletProviderWrapper: React.FC<WalletProviderWrapperProps> = ({ children }) => {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-    const wallets = useMemo(() => {
-    const isMobile = typeof window !== 'undefined' && /Mobi|Android/i.test(navigator.userAgent);
 
-            if (isMobile) {
-        console.log('📱 Mobile device detected, using WalletConnect adapter.');
-        return [
-            new WalletConnectWalletAdapter({
-                network,
-                options: {
-                    relayUrl: 'wss://relay.walletconnect.com',
-                    projectId: 'db145dc6aa39360feedd31479c219bca',
-                    metadata: {
-                        name: 'DVulnDB',
-                        description: 'Decentralized Vulnerability Database',
-                        url: 'https://dvulndb.com',
-                        icons: ['https://dvulndb.com/logo.png'],
-                    },
-                },
-            }),
-        ];
+  // Wallets are initialized dynamically on the client side to avoid SSR issues.
+  const [wallets, setWallets] = useState<any[]>([]);
+
+  useEffect(() => {
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const timestamp = new Date().toISOString();
+
+    if (isMobile) {
+      console.log(`[${timestamp}] 📱 Mobile device detected. Offering SolanaMobileWalletAdapter.`);
+      console.log(`[${timestamp}] 📱 Mobile device detected. Offering WalletConnect as a fallback.`);
+      setWallets([
+        new WalletConnectWalletAdapter({
+          network,
+          options: {
+            relayUrl: 'wss://relay.walletconnect.com',
+            projectId: 'db145dc6aa39360feedd31479c219bca', // Your WalletConnect Project ID
+            metadata: {
+              name: 'DVulnDB',
+              description: 'Decentralized Vulnerability Database',
+              url: window.location.origin,
+              icons: [new URL('/logo.png', window.location.origin).toString()],
+            },
+          },
+        }),
+      ]);
+    } else {
+      console.log(`[${timestamp}] 🖥️ Desktop device detected. Offering standard adapters.`);
+      setWallets([
+        new PhantomWalletAdapter(),
+        new SolflareWalletAdapter({ network }),
+      ]);
     }
-
-    return [
-      new PhantomWalletAdapter(),
-      new SolflareWalletAdapter({ network }),
-    ];
   }, [network]);
 
   // Render mock wallet provider if in mock mode

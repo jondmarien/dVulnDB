@@ -1,7 +1,10 @@
+'use client';
+
 import { useWallet } from '@context/MockWalletProvider';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { MockWalletMultiButton } from '@context/MockWalletProvider';
 import { useSearchParams } from 'next/navigation';
+import { CustomWalletMultiButton } from './CustomWalletMultiButton';
 
 type HeaderProps = {
   currentSection: string;
@@ -72,11 +75,10 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
           ))}
         </nav>
         <div className="wallet-section">
-          {/* Conditional wallet button: Mock when ?mock=true, Real Phantom wallet otherwise */}
           {isMockMode ? (
             <MockWalletMultiButton className="wallet-connect-btn" />
           ) : (
-            <WalletMultiButton className="wallet-connect-btn" />
+            <CustomWalletMultiButton className="wallet-connect-btn" />
           )}
         </div>
       </div>

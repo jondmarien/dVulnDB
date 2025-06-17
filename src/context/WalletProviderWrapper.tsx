@@ -3,7 +3,8 @@
 import { ReactNode } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import { useMemo } from 'react';
@@ -23,7 +24,33 @@ const isMockMode = () => {
 export const WalletProviderWrapper: React.FC<WalletProviderWrapperProps> = ({ children }) => {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-  const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
+    const wallets = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' && /Mobi|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+        console.log('📱 Mobile device detected, using WalletConnect adapter.');
+        return [
+            new WalletConnectWalletAdapter({
+                network,
+                options: {
+                    relayUrl: 'wss://relay.walletconnect.com',
+                    projectId: 'db145dc6aa39360feedd31479c219bca',
+                    metadata: {
+                        name: 'DVulnDB',
+                        description: 'Decentralized Vulnerability Database',
+                        url: 'https://dvulndb.com',
+                        icons: ['https://dvulndb.com/logo.png'],
+                    },
+                },
+            }),
+        ];
+    }
+
+    return [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter({ network }),
+    ];
+  }, [network]);
 
   // Render mock wallet provider if in mock mode
   if (isMockMode()) {

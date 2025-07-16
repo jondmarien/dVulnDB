@@ -25,7 +25,7 @@ export function AppKitProviderWrapper({ children }: { children: React.ReactNode 
         name: 'DVulnDB',
         description: 'Decentralized Vulnerability Database',
         url: typeof window !== 'undefined' ? window.location.origin : 'https://dvulndb.chron0.tech',
-        icons: typeof window !== 'undefined' ? [new URL('/logo.png', window.location.origin).toString()] : ['/logo.png'],
+        icons: ['/logo.png'],
       };
 
       const solanaWeb3JsAdapter = new SolanaAdapter();

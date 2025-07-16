@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useAppKitAccount } from '@reown/appkit/react';
 import HamburgerMenu from '../layout/HamburgerMenu';
+import WalletButton from '../wallet/WalletButton';
 import styles from './Header.module.css';
 
 type HeaderProps = {
@@ -81,7 +82,7 @@ const Header = ({ currentSection, onNavigate }: HeaderProps) => {
         />
         <div className="wallet-section">
             <div className="wallet-connect-btn-wrapper">
-              <appkit-button />
+              <WalletButton />
             </div>
         </div>
       </div>

@@ -835,19 +835,6 @@ appkit-button {
   position: relative;
   display: flex; /* Use flexbox for alignment */
   align-items: center;
-  border: 1px solid var(--neon-green);
-  padding: 8px 12px;
-  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), inset 0 0 5px var(--neon-green);
-  background-color: #0d0d0d; /* Dark terminal background */
-  color: var(--neon-green);
-}
-
-.wallet-connect-btn-wrapper::before {
-  content: '> ';
-  font-family: monospace;
-  color: var(--neon-green);
-  margin-right: 8px; /* Space between prompt and button text */
-  text-shadow: 0 0 5px var(--neon-green);
 }
 
 /* Hamburger Menu Styles */
@@ -2119,7 +2106,7 @@ appkit-button {
   pointer-events: auto;
 }
 
-/* Solana Wallet Button Styling */
+/* Custom Wallet Button Styling */
 .wallet-connect-btn {
   background: linear-gradient(135deg, var(--color-cyber-dark) 0%, var(--color-cyber-gray) 100%) !important;
   border: 2px solid var(--color-cyber-green) !important;
@@ -2128,12 +2115,63 @@ appkit-button {
   font-family: var(--font-family-mono) !important;
   font-size: var(--font-size-sm) !important;
   font-weight: var(--font-weight-semibold) !important;
-  padding: var(--space-8) var(--space-16) !important;
+  padding: var(--space-8) var(--space-20) !important;
   transition: all var(--duration-normal) var(--ease-standard) !important;
   text-shadow: 0 0 5px var(--color-cyber-green) !important;
   position: relative !important;
   overflow: hidden !important;
   min-height: 40px !important;
+  min-width: 180px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.wallet-connect-btn .wallet-arrow {
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.wallet-connect-btn:hover .wallet-arrow {
+  transform: translateX(2px);
+}
+
+/* Network icon styling */
+.wallet-connect-btn .network-icon {
+  font-size: 1.1em;
+  color: var(--color-cyber-green);
+  text-shadow: 0 0 3px var(--color-cyber-green);
+  animation: pulse 2s infinite;
+}
+
+/* Connected state styling */
+.wallet-connect-btn.connected {
+  background: linear-gradient(135deg, var(--color-cyber-dark) 0%, rgba(0, 255, 65, 0.1) 100%) !important;
+  border-color: var(--color-cyber-green) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3) !important;
+}
+
+.wallet-connect-btn.connected:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5) !important;
+}
+
+/* Wallet address styling */
+.wallet-connect-btn .wallet-address {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+}
+
+/* Pulse animation for network icon */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .wallet-connect-btn:hover {
@@ -2496,4 +2534,243 @@ appkit-button::part(button):hover {
   background: rgba(0, 255, 65, 0.1) !important;
   border-color: #00ff41 !important;
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+/* 
+Wallet Provider Icon Styling */
+.wallet-connect-btn .wallet-provider-icon {
+  font-size: 1.1em;
+  margin-left: 8px;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.wallet-connect-btn:hover .wallet-provider-icon {
+  opacity: 1;
+}
+
+/* Enhanced wallet button layout */
+.wallet-connect-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-width: 200px !important;
+  padding: var(--space-8) var(--space-20) !important;
+}
+
+.wallet-connect-btn .wallet-arrow {
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.wallet-connect-btn:hover .wallet-arrow {
+  transform: translateX(2px);
+}
+
+/* Network icon styling */
+.wallet-connect-btn .network-icon {
+  font-size: 1.1em;
+  color: var(--color-cyber-green);
+  text-shadow: 0 0 3px var(--color-cyber-green);
+  animation: pulse 2s infinite;
+}
+
+/* Connected state styling */
+.wallet-connect-btn.connected {
+  background: linear-gradient(135deg, var(--color-cyber-dark) 0%, rgba(0, 255, 65, 0.1) 100%) !important;
+  border-color: var(--color-cyber-green) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3) !important;
+}
+
+.wallet-connect-btn.connected:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5) !important;
+}
+
+/* Wallet address styling */
+.wallet-connect-btn .wallet-address {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+}
+
+/* Pulse animation for network icon */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}/* Wallet bu
+tton left content layout */
+.wallet-connect-btn .wallet-left-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+/* Ensure proper spacing and layout */
+.wallet-connect-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-width: 220px !important;
+  padding: 10px 16px !important;
+}/* Wal
+let provider container styling */
+.wallet-connect-btn .wallet-provider-container {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.wallet-connect-btn .wallet-provider-container appkit-wallet-image {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 4px !important;
+}
+
+/* Override wallet button layout for proper spacing */
+.wallet-connect-btn {
+  min-width: 220px !important;
+  padding: 10px 16px !important;
+  gap: 4px !important;
+}
+
+/* Ensure wallet address takes available space */
+.wallet-connect-btn .wallet-address {
+  flex: 1;
+  text-align: left;
+}
+/* Updated wallet provider container styling - LEFT side */
+.wallet-connect-btn .wallet-provider-container {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.wallet-connect-btn .wallet-provider-icon {
+  font-size: 1.2em;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Updated wallet button layout - provider icon on LEFT */
+.wallet-connect-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  min-width: 220px !important;
+  padding: 10px 16px !important;
+  gap: 4px !important;
+}
+
+/* Wallet address styling */
+.wallet-connect-btn .wallet-address {
+  flex: 1;
+  text-align: left;
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+}/* C
+ustom wallet display styling - hybrid AppKit + custom elements */
+.custom-wallet-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Style the AppKit button wrapper */
+.appkit-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the AppKit button to match cyberpunk theme */
+.appkit-button-wrapper appkit-button {
+  /* Override AppKit's default styling */
+  --w3m-font-family: var(--font-family-mono) !important;
+  --w3m-accent: var(--color-cyber-green) !important;
+  --w3m-color-mix: var(--color-cyber-green) !important;
+  --w3m-color-mix-strength: 20% !important;
+  
+  /* Custom button styling */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: var(--font-family-mono) !important;
+  color: var(--color-cyber-green) !important;
+  text-shadow: 0 0 5px var(--color-cyber-green) !important;
+}
+
+/* Style the internal button element */
+.appkit-button-wrapper appkit-button::part(button) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--color-cyber-green) !important;
+  font-family: var(--font-family-mono) !important;
+  text-shadow: 0 0 5px var(--color-cyber-green) !important;
+}
+
+/* Terminal prompt arrow styling */
+.custom-wallet-display .wallet-arrow {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--color-cyber-green);
+  text-shadow: 0 0 5px var(--color-cyber-green);
+  transition: transform 0.2s ease;
+}
+
+.wallet-connect-btn:hover .wallet-arrow {
+  transform: translateX(2px);
+}
+
+/* Network icon styling with glow */
+.custom-wallet-display .network-icon {
+  font-size: 1.1em;
+  color: var(--color-cyber-green);
+  text-shadow: 0 0 8px var(--color-cyber-green);
+  animation: networkPulse 2s infinite;
+  margin-left: 4px;
+}
+
+/* Network icon pulse animation */
+@keyframes networkPulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 8px var(--color-cyber-green);
+  }
+  50% {
+    opacity: 0.7;
+    text-shadow: 0 0 12px var(--color-cyber-green);
+  }
+}
+
+/* Ensure wallet button container has proper styling */
+.wallet-connect-btn {
+  background: linear-gradient(135deg, var(--color-cyber-dark) 0%, var(--color-cyber-gray) 100%) !important;
+  border: 2px solid var(--color-cyber-green) !important;
+  border-radius: var(--radius-base) !important;
+  padding: 10px 16px !important;
+  min-width: 250px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.wallet-connect-btn.connected {
+  background: linear-gradient(135deg, var(--color-cyber-dark) 0%, rgba(0, 255, 65, 0.1) 100%) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3) !important;
+}
+
+.wallet-connect-btn:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5) !important;
+  transform: translateY(-1px) !important;
 }

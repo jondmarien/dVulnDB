@@ -270,8 +270,8 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
                   >
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${index + 1 <= currentStep
-                          ? 'border-green-400 bg-green-400 text-black'
-                          : 'border-gray-500'
+                        ? 'border-green-400 bg-green-400 text-black'
+                        : 'border-gray-500'
                         }`}
                     >
                       {index + 1}

@@ -34,17 +34,17 @@ const initialForm = {
   vulnType: '',
   title: '',
   description: '',
-  
+
   // Auto-calculated/smart defaults
   cvss: 5.0,
   severity: 4 as keyof typeof SEVERITY_LABELS, // Use numeric key value instead of 'medium'
-  
+
   // Progressive disclosure fields
   reproductionSteps: '',
   impact: '',
   recommendation: '',
   files: [] as File[],
-  
+
   // Advanced options (hidden by default)
   cwe: '',
   affectedVersions: '',
@@ -66,8 +66,8 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
     if (form.vulnType) {
       const vulnData = VULNERABILITY_TYPES.find(v => v.value === form.vulnType);
       if (vulnData) {
-        setForm(prev => ({ 
-          ...prev, 
+        setForm(prev => ({
+          ...prev,
           cvss: vulnData.defaultCvss,
           severity: getSeverityFromCvss(vulnData.defaultCvss)
         }));
@@ -134,14 +134,14 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const newValue = type === 'range' ? Number(value) : value;
-    
+
     setForm(prev => ({ ...prev, [name]: newValue }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
-    
+
     // Real-time validation for critical fields
     if (['targetUrl', 'vulnType', 'title'].includes(name)) {
       const error = validateField(name, value);
@@ -168,37 +168,37 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
-    
+
     // Validate required fields
     newErrors.targetUrl = validateField('targetUrl', form.targetUrl);
     newErrors.vulnType = validateField('vulnType', form.vulnType);
     newErrors.title = validateField('title', form.title);
     newErrors.description = validateField('description', form.description);
-    
+
     // Filter out empty errors
     const filteredErrors = Object.fromEntries(
       Object.entries(newErrors).filter(([, error]) => error !== '')
     );
-    
+
     setErrors(filteredErrors);
     return Object.keys(filteredErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       showToast('Please fix the errors before submitting', 'info');
       return;
     }
-    
+
     setIsSubmitting(true);
     showToast('Submitting vulnerability report...', 'loading');
-    
+
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       showToast('Vulnerability report submitted successfully!', 'success');
       setForm(initialForm);
       setCurrentStep(1);
@@ -218,7 +218,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
         targetUrl: validateField('targetUrl', form.targetUrl),
         vulnType: validateField('vulnType', form.vulnType),
       };
-      
+
       const hasErrors = Object.values(essentialErrors).some(error => error !== '');
       if (hasErrors) {
         setErrors(essentialErrors);
@@ -226,7 +226,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
         return;
       }
     }
-    
+
     setCurrentStep(prev => Math.min(prev + 1, 3));
   };
 
@@ -269,20 +269,18 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
                     className={`flex items-center ${index + 1 <= currentStep ? 'text-green-400' : 'text-gray-500'}`}
                   >
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
-                        index + 1 <= currentStep
+                      className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${index + 1 <= currentStep
                           ? 'border-green-400 bg-green-400 text-black'
                           : 'border-gray-500'
-                      }`}
+                        }`}
                     >
                       {index + 1}
                     </div>
                     <span className="ml-2 font-medium">{step}</span>
                     {index < 2 && (
                       <div
-                        className={`w-16 h-0.5 mx-4 ${
-                          index + 1 < currentStep ? 'bg-green-400' : 'bg-gray-500'
-                        }`}
+                        className={`w-16 h-0.5 mx-4 ${index + 1 < currentStep ? 'bg-green-400' : 'bg-gray-500'
+                          }`}
                       />
                     )}
                   </div>
@@ -295,7 +293,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
           {(!showSteps || currentStep === 1) && (
             <div className="form-section">
               <h3>Essential Information</h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="form-group">
                   <label className="form-label">
@@ -396,7 +394,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
           {(!showSteps || currentStep === 2) && (
             <div className="form-section">
               <h3>Vulnerability Details</h3>
-              
+
               <div className="form-group">
                 <label className="form-label">
                   Description *
@@ -573,7 +571,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
                 >
                   ← Previous
                 </button>
-                
+
                 {currentStep < 3 ? (
                   <button
                     type="button"
@@ -615,7 +613,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
                 )}
               </button>
             )}
-            
+
             <div className="submission-note">
               <p>⚠️ All submissions follow responsible disclosure practices</p>
               <p className="text-xs text-gray-400 mt-1">

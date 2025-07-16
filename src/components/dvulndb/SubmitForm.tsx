@@ -37,7 +37,7 @@ const initialForm = {
   
   // Auto-calculated/smart defaults
   cvss: 5.0,
-  severity: 'medium' as keyof typeof SEVERITY_LABELS,
+  severity: 4 as keyof typeof SEVERITY_LABELS, // Use numeric key value instead of 'medium'
   
   // Progressive disclosure fields
   reproductionSteps: '',
@@ -50,6 +50,7 @@ const initialForm = {
   affectedVersions: '',
   references: '',
 };
+
 
 const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
   const [form, setForm] = useState(initialForm);

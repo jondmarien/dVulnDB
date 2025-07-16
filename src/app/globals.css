@@ -1968,6 +1968,93 @@ appkit-button {
   }
 }
 
+/* Enhanced form styling for better UX */
+.progress-steps {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-cyber-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.form-control.border-red-500 {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+.form-control:focus.border-red-500 {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* File upload enhancements */
+.file-upload-area {
+  border: 2px dashed var(--color-cyber-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  text-align: center;
+  transition: all var(--duration-normal) var(--ease-standard);
+  cursor: pointer;
+}
+
+.file-upload-area:hover {
+  border-color: var(--color-cyber-green);
+  background: rgba(0, 255, 0, 0.02);
+}
+
+.file-upload-area.dragover {
+  border-color: var(--color-cyber-green);
+  background: rgba(0, 255, 0, 0.05);
+  transform: scale(1.02);
+}
+
+/* Progressive disclosure animations */
+.form-section {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smart validation styling */
+.form-group {
+  position: relative;
+}
+
+.form-control:valid:not(:placeholder-shown) {
+  border-color: var(--color-cyber-green);
+}
+
+.form-control:invalid:not(:placeholder-shown):not(:focus) {
+  border-color: #ef4444;
+}
+
+/* Severity indicator styling */
+.severity-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-cyber-border);
+}
+
+.severity-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
 /* Utility classes */
 .hidden {
   display: none !important;

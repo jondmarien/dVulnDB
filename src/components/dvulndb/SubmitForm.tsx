@@ -87,7 +87,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
         }));
       }
     }
-  }, [form.vulnType, form.targetUrl]);
+  }, [form.vulnType, form.targetUrl, form.title]);
 
   const extractDomain = (url: string): string => {
     try {
@@ -204,7 +204,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ isActive }) => {
       setCurrentStep(1);
       setShowAdvanced(false);
       setShowSteps(false);
-    } catch (error) {
+    } catch {
       showToast('Failed to submit report. Please try again.', 'info');
     } finally {
       setIsSubmitting(false);

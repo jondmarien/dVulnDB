@@ -57,7 +57,13 @@
   - Update network switching logic for Solana networks (devnet, testnet, mainnet)
   - _Requirements: 1.4, 4.2_
 
-- [ ] 8. Update smart contract interaction layer
+- [x] 8. Update smart contract interaction layer
+
+
+
+
+
+
 
   - Remove EVM contract interfaces and interaction code
   - Ensure all smart contract functionality uses Anchor programs only

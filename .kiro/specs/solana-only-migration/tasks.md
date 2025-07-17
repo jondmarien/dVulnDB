@@ -1,6 +1,8 @@
 # Implementation Plan
 
-- [ ] 1. Port EVM contract functionality to Anchor programs
+- [x] 1. Port EVM contract functionality to Anchor programs
+
+  - Use wsl (Ubuntu) to run all `anchor` commands, or anything relating to building solana programs/contracts. Ask user to open shell if needed, give commands if cannot interact.
   - Review existing EVM contracts in `evm/contracts/` for all business logic
   - Implement equivalent functionality in Anchor programs in `anchor/programs/`
   - Ensure all EVM contract methods have corresponding Solana program instructions
@@ -8,7 +10,7 @@
   - Verify bounty escrow, multi-signature validation, and reputation tracking work identically
   - Test all contract interactions to ensure feature parity before EVM removal
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
-- [ ] 2. Remove EVM-specific files and directories
+- [x] 2. Remove EVM-specific files and directories
 
   - Delete the entire `evm/` directory and all its contents
   - Remove `hardhat.config.ts` from project root
@@ -16,7 +18,7 @@
   - Clean up any EVM-related backup files in `Backups/` directory
   - _Requirements: 6.1, 6.2, 6.3, 6.5_
 
-- [ ] 3. Update package.json dependencies
+- [x] 3. Update package.json dependencies
 
   - Remove EVM-specific dependencies (wagmi, viem, ethers, hardhat)
   - Remove any EVM testing libraries and tools
@@ -24,7 +26,12 @@
   - Verify no unused EVM dependencies remain
   - _Requirements: 2.2_
 
-- [ ] 4. Update TypeScript configuration
+- [x] 4. Update TypeScript configuration
+
+
+
+
+
 
   - Remove EVM path aliases from tsconfig.json (@evm/\*)
   - Remove EVM-related excludes that are no longer needed

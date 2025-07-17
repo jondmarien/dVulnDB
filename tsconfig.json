@@ -38,14 +38,14 @@
       "@hooks/*": [
         "src/app/hooks/*"
       ],
-      "@abi/*": [
-        "src/app/abi/*"
+      "@anchor/*": [
+        "anchor/programs/*"
       ],
       "@public/*": [
         "public/*"
       ],
-      "@evm/*": [
-        "evm/*"
+      "@lib/*": [
+        "lib/*"
       ]
     },
     "baseUrl": ".",
@@ -62,7 +62,6 @@
   "exclude": [
     "node_modules",
     "Backups",
-    "anchor/**/*",
     "gen_app"
   ]
 }

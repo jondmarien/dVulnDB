@@ -1,12 +1,23 @@
 use anchor_lang::prelude::*;
 
-// Program ID: update in Anchor.toml after deployment
-
-declare_id!("BountyEscrow11111111111111111111111111111111");
+declare_id!("3aiStNroDenw7KpSKXvFWVFox35gCk4FcUx8nzXRF2HH");
 
 #[program]
 pub mod bounty_escrow {
     use super::*;
+
+    /// Initialize the bounty escrow state
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        let state = &mut ctx.accounts.state;
+        state.admin = ctx.accounts.admin.key();
+        state.vulnerability_registry = Pubkey::default();
+        state.approvers = vec![ctx.accounts.admin.key()]; // Admin is default approver
+        state.paused = false;
+        state.approval_threshold = 2;
+        state.total_escrowed = 0;
+        state.bump = *ctx.bumps.get("state").unwrap();
+        Ok(())
+    }
 
     /// Deposit bounty funds for a vulnerability
     pub fn deposit_bounty(
@@ -43,17 +54,28 @@ pub mod bounty_escrow {
         Ok(())
     }
 
-    /// Release bounty to researcher after validation
-    pub fn release_bounty(ctx: Context<ReleaseBounty>) -> Result<()> {
+    /// Release bounty to researcher after validation (called by registry)
+    pub fn release_bounty(ctx: Context<ReleaseBounty>, vuln_id: u64) -> Result<()> {
+        let state = &ctx.accounts.state;
         let escrow = &mut ctx.accounts.escrow;
+        
+        // Only allow registry to call this
+        require!(
+            ctx.accounts.registry.key() == state.vulnerability_registry,
+            CustomError::UnauthorizedRegistry
+        );
+        
         require!(escrow.status == EscrowStatus::Deposited, CustomError::InvalidStatus);
         require!(!escrow.is_disputed, CustomError::Disputed);
+        
         escrow.status = EscrowStatus::Released;
         escrow.release_time = Clock::get()?.unix_timestamp;
         let amount = escrow.amount;
+        
         // Transfer SOL from escrow PDA to researcher
         **ctx.accounts.escrow.to_account_info().try_borrow_mut_lamports()? -= amount;
         **ctx.accounts.researcher.try_borrow_mut_lamports()? += amount;
+        
         emit!(BountyReleased {
             vuln_id: escrow.vuln_id,
             researcher: escrow.researcher,
@@ -62,21 +84,86 @@ pub mod bounty_escrow {
         Ok(())
     }
 
+    /// Approve bounty release (multi-sig)
+    pub fn approve_bounty_release(ctx: Context<ApproveBountyRelease>) -> Result<()> {
+        let state = &ctx.accounts.state;
+        let escrow = &mut ctx.accounts.escrow;
+        
+        require!(escrow.status == EscrowStatus::Deposited, CustomError::InvalidStatus);
+        require!(!escrow.is_disputed, CustomError::Disputed);
+        require!(state.approvers.contains(&ctx.accounts.approver.key()), CustomError::NotApprover);
+        
+        // Check if approver already voted
+        let approval = &mut ctx.accounts.approval;
+        require!(approval.data_is_empty(), CustomError::AlreadyApproved);
+        
+        // Record approval
+        approval.vuln_id = escrow.vuln_id;
+        approval.approver = ctx.accounts.approver.key();
+        approval.timestamp = Clock::get()?.unix_timestamp;
+        approval.bump = *ctx.bumps.get("approval").unwrap();
+        
+        escrow.approval_count += 1;
+        
+        // Auto-release if threshold reached
+        if escrow.approval_count >= state.approval_threshold {
+            escrow.status = EscrowStatus::Released;
+            escrow.release_time = Clock::get()?.unix_timestamp;
+            let amount = escrow.amount;
+            
+            // Transfer SOL from escrow PDA to researcher
+            **ctx.accounts.escrow.to_account_info().try_borrow_mut_lamports()? -= amount;
+            **ctx.accounts.researcher.try_borrow_mut_lamports()? += amount;
+            
+            emit!(BountyReleased {
+                vuln_id: escrow.vuln_id,
+                researcher: escrow.researcher,
+                amount,
+            });
+        }
+        
+        Ok(())
+    }
+
+    /// Raise dispute for bounty payment
+    pub fn raise_dispute(ctx: Context<RaiseDispute>) -> Result<()> {
+        let state = &ctx.accounts.state;
+        let escrow = &mut ctx.accounts.escrow;
+        
+        require!(state.approvers.contains(&ctx.accounts.approver.key()), CustomError::NotApprover);
+        require!(!escrow.is_disputed, CustomError::AlreadyDisputed);
+        require!(escrow.status == EscrowStatus::Deposited, CustomError::InvalidStatus);
+        
+        escrow.is_disputed = true;
+        
+        emit!(DisputeRaised {
+            vuln_id: escrow.vuln_id,
+            disputer: ctx.accounts.approver.key(),
+        });
+        
+        Ok(())
+    }
+
     /// Resolve dispute (approve or refund)
     pub fn resolve_dispute(ctx: Context<ResolveDispute>, approve: bool) -> Result<()> {
         let escrow = &mut ctx.accounts.escrow;
         require!(escrow.is_disputed, CustomError::NoActiveDispute);
         escrow.is_disputed = false;
+        
         if approve {
             // Release to researcher
-            bounty_escrow::release_bounty(Context::new(
-                ctx.program_id,
-                ReleaseBounty {
-                    escrow: escrow.to_account_info(),
-                    researcher: ctx.accounts.researcher.to_account_info(),
-                },
-                ctx.remaining_accounts,
-            ))?;
+            escrow.status = EscrowStatus::Released;
+            escrow.release_time = Clock::get()?.unix_timestamp;
+            let amount = escrow.amount;
+            
+            **ctx.accounts.escrow.to_account_info().try_borrow_mut_lamports()? -= amount;
+            **ctx.accounts.researcher.try_borrow_mut_lamports()? += amount;
+            
+            emit!(BountyReleased {
+                vuln_id: escrow.vuln_id,
+                researcher: escrow.researcher,
+                amount,
+            });
         } else {
             // Refund to registry
             let amount = escrow.amount;
@@ -162,6 +249,9 @@ pub struct BountyEscrowState {
     pub vulnerability_registry: Pubkey,
     pub approvers: Vec<Pubkey>,
     pub paused: bool,
+    pub approval_threshold: u8,
+    pub total_escrowed: u64,
+    pub bump: u8,
 }
 
 // PDA account for each escrow
@@ -187,6 +277,22 @@ pub enum EscrowStatus {
 
 // Instruction Contexts
 #[derive(Accounts)]
+pub struct Initialize<'info> {
+    #[account(
+        init,
+        payer = admin,
+        space = 8 + std::mem::size_of::<BountyEscrowState>() + 32 * 10, // Extra space for approvers vector
+        seeds = [b"escrow_state"],
+        bump
+    )]
+    pub state: Account<'info, BountyEscrowState>,
+    #[account(mut)]
+    pub admin: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+#[instruction(vuln_id: u64)]
 pub struct DepositBounty<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
@@ -199,10 +305,54 @@ pub struct DepositBounty<'info> {
 
 #[derive(Accounts)]
 pub struct ReleaseBounty<'info> {
+    #[account(mut, seeds = [b"escrow_state"], bump = state.bump)]
+    pub state: Account<'info, BountyEscrowState>,
     #[account(mut)]
     pub escrow: Account<'info, EscrowAccount>,
     #[account(mut)]
     pub researcher: Signer<'info>,
+    /// CHECK: Registry program validation
+    pub registry: UncheckedAccount<'info>,
+}
+
+// Approval record for multi-sig
+#[account]
+pub struct ApprovalRecord {
+    pub vuln_id: u64,
+    pub approver: Pubkey,
+    pub timestamp: i64,
+    pub bump: u8,
+}
+
+#[derive(Accounts)]
+#[instruction(vuln_id: u64)]
+pub struct ApproveBountyRelease<'info> {
+    #[account(seeds = [b"escrow_state"], bump = state.bump)]
+    pub state: Account<'info, BountyEscrowState>,
+    #[account(mut, seeds = [b"escrow", &vuln_id.to_le_bytes()], bump = escrow.bump)]
+    pub escrow: Account<'info, EscrowAccount>,
+    #[account(
+        init,
+        payer = approver,
+        space = 8 + std::mem::size_of::<ApprovalRecord>(),
+        seeds = [b"approval", &vuln_id.to_le_bytes(), approver.key().as_ref()],
+        bump
+    )]
+    pub approval: Account<'info, ApprovalRecord>,
+    #[account(mut)]
+    pub researcher: Signer<'info>,
+    #[account(mut)]
+    pub approver: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct RaiseDispute<'info> {
+    #[account(seeds = [b"escrow_state"], bump = state.bump)]
+    pub state: Account<'info, BountyEscrowState>,
+    #[account(mut)]
+    pub escrow: Account<'info, EscrowAccount>,
+    pub approver: Signer<'info>,
 }
 
 #[derive(Accounts)]
@@ -293,6 +443,12 @@ pub struct ApproverRemoved {
     pub approver: Pubkey,
 }
 
+#[event]
+pub struct DisputeRaised {
+    pub vuln_id: u64,
+    pub disputer: Pubkey,
+}
+
 // Custom error codes
 #[error_code]
 pub enum CustomError {
@@ -314,4 +470,10 @@ pub enum CustomError {
     NotApprover,
     #[msg("Contract is not paused")]
     NotPaused,
+    #[msg("Already approved")]
+    AlreadyApproved,
+    #[msg("Already disputed")]
+    AlreadyDisputed,
+    #[msg("Unauthorized registry")]
+    UnauthorizedRegistry,
 }

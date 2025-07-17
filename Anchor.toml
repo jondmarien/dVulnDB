@@ -1,6 +1,8 @@
 [workspace]
 members = [
-    "anchor/programs/bounty_escrow"
+    "anchor/programs/bounty_escrow",
+    "anchor/programs/vulnerability_registry",
+    "anchor/programs/reputation_nft"
 ]
 
 [provider]
@@ -8,7 +10,9 @@ cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [programs.localnet]
-bounty_escrow = "BountyEscrow11111111111111111111111111111111"
+bounty_escrow = "3aiStNroDenw7KpSKXvFWVFox35gCk4FcUx8nzXRF2HH"
+vulnerability_registry = "5mCoaixH9VVepuSsnhB769263Gg4RqBCEkkoJuHaH69K"
+reputation_nft = "HsxZ1cg5H1zvvdyngaLTrB9DZ1YFrEAFMNR21fKCzioW"
 
 [toolchain]
-anchor_version = "0.31.0"
+anchor_version = "0.30.1"

@@ -28,17 +28,26 @@
 
 - [x] 4. Update TypeScript configuration
 
-
-
-
-
-
   - Remove EVM path aliases from tsconfig.json (@evm/\*)
   - Remove EVM-related excludes that are no longer needed
   - Update path mappings to reflect Solana-only structure
   - _Requirements: 2.1, 4.1_
 
-- [ ] 5. Configure Reown AppKit for Solana-only connections
+- [x] 5. Configure Reown AppKit for Solana-only connections
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   - Update WalletProviderWrapper to configure Reown AppKit for Solana wallets only
   - Modify wallet connection logic to filter out non-Solana wallet options

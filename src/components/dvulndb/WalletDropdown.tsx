@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { useWallet } from '@context/MockWalletProvider';
 import { useRouter } from 'next/navigation';
+import { useAppKitAccount } from '@reown/appkit/react';
+import { useWallet } from '@context/MockWalletProvider';
 
 interface WalletDropdownProps {
   anchorRef: React.RefObject<HTMLButtonElement>;
@@ -8,7 +9,17 @@ interface WalletDropdownProps {
 }
 
 export const WalletDropdown: React.FC<WalletDropdownProps> = ({ anchorRef, onClose }) => {
-  const { publicKey, disconnect } = useWallet();
+  // Check if we're in mock mode via URL parameter
+  const isMockMode = typeof window !== 'undefined' && window.location.search.includes('mock=true');
+  
+  // Use the appropriate wallet hook based on mode
+  const mockWallet = useWallet();
+  const appKitAccount = useAppKitAccount();
+  
+  // Get the appropriate values based on which mode we're in
+  const publicKey = isMockMode ? mockWallet.publicKey : appKitAccount.address ? { toString: () => appKitAccount.address } : null;
+  const disconnect = isMockMode ? mockWallet.disconnect : () => window.dispatchEvent(new CustomEvent('appkit:disconnect'));
+  
   const [copied, setCopied] = useState(false);
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);

@@ -16,35 +16,52 @@ export const WalletButton: React.FC<WalletButtonProps> = ({ className }) => {
 
     const handleClick = () => {
         try {
-            // Try to use AppKit's open method
-            const { useAppKit } = require('@reown/appkit/react');
-            const { open } = useAppKit();
-            open();
+            // Try to use AppKit's open method with proper import
+            import('@reown/appkit/react').then(({ useAppKit }) => {
+                const { open } = useAppKit();
+                open();
+            }).catch(error => {
+                console.error('Failed to import AppKit:', error);
+                fallbackWalletOpen();
+            });
         } catch (error) {
             console.error('AppKit not initialized:', error);
-            // Fallback: try to trigger appkit-button if it exists
-            const appkitButton = document.querySelector('appkit-button');
-            if (appkitButton) {
-                (appkitButton as any).click();
-            } else {
-                alert('Please set up your Reown Project ID in the .env file to enable wallet connection.');
-            }
+            fallbackWalletOpen();
         }
+    };
+    
+    // Fallback method for opening wallet connection
+    const fallbackWalletOpen = () => {
+        // Try multiple approaches to open the wallet modal
+        
+        // 1. Try to find and click appkit-button
+        const appkitButton = document.querySelector('appkit-button');
+        if (appkitButton) {
+            console.log('Found appkit-button, clicking it');
+            (appkitButton as any).click();
+            return;
+        }
+        
+        // 2. Try to dispatch a custom event for wallet adapter
+        console.log('Dispatching wallet-adapter:open-modal event');
+        window.dispatchEvent(new CustomEvent('wallet-adapter:open-modal'));
+        
+        // 3. Try to dispatch AppKit's custom event
+        console.log('Dispatching appkit:connect event');
+        window.dispatchEvent(new CustomEvent('appkit:connect'));
     };
 
     const getNetworkIcon = () => {
-        // Check chainId for Solana networks - handle both string and number types
+        // Check chainId for Solana networks only - handle both string and number types
         const chainId = networkInfo?.chainId?.toString() || '';
         const networkName = networkInfo?.caipNetworkId?.toString() || '';
 
-        console.log('Network Info:', { chainId, networkName, networkInfo }); // Debug log
-
-        // Solana Devnet detection
-        if (networkName.includes('devnet') || chainId.includes('devnet') || chainId.includes('EtWT')) return '◎';
-        if (networkName.includes('mainnet') || chainId.includes('mainnet') || chainId.includes('5eykt')) return '●';
-        if (networkName.includes('solana') || chainId.includes('solana')) return '◉';
-
-        return '○'; // Default network icon
+        // Solana network detection
+        if (networkName.includes('devnet') || chainId.includes('devnet') || chainId.includes('EtWT')) return '◎'; // Solana Devnet
+        if (networkName.includes('testnet') || chainId.includes('testnet')) return '◆'; // Solana Testnet
+        if (networkName.includes('mainnet') || chainId.includes('mainnet') || chainId.includes('5eykt')) return '●'; // Solana Mainnet
+        
+        return '◉'; // Default Solana network icon
     };
 
     const renderCustomWalletButton = () => {
@@ -66,7 +83,7 @@ export const WalletButton: React.FC<WalletButtonProps> = ({ className }) => {
             <div className="custom-wallet-display">
                 <span className="wallet-arrow">{'>'}</span>
                 <span>&nbsp;</span>
-                <span>Select Wallet</span>
+                <span>Connect Phantom</span>
             </div>
         );
     };
@@ -76,16 +93,17 @@ export const WalletButton: React.FC<WalletButtonProps> = ({ className }) => {
         const networkName = networkInfo?.caipNetworkId?.toString() || '';
 
         if (networkName.includes('devnet') || chainId.includes('devnet')) return 'Solana Devnet';
+        if (networkName.includes('testnet') || chainId.includes('testnet')) return 'Solana Testnet';
         if (networkName.includes('mainnet') || chainId.includes('mainnet')) return 'Solana Mainnet';
-        return networkName || chainId || 'Unknown Network';
+        return 'Solana Network'; // Default to generic Solana network
     };
 
     const getTooltipText = () => {
         if (isConnected) {
             const network = getNetworkDisplayName();
-            return `Network: ${network}\nAddress: ${address}\nClick to manage wallet`;
+            return `Network: ${network}\nAddress: ${address}\nClick to manage Phantom wallet`;
         }
-        return 'Connect your wallet';
+        return 'Connect your Phantom wallet';
     };
 
     return (

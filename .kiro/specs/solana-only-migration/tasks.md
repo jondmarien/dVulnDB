@@ -35,27 +35,22 @@
 
 - [x] 5. Configure Reown AppKit for Solana-only connections
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   - Update WalletProviderWrapper to configure Reown AppKit for Solana wallets only
   - Modify wallet connection logic to filter out non-Solana wallet options
   - Remove EVM wallet connection states and handlers
   - Configure SolanaAdapter within Reown AppKit for optimal Solana integration
   - _Requirements: 1.1, 1.2_
 
-- [ ] 6. Update wallet connection UI components
+- [x] 6. Update wallet connection UI components
+
+
+
+
+
+
+
+
+
 
   - Modify WalletDropdown component to show only Solana wallet options
   - Update wallet connection buttons to reflect Solana-only support

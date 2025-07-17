@@ -60,23 +60,25 @@ export function AppKitProviderWrapper({ children }: { children: React.ReactNode 
             '--w3m-color-mix': '#0f0f0f',
             '--w3m-border-radius-master': '4px',
           },
-          // Filter out non-Solana wallet options - only show Phantom as per requirement 1.1
-          featuredWalletIds: ['c4d8a53e-2743-4fea-91a8-b9e9c3e87609'], // Phantom wallet ID
+          // Include both Phantom and Solflare wallet options for better compatibility
+          featuredWalletIds: [
+            'c4d8a53e-2743-4fea-91a8-b9e9c3e87609', // Phantom wallet ID
+            '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0', // Solflare wallet ID
+          ],
           // Exclude all EVM wallets
           excludeWalletIds: [
             // Common EVM wallet IDs
             '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4', // MetaMask
             '19177a98252e07ddfc9af2083ba8e07ef627cb6103467ffebb3f8f4205fd7927', // Coinbase Wallet
-            '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0', // Trust Wallet
             // Additional EVM wallet IDs
             'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // Rainbow
             'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18', // Trust Wallet (alt)
             'ef333840daf915aafdc4a004525502d6d49d77bd9c65e0642dbaefb3c2893bef', // Argent
             '1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369', // Frame
           ],
-          // Disable EVM features
+          // Enable injected wallets for better Phantom compatibility
           enableEIP6963: false, // Disable EVM injection detection
-          enableInjected: false, // Disable injected EVM wallets
+          enableInjected: true, // Enable injected wallets for Phantom
         });
         console.log('AppKit initialized successfully with Solana-only configuration.');
       } catch (error) {

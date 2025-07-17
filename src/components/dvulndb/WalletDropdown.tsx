@@ -16,7 +16,7 @@ export const WalletDropdown: React.FC<WalletDropdownProps> = ({ anchorRef, onClo
   const mockWallet = useWallet();
   const appKitAccount = useAppKitAccount();
   
-  // Get the appropriate values based on which mode we're in
+  // Get the appropriate values based on which mode we're in - Solana only
   const publicKey = isMockMode ? mockWallet.publicKey : appKitAccount.address ? { toString: () => appKitAccount.address } : null;
   const disconnect = isMockMode ? mockWallet.disconnect : () => window.dispatchEvent(new CustomEvent('appkit:disconnect'));
   
@@ -41,10 +41,25 @@ export const WalletDropdown: React.FC<WalletDropdownProps> = ({ anchorRef, onClo
 
   // Change wallet (open wallet modal)
   const handleChangeWallet = () => {
-    // Trigger wallet modal (let WalletMultiButton handle this in parent)
+    // Trigger wallet modal for Phantom wallet selection
     onClose();
-    const evt = new CustomEvent('wallet-adapter:open-modal');
-    window.dispatchEvent(evt);
+    try {
+      // Try to use AppKit's open method for Solana wallet selection
+      import('@reown/appkit/react').then(({ useAppKit }) => {
+        const { open } = useAppKit();
+        open();
+      }).catch(error => {
+        console.error('Failed to import AppKit:', error);
+        // Fallback to custom events
+        window.dispatchEvent(new CustomEvent('wallet-adapter:open-modal'));
+        window.dispatchEvent(new CustomEvent('appkit:connect'));
+      });
+    } catch (error) {
+      // Fallback to custom event
+      console.error('Error opening wallet modal:', error);
+      window.dispatchEvent(new CustomEvent('wallet-adapter:open-modal'));
+      window.dispatchEvent(new CustomEvent('appkit:connect'));
+    }
   };
 
   // Disconnect wallet
@@ -107,7 +122,7 @@ export const WalletDropdown: React.FC<WalletDropdownProps> = ({ anchorRef, onClo
         style={{ width: '100%', padding: '10px 0', textAlign: 'center', fontWeight: 500, fontSize: 15, color: '#fff', background: 'none', border: 'none', cursor: 'pointer', outline: 'none', lineHeight: 1.2 }}
         onClick={handleChangeWallet}
       >
-        Change wallet
+        Change Phantom wallet
       </button>
       <button
         className="wallet-dropdown-item"

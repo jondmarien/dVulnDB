@@ -163,7 +163,13 @@ export const MockWalletButton: React.FC<{ className?: string }> = ({ className }
       const key = publicKey.toString();
       return `${key.slice(0, 4)}...${key.slice(-4)}`;
     }
-    return 'Connect Phantom';
+    return 'Connect Mock Wallet';
+  };
+
+  // Get network icon for Solana networks
+  const getNetworkIcon = () => {
+    // In mock mode, we'll default to Solana Devnet
+    return '◎'; // Solana Devnet icon
   };
 
   return (
@@ -171,6 +177,7 @@ export const MockWalletButton: React.FC<{ className?: string }> = ({ className }
       className={`${className || ''} wallet-connect-btn ${connected ? 'connected' : ''}`}
       onClick={handleClick}
       disabled={connecting}
+      title={connected ? 'Connected to Solana Devnet (Mock)' : 'Connect your Mock Wallet'}
     >
       <div className="custom-wallet-display">
         <span className="wallet-arrow">{'>'}</span>
@@ -178,9 +185,12 @@ export const MockWalletButton: React.FC<{ className?: string }> = ({ className }
         {connecting ? (
           <span>Connecting...</span>
         ) : connected ? (
-          <span>{getButtonText()}</span>
+          <>
+            <span>{getButtonText()}</span>
+            <span className="network-icon" title="Solana Devnet (Mock)">{getNetworkIcon()}</span>
+          </>
         ) : (
-          <span>Connect Phantom</span>
+          <span>Connect Mock Wallet</span>
         )}
       </div>
     </button>

@@ -43,22 +43,13 @@
 
 - [x] 6. Update wallet connection UI components
 
-
-
-
-
-
-
-
-
-
   - Modify WalletDropdown component to show only Solana wallet options
   - Update wallet connection buttons to reflect Solana-only support
   - Ensure mock wallet mode still works for development
   - Update wallet status indicators for Solana networks only
   - _Requirements: 1.1, 1.2, 5.1, 5.2_
 
-- [ ] 7. Update RPC configuration for Solana only
+- [x] 7. Update RPC configuration for Solana only
 
   - Remove EVM RPC endpoint configurations from environment files
   - Update RPC provider setup to use Solana endpoints exclusively

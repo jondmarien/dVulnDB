@@ -3,8 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import { createAppKit } from '@reown/appkit/react';
 import { SolanaAdapter } from '@reown/appkit-adapter-solana';
-import { solana, solanaDevnet, solanaTestnet } from '@reown/appkit/networks';
 import { MockWalletProvider } from './MockWalletProvider';
+import { 
+  SOLANA_NETWORKS, 
+  createSolanaConnection, 
+  getAllRpcEndpoints,
+  SolanaNetwork
+} from '../../lib/network-config';
+
+// Network switching helper
+export const switchSolanaNetwork = (network: SolanaNetwork): void => {
+  // This function would be expanded in a real implementation to handle network switching
+  console.log(`Switching to Solana ${network}`);
+  // The actual network switching is handled by the AppKit
+};
 
 // Ensure this component is only rendered on the client
 export function AppKitProviderWrapper({ children }: { children: React.ReactNode }) {
@@ -32,14 +44,13 @@ export function AppKitProviderWrapper({ children }: { children: React.ReactNode 
         url: typeof window !== 'undefined' ? window.location.origin : 'https://dvulndb.chron0.tech',
         icons: ['/logo.png'],
       };
-
-      // Get Solana RPC URL from environment or use fallback
-      const solanaRpcUrl = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || 'https://api.devnet.solana.com';
       
       // Configure Solana-only adapter with optimal settings
       const solanaAdapter = new SolanaAdapter({
         connectionSettings: {
           commitment: 'confirmed',
+          disableRetryOnRateLimit: false,
+          confirmTransactionInitialTimeout: 60000 // 60 seconds
         },
       });
 
@@ -48,8 +59,90 @@ export function AppKitProviderWrapper({ children }: { children: React.ReactNode 
         createAppKit({
           projectId,
           metadata,
-          // Only include Solana networks (devnet, testnet, mainnet)
-          networks: [solanaDevnet, solanaTestnet, solana],
+          // Define Solana networks with fallback RPC providers
+          networks: [
+            // Mainnet configuration
+            {
+              name: SOLANA_NETWORKS["mainnet-beta"].name,
+              id: SOLANA_NETWORKS["mainnet-beta"].id,
+              chainNamespace: "solana",
+              caipNetworkId: "solana:mainnet-beta",
+              rpcUrls: {
+                default: {
+                  http: getAllRpcEndpoints("mainnet-beta"),
+                },
+              },
+              nativeCurrency: {
+                name: "Solana",
+                symbol: "SOL",
+                decimals: 9,
+              },
+              blockExplorers: {
+                default: {
+                  name: "Solscan",
+                  url: SOLANA_NETWORKS["mainnet-beta"].solscanUrl,
+                },
+                solana: {
+                  name: "Solana Explorer",
+                  url: SOLANA_NETWORKS["mainnet-beta"].explorerUrl,
+                }
+              },
+            },
+            // Devnet configuration
+            {
+              name: SOLANA_NETWORKS["devnet"].name,
+              id: SOLANA_NETWORKS["devnet"].id,
+              chainNamespace: "solana",
+              caipNetworkId: "solana:devnet",
+              rpcUrls: {
+                default: {
+                  http: getAllRpcEndpoints("devnet"),
+                },
+              },
+              nativeCurrency: {
+                name: "Solana",
+                symbol: "SOL",
+                decimals: 9,
+              },
+              blockExplorers: {
+                default: {
+                  name: "Solscan",
+                  url: SOLANA_NETWORKS["devnet"].solscanUrl,
+                },
+                solana: {
+                  name: "Solana Explorer",
+                  url: SOLANA_NETWORKS["devnet"].explorerUrl,
+                }
+              },
+            },
+            // Testnet configuration
+            {
+              name: SOLANA_NETWORKS["testnet"].name,
+              id: SOLANA_NETWORKS["testnet"].id,
+              chainNamespace: "solana",
+              caipNetworkId: "solana:testnet",
+              rpcUrls: {
+                default: {
+                  http: getAllRpcEndpoints("testnet"),
+                },
+              },
+              nativeCurrency: {
+                name: "Solana",
+                symbol: "SOL",
+                decimals: 9,
+              },
+              blockExplorers: {
+                default: {
+                  name: "Solscan",
+                  url: SOLANA_NETWORKS["testnet"].solscanUrl,
+                },
+                solana: {
+                  name: "Solana Explorer",
+                  url: SOLANA_NETWORKS["testnet"].explorerUrl,
+                }
+              },
+            },
+          ],
           // Only include Solana adapter - no EVM adapters
           adapters: [solanaAdapter],
           // Configure theme variables for consistent UI with cyberpunk theme

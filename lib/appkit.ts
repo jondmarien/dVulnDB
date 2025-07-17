@@ -1,25 +1,30 @@
 import { createAppKit } from "@reown/appkit";
 import { SolanaAdapter } from "@reown/appkit-adapter-solana";
-import { clusterApiUrl } from "@solana/web3.js";
-// Create the Solana adapter
+import { SOLANA_NETWORKS, getAllRpcEndpoints } from "./network-config";
+
+// Create the Solana adapter with optimized settings
 export const solanaAdapter = new SolanaAdapter({
-  // Using only the options available in AdapterOptions
-  connectionSettings: "confirmed",
+  connectionSettings: {
+    commitment: "confirmed",
+    disableRetryOnRateLimit: false,
+    confirmTransactionInitialTimeout: 60000, // 60 seconds
+  },
 });
 
 // Create AppKit instance with Solana only
 export const appKit = createAppKit({
   adapters: [solanaAdapter],
-  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+  projectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID!,
   networks: [
+    // Mainnet configuration
     {
-      name: "Solana Devnet",
-      id: "devnet",
+      name: SOLANA_NETWORKS["mainnet-beta"].name,
+      id: SOLANA_NETWORKS["mainnet-beta"].id,
       chainNamespace: "solana",
-      caipNetworkId: "solana:devnet",
+      caipNetworkId: "solana:mainnet-beta",
       rpcUrls: {
         default: {
-          http: [clusterApiUrl("devnet")],
+          http: getAllRpcEndpoints("mainnet-beta"),
         },
       },
       nativeCurrency: {
@@ -30,7 +35,65 @@ export const appKit = createAppKit({
       blockExplorers: {
         default: {
           name: "Solscan",
-          url: "https://solscan.io",
+          url: SOLANA_NETWORKS["mainnet-beta"].solscanUrl,
+        },
+        solana: {
+          name: "Solana Explorer",
+          url: SOLANA_NETWORKS["mainnet-beta"].explorerUrl,
+        },
+      },
+    },
+    // Devnet configuration
+    {
+      name: SOLANA_NETWORKS["devnet"].name,
+      id: SOLANA_NETWORKS["devnet"].id,
+      chainNamespace: "solana",
+      caipNetworkId: "solana:devnet",
+      rpcUrls: {
+        default: {
+          http: getAllRpcEndpoints("devnet"),
+        },
+      },
+      nativeCurrency: {
+        name: "Solana",
+        symbol: "SOL",
+        decimals: 9,
+      },
+      blockExplorers: {
+        default: {
+          name: "Solscan",
+          url: SOLANA_NETWORKS["devnet"].solscanUrl,
+        },
+        solana: {
+          name: "Solana Explorer",
+          url: SOLANA_NETWORKS["devnet"].explorerUrl,
+        },
+      },
+    },
+    // Testnet configuration
+    {
+      name: SOLANA_NETWORKS["testnet"].name,
+      id: SOLANA_NETWORKS["testnet"].id,
+      chainNamespace: "solana",
+      caipNetworkId: "solana:testnet",
+      rpcUrls: {
+        default: {
+          http: getAllRpcEndpoints("testnet"),
+        },
+      },
+      nativeCurrency: {
+        name: "Solana",
+        symbol: "SOL",
+        decimals: 9,
+      },
+      blockExplorers: {
+        default: {
+          name: "Solscan",
+          url: SOLANA_NETWORKS["testnet"].solscanUrl,
+        },
+        solana: {
+          name: "Solana Explorer",
+          url: SOLANA_NETWORKS["testnet"].explorerUrl,
         },
       },
     },

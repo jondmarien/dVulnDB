@@ -7,22 +7,35 @@ This guide covers the deployment process for DVulnDB's Solana-only architecture.
 - Node.js 18+
 - Yarn package manager
 - Rust and Cargo
-- Solana CLI (v1.18.0+)
-- Anchor CLI (v0.30.1+)
+- Solana CLI (v2.2.20+)
+- Anchor CLI (v0.31.1+)
 
 ## Environment Setup
 
 ### 1. Install Solana CLI
+
 ```bash
+# Install latest stable version (recommended)
 sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+
+# Or install specific version if needed
+sh -c "$(curl -sSfL https://release.solana.com/v2.2.20/install)"
 ```
 
 ### 2. Install Anchor CLI
+
 ```bash
-cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
+# Install latest version (recommended)
+cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked --tag v0.31.1
+
+# Or with AVM (recommended)
+cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+avm install 0.31.1
+avm use 0.31.1
 ```
 
 ### 3. Setup Solana Keypair
+
 ```bash
 solana-keygen new --outfile ~/.config/solana/id.json
 ```
@@ -30,17 +43,20 @@ solana-keygen new --outfile ~/.config/solana/id.json
 ## Local Development
 
 ### 1. Start Local Validator
+
 ```bash
 solana-test-validator --reset
 ```
 
 ### 2. Build and Deploy Locally
+
 ```bash
 yarn build:anchor
 yarn deploy:local
 ```
 
 ### 3. Run Tests
+
 ```bash
 yarn test:anchor
 ```
@@ -48,6 +64,7 @@ yarn test:anchor
 ## Network Deployments
 
 ### Devnet Deployment
+
 ```bash
 # Deploy Anchor programs
 yarn deploy:devnet
@@ -57,6 +74,7 @@ vercel --prod
 ```
 
 ### Testnet Deployment
+
 ```bash
 # Deploy Anchor programs
 yarn deploy:testnet
@@ -66,6 +84,7 @@ vercel --prod
 ```
 
 ### Mainnet Deployment
+
 ```bash
 # Deploy Anchor programs (requires confirmation)
 yarn deploy:mainnet
@@ -79,11 +98,13 @@ vercel --prod
 The project uses GitHub Actions for automated deployment:
 
 ### Staging (develop branch)
+
 - Runs tests and linting
 - Deploys Anchor programs to Devnet
 - Deploys frontend to Vercel staging
 
 ### Production (main branch)
+
 - Runs full test suite and security scans
 - Deploys Anchor programs to Mainnet
 - Deploys frontend to Vercel production
@@ -91,6 +112,7 @@ The project uses GitHub Actions for automated deployment:
 ## Environment Variables
 
 ### Required for Deployment
+
 ```bash
 # Solana RPC endpoints
 NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL=https://api.mainnet-beta.solana.com
@@ -108,6 +130,7 @@ PINATA_JWT_SECRET=your_jwt_secret
 ```
 
 ### GitHub Secrets (for CI/CD)
+
 ```bash
 # Vercel deployment
 VERCEL_TOKEN=your_vercel_token
@@ -130,12 +153,15 @@ NEXT_PUBLIC_SOLANA_TESTNET_RPC_URL=your_testnet_rpc
 Update these in your frontend configuration after deployment:
 
 ### Localnet
+
 - bounty_escrow: `3aiStNroDenw7KpSKXvFWVFox35gCk4FcUx8nzXRF2HH`
 - vulnerability_registry: `5mCoaixH9VVepuSsnhB769263Gg4RqBCEkkoJuHaH69K`
 - reputation_nft: `HsxZ1cg5H1zvvdyngaLTrB9DZ1YFrEAFMNR21fKCzioW`
 
 ### Devnet/Testnet/Mainnet
+
 Program IDs will be generated during deployment and should be updated in:
+
 - `Anchor.toml`
 - Frontend configuration files
 - Environment variables

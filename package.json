@@ -23,7 +23,9 @@
     "prebuild": "yarn build:check",
     "verify:devnet": "node scripts/verify-deployment.js devnet",
     "verify:testnet": "node scripts/verify-deployment.js testnet",
-    "verify:mainnet": "node scripts/verify-deployment.js mainnet"
+    "verify:mainnet": "node scripts/verify-deployment.js mainnet",
+    "validator:start": "pwsh scripts/start-validator.ps1",
+    "validator:stop": "pwsh scripts/stop-validator.ps1"
   },
   "dependencies": {
     "@next/font": "^14.2.15",
@@ -54,7 +56,7 @@
     "web3": "^4.16.0"
   },
   "devDependencies": {
-    "@coral-xyz/anchor": "^0.31.0",
+    "@coral-xyz/anchor": "^0.31.1",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.10",

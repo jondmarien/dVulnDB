@@ -43,41 +43,27 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-node_modules
-.env
+# Anchor build artifacts
+anchor/target/
+anchor/test-ledger/
+anchor/.anchor/
 
-# Hardhat files
-/cache
-/artifacts
+# Solana CLI
+.config/
+test-ledger/
 
-# TypeChain files
-/typechain
-/typechain-types
-
-# solidity-coverage files
-/coverage
-/coverage.json
-
-# Hardhat Ignition default folder for deployments against a local node
-ignition/deployments/chain-31337
-
-node_modules
-.env
-
-# Hardhat files
-/cache
-/artifacts
-
-# TypeChain files
-/typechain
-/typechain-types
-
-# solidity-coverage files
-/coverage
-/coverage.json
-
-# Hardhat Ignition default folder for deployments against a local node
-ignition/deployments/chain-31337
+# Deployment artifacts
+deploy/
+.deploy/
 
 # Kiro
 .kiro\
+
+# Vercel
+.vercel/
+
+# Environment files (keep template)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

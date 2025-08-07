@@ -1,0 +1,60 @@
+{
+  "buildCommand": "yarn build",
+  "outputDirectory": ".next",
+  "installCommand": "yarn install --frozen-lockfile",
+  "framework": "nextjs",
+  "regions": ["iad1", "sfo1"],
+  "env": {
+    "NEXT_PUBLIC_REOWN_PROJECT_ID": "@next_public_reown_project_id",
+    "NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL": "@next_public_solana_mainnet_rpc_url",
+    "NEXT_PUBLIC_SOLANA_DEVNET_RPC_URL": "@next_public_solana_devnet_rpc_url",
+    "NEXT_PUBLIC_SOLANA_TESTNET_RPC_URL": "@next_public_solana_testnet_rpc_url",
+    "PINATA_GATEWAY_URL": "@pinata_gateway_url",
+    "PINATA_API_KEY": "@pinata_api_key",
+    "PINATA_API_SECRET": "@pinata_api_secret",
+    "PINATA_JWT_SECRET": "@pinata_jwt_secret"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_REOWN_PROJECT_ID": "@next_public_reown_project_id",
+      "NEXT_PUBLIC_SOLANA_MAINNET_RPC_URL": "@next_public_solana_mainnet_rpc_url",
+      "NEXT_PUBLIC_SOLANA_DEVNET_RPC_URL": "@next_public_solana_devnet_rpc_url",
+      "NEXT_PUBLIC_SOLANA_TESTNET_RPC_URL": "@next_public_solana_testnet_rpc_url"
+    }
+  },
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./src ./public ./package.json ./yarn.lock ./next.config.js ./tailwind.config.cjs ./tsconfig.json"
+}

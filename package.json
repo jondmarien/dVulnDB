@@ -2,11 +2,13 @@
   "name": "dvulndb",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@4.5.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "install:safe": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 yarn install"
   },
   "dependencies": {
     "@next/font": "^14.2.15",
@@ -26,6 +28,7 @@
     "@tanstack/react-query": "^5.80.6",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "cross-env": "^10.0.0",
     "framer-motion": "^12.16.0",
     "helia": "^5.4.2",
     "lucide-react": "^0.513.0",
